@@ -1,8 +1,6 @@
 # PLOG Talpa 2
 
-1 November - Intermediate Report
-
-## Intermediate Delivery
+## Intermediate Delivery ( 1 November )
 ### Report Topics
   - Identification
   - Game Description
