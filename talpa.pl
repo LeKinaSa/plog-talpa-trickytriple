@@ -98,7 +98,7 @@ boards(4,[ 'X',' ','X',' ','X',' ','O',' ',
 captured_pieces(1, [0, 0]).
 captured_pieces(2, [11, 10]).
 captured_pieces(3, [20, 20]).
-captured_pieces(4, [21, 20]). /*But blue was won*/
+captured_pieces(4, [21, 20]). /*But blue has won*/
 
 player_on_move(1, red).
 player_on_move(2, blue).
