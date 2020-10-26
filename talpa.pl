@@ -51,7 +51,7 @@ boards(1, ['O','X','O','X','O','X','O','X',
            'O','X','O','X','O','X','O','X',
            'X','O','X','O','X','O','X','O'
 ]).
-*/   
+*/
 
 boards(1, InitialBoard):-
     create_initial_board(8, InitialBoard).
