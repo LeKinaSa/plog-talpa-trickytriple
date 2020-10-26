@@ -6,10 +6,10 @@ T6 Talpa 2
 - Clara Alves Martins (up201806528)
 
 ## Game Description
-- Página Oficial do Jogo
-- Livro de Regras
+- Página Oficial do Jogo : https://nestorgames.com/#talpa_detail (pode ser este ?)
+- Livro de Regras : http://www.iggamecenter.com/info/en/talpa.html , https://www.nestorgames.com/rulebooks/TALPA_EN.pdf
 - Descrição sumária do jogo e das suas regras
-- (até 300 palavras)
+- (até 300 palavras) - 231 palavras neste momento
 
 The goal of our game is to open a path of empty spaces between opposite sides with the same color without opening a similar route between the sides with the enemy color.
 The gameboard is an 8x8 board or 6x6 for beginners and faster games.
