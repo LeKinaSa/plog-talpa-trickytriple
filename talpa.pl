@@ -51,7 +51,7 @@ boards(1, ['O','X','O','X','O','X','O','X',
            'O','X','O','X','O','X','O','X',
            'X','O','X','O','X','O','X','O'
 ]).
-*/   
+*/
 
 boards(1, InitialBoard):-
     create_initial_board(8, InitialBoard).
@@ -152,9 +152,9 @@ print_vertical_division:- write(' | ').
 prints a horizontal division Number times on the screen
 */
 print_horizontal_division(1):-
-    write('------').
+    write('-----').
 print_horizontal_division(Number):-
-    write('-----'),
+    write('----'),
     Number1 is Number - 1,
     print_horizontal_division(Number1). 
 
@@ -166,7 +166,7 @@ print_colum_marking(0, _).
 print_colum_marking(NumberColums, Letter):-
     space(2),
     put_code(Letter),
-    space(2),
+    space(1),
     NumberColums1 is NumberColums - 1,
     Letter1 is Letter + 1,
     print_colum_marking(NumberColums1, Letter1).

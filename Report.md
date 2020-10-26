@@ -6,6 +6,11 @@ T6 Talpa 2
 - Clara Alves Martins (up201806528)
 
 ## Game Description
+- Página Oficial do Jogo
+- Livro de Regras
+- Descrição sumária do jogo e das suas regras
+- (até 300 palavras)
+
 The goal of our game is to open a path of empty spaces between opposite sides with the same color without opening a similar route between the sides with the enemy color.
 The gameboard is an 8x8 board or 6x6 for beginners and faster games.
 The red player owns the top and bottom edges while the blue player owns the left and right ones. The corner between edges is part of both sides.
@@ -17,21 +22,36 @@ The only way to win is to connect orthogonally (horizontally or vertically, but 
 If a player opens a path between his edges in the same move/turn as a path between the enemy's sides, he loses. There are no draws.
 
 ## Internal Game State
+- Como representamos o estado do jogo
 
 ### Board Representation
+- Como representamos o tabuleiro
+(tipicamente usando uma lista de listas com diferentes átomos para as peças)
 
 ### Current Player
+- Como representamos o jogador atual
+
+### Captured Pieces
+- Como representamos peças capturadas
 
 ### Other Useful Information
 
+
 ## Representation Examples
 
+### Meaning of Piece Representation
+- Como representamos as diferentes peças
+
 ### Initial Game State
+(talpa 1)
 
 ### Intermediate Game State
+(talpa 2)
+(talpa 3)
 
 ### Final Game State
-
-## Meaning of Piece Representation
+(talpa 4)
 
 ## Game Visualization
+- Descrição da implementação do predicado de visualização do estado do jogo
+- (até 200 palavras)
