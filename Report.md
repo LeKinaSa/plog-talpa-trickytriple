@@ -1,14 +1,12 @@
 # PLOG_TP1_RI_T6_TALPA_2
 
-## Identification
-T6 Talpa 2
+## Identification : T6 Talpa 2
 - Ângelo Daniel Pereira Mendes Moura (up201303828)
 - Clara Alves Martins (up201806528)
 
 ## Game Description
-- Página Oficial do Jogo : https://nestorgames.com/#talpa_detail (pode ser este ?)
-- Livro de Regras : http://www.iggamecenter.com/info/en/talpa.html , https://www.nestorgames.com/rulebooks/TALPA_EN.pdf
-- Descrição sumária do jogo e das suas regras
+- Oficial Game Page : https://nestorgames.com/#talpa_detail
+- Rulebooks : http://www.iggamecenter.com/info/en/talpa.html , https://www.nestorgames.com/rulebooks/TALPA_EN.pdf
 - (até 300 palavras) - 231 palavras neste momento
 
 The goal of our game is to open a path of empty spaces between opposite sides with the same color without opening a similar route between the sides with the enemy color.
