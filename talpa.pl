@@ -307,4 +307,4 @@ initial(Dimensions-InitialBoard-CapturedPieces) :- Dimensions is 8,
                                                    CapturedPieces is [0, 0],
                                                    create_initial_board(Dimensions, InitialBoard).
 
-play() :- talpa(X).
+% play() :- talpa(X).
