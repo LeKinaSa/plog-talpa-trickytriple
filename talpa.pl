@@ -157,25 +157,25 @@ print_horizontal_division(Number):-
     print_horizontal_division(Number1). 
 
 /*
----->print_colum_marking(+NumberColums, +Letter)
+---->print_colum_marking(+NumberColumns, +Letter)
 print the colum markings starting in Letter
 */
 print_colum_marking(0, _).
-print_colum_marking(NumberColums, Letter):-
+print_colum_marking(NumberColumns, Letter):-
     space(2),
     put_code(Letter),
     space(1),
-    NumberColums1 is NumberColums - 1,
+    NumberColumns1 is NumberColumns - 1,
     Letter1 is Letter + 1,
-    print_colum_marking(NumberColums1, Letter1).
+    print_colum_marking(NumberColumns1, Letter1).
 
 /*
----->print_colum_markings(+NumberColums)
+---->print_colum_markings(+NumberColumns)
 prints the leters that mark each colum starting in A
 */
-print_colum_markings(NumberColums):-
+print_colum_markings(NumberColumns):-
     Letter is 65,
-    print_colum_marking(NumberColums, Letter).
+    print_colum_marking(NumberColumns, Letter).
 
 /*
 ---->print_line_marking(+NumberLine)
@@ -204,42 +204,44 @@ display_header :-
 
 
 print_captured_pieces([NumberOfCaputuredPiecesByRed, NumberOfCaputuredPiecesByBlue]):-
-    write('Red  Captures : ', NumberOfCaputuredPiecesByRed),
+    write('Red  Captures : '),
+    write(NumberOfCaputuredPiecesByRed),
     new_line(1),
-    write('Blue Captures : ', NumberOfCaputuredPiecesByBlue),
+    write('Blue Captures : '),
+    write(NumberOfCaputuredPiecesByBlue),
     new_line(1).
 
 /*
----->print_board_line(+Board, +Colums, -Board1)
+---->print_board_line(+Board, +Columns, -Board1)
 print a Line of the Board and returs a Board without the line that was printed (Board1) 
 */
 print_board_line(Board, 0, Board).
-print_board_line([Cell | Tail], Colums, Board1):-
-    Colums1 is Colums - 1,
+print_board_line([Cell | Tail], Columns, Board1):-
+    Columns1 is Columns - 1,
     write(Cell),
     print_vertical_division,
-    print_board_line(Tail, Colums1, Board1). 
+    print_board_line(Tail, Columns1, Board1). 
 
 /*
----->print_board_lines(+Board, +Lines, +Colums)
+---->print_board_lines(+Board, +Lines, +Columns)
 prints the boards lines
 */
 print_board_lines(_, 0, _).
-print_board_lines(Board, Lines, Colums):-
+print_board_lines(Board, Lines, Columns):-
     space(2),
     print_line_marking(Lines),
     print_vertical_division,
-    print_board_line(Board, Colums, Board1),
+    print_board_line(Board, Columns, Board1),
     print_line_marking(Lines),
     new_line(1),
     
     
     space(4),
-    print_horizontal_division(Colums),
+    print_horizontal_division(Columns),
     new_line(1),
 
     Lines1 is Lines - 1,
-    print_board_lines(Board1, Lines1, Colums).
+    print_board_lines(Board1, Lines1, Columns).
 
 /*
 --->print_board(+Board, +Dimensions)
@@ -269,11 +271,11 @@ CapturedPieces - a list of 2 members that count the number of pieces captured [N
 Player - the player on move
 */
 display_game(Dimensions-Board-CapturedPieces, red):-
-    write('  Red(X) on move:'), new_line(2),
-    print_captured_pieces(CapturedPieces),
+    write('  Red(X) on move'), new_line(2),
+    print_captured_pieces(CapturedPieces), new_line(2),
     print_board(Board, Dimensions).
 display_game(Dimensions-Board-CapturedPieces, blue):-
-    write('  Blue(O) on move:'), new_line(2),
+    write('  Blue(O) on move'), new_line(2),
     print_captured_pieces(CapturedPieces),
     print_board(Board, Dimensions).
 
@@ -307,4 +309,7 @@ initial(Dimensions-InitialBoard-CapturedPieces) :- Dimensions is 8,
                                                    CapturedPieces is [0, 0],
                                                    create_initial_board(Dimensions, InitialBoard).
 
-% play() :- talpa(X).
+play :- talpa(1).
+play :- talpa(2).
+play :- talpa(3).
+play :- talpa(4).
