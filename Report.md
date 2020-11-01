@@ -117,6 +117,8 @@ Pieces represented with an "X" belong to the "red" player, and the ones with an 
 ### Final Game State
 (Game State is "Dimensions-Board-CapturedPieces")
 
+#### Red has won.
+
 #### Can be visualized with "talpa(4)."
 
 ```
@@ -129,6 +131,22 @@ Pieces represented with an "X" belong to the "red" player, and the ones with an 
     [' ','X','O',' ','X',' ','X',' '],
     [' ','O',' ','X',' ','X',' ',' ']
 ]-[21, 20]
+```
+
+#### Blue has won.
+
+#### Can be visualized with "talpa(5)."
+
+```
+8-[ ['X',' ','X',' ','X',' ','O',' '],
+    [' ','O',' ','X','X',' ','O',' '],
+    [' ','O',' ',' ',' ',' ',' ','O'],
+    ['O',' ',' ','O',' ',' ',' ',' '],
+    [' ','O',' ',' ','X',' ',' ','O'],
+    ['O',' ',' ',' ',' ',' ','X',' '],
+    [' ',' ','X',' ','X',' ','O',' '],
+    [' ','O',' ','X',' ','X',' ',' ']
+]-[21,20]
 ```
 
 ## Game Visualization
