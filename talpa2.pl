@@ -162,7 +162,7 @@ display_header :-
 % display_player(+Player)
 display_player(red) :-
     space(4),
-    write('Red  (X) on move').
+    write('Red (X) on move').
 display_player(blue) :-
     space(4),
     write('Blue (O) on move').
@@ -172,12 +172,14 @@ display_player(blue) :-
 % display_captured_pieces([+NumberOfCaputuredPiecesByRed, +NumberOfCaputuredPiecesByBlue])
 display_captured_pieces([NumberOfCaputuredPiecesByRed, NumberOfCaputuredPiecesByBlue]) :-
     space(4),
-    write('Red  Captures : '),
+    write('Red as Captured '),
     write(NumberOfCaputuredPiecesByRed),
+    write(' pieces.'),
     new_line(1),
     space(4),
-    write('Blue Captures : '),
+    write('Blue as Captured '),
     write(NumberOfCaputuredPiecesByBlue),
+    write(' pieces.'),
     new_line(1).
 
 /**
@@ -270,9 +272,6 @@ display_game(Dimensions-Board-CapturedPieces, Player) :-
 */
 
 /* Boards */
-boards(1, InitialBoard):-
-    create_initial_board(8, InitialBoard).
-
 boards(2,[ ['O','X','O',' ','X','X','O','X'],
            ['X','O',' ','X','X',' ','X','O'],
            [' ','O',' ',' ',' ',' ','O','X'],
@@ -325,11 +324,22 @@ player_on_move(4, blue). /* Blue Win */
  * Display the Game for a Given Board
  * 
  * 1 - Initial Board
- * 2 - Intermediate
+ * 2 - Intermediate Board
  * 3 - Red is forced to make a losing move
- * 3 - Final Board - Blue Win
+ * 4 - Final Board - Blue Wins
  */
 % talpa(+BoardNumber)
+/*This rule references the initial state of the game,
+    therefor it uses the predicate initial/1 */
+talpa(1):-
+    initial(Dimensions-InitialBoard-CapturedPieces),
+    player_on_move(1, Player),
+
+    clr,
+    display_header,
+    display_game(Dimensions-InitialBoard-CapturedPieces, Player).
+/*This rule references the intermidiates and final states of the game,
+    these are defined statically so they must be called.*/
 talpa(BoardNumber):-
     Dimensions is 8,
     boards(BoardNumber, Board),
@@ -345,11 +355,8 @@ talpa(BoardNumber):-
  * Game State = Dimensions-Board-CapturedPieces
  */
 % initial(-GameState)
-initial(Dimensions-InitialBoard-CapturedPieces-Player) :-
-    Dimensions is 8,
-    CapturedPieces is [0, 0],
-    Player is red,
-    create_initial_board(Dimensions, InitialBoard).
+initial(8-InitialBoard-[0, 0]) :-
+    create_initial_board(8, InitialBoard).
 
 /**
  * Next Game State
