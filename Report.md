@@ -67,9 +67,11 @@ The first being the number of pieces captured by the "red" player and the second
 Pieces represented with an "X" belong to the "red" player and pieces represented with an "O" belong to the "blue" player.
 
 ### Initial Game State
-##### Game State is "Dimensions-Board-CapturedPieces"
+(Game State is "Dimensions-Board-CapturedPieces")
+
 #### Can be visualized with "talpa(1)".
 
+```
 8-[ ['O','X','O','X','O','X','O','X'],
     ['X','O','X','O','X','O','X','O'],
     ['O','X','O','X','O','X','O','X'],
@@ -79,11 +81,14 @@ Pieces represented with an "X" belong to the "red" player and pieces represented
     ['O','X','O','X','O','X','O','X'],
     ['X','O','X','O','X','O','X','O']
 ]-[0, 0]
+```
 
 ### Intermediate Game State
-##### Game State is "Dimensions-Board-CapturedPieces"
+(Game State is "Dimensions-Board-CapturedPieces")
+
 #### Can be visualized with "talpa(2)".
 
+```
 8-[ ['O','X','O',' ','X','X','O','X'],
     ['X','O',' ','X','X',' ','X','O'],
     [' ','O',' ',' ',' ',' ','O','X'],
@@ -93,9 +98,11 @@ Pieces represented with an "X" belong to the "red" player and pieces represented
     [' ','X','O',' ','X',' ','O','O'],
     ['X','O','X','X',' ','X','X',' ']
 ]-[11, 10]
+```
 
 #### Can be visualized with "talpa(3)".
 
+```
 8-[ ['X',' ','X',' ','X',' ','O',' '],
     [' ','O',' ','X','X',' ','O',' '],
     [' ','O',' ',' ',' ',' ',' ','O'],
@@ -105,10 +112,14 @@ Pieces represented with an "X" belong to the "red" player and pieces represented
     [' ','X','O',' ','X',' ','O',' '],
     [' ','O',' ','X',' ','X',' ',' ']
 ]-[20, 20]
+```
 
 ### Final Game State
-##### Game State is "Dimensions-Board-CapturedPieces"
+(Game State is "Dimensions-Board-CapturedPieces")
+
 #### Can be visualized with "talpa(4)".
+
+```
 8-[ ['X',' ','X',' ','X',' ','O',' '],
     [' ','O',' ','X','X',' ','O',' '],
     [' ','O',' ',' ',' ',' ',' ','O'],
@@ -118,6 +129,7 @@ Pieces represented with an "X" belong to the "red" player and pieces represented
     [' ','X','O',' ','X',' ','X',' '],
     [' ','O',' ','X',' ','X',' ',' ']
 ]-[21, 20]
+```
 
 ## Game Visualization
 The presentation of the game is handled by the predicate display_game/2.
