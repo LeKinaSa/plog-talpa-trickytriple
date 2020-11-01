@@ -351,8 +351,9 @@ player_on_move(5, blue). /* Blue Win */
  * 5 - Final Board - Blue Wins
  */
 % talpa(+BoardNumber)
-/*This rule references the initial state of the game,
-    therefor it uses the predicate initial/1 */
+/*
+    This predicate references the initial state of the game. Therefore, it uses the predicate initial/1.
+ */
 talpa(1):-
     initial(Dimensions-InitialBoard-CapturedPieces),
     player_on_move(1, Player),
@@ -360,8 +361,10 @@ talpa(1):-
     clr,
     display_header,
     display_game(Dimensions-InitialBoard-CapturedPieces, Player).
-/*This rule references the intermidiates and final states of the game,
-    these are defined statically so they must be called.*/
+/*
+    This predicate references the intermediates and final states of the game.
+        These are defined statically, which means that we need to call them.
+*/
 talpa(BoardNumber):-
     Dimensions is 8,
     boards(BoardNumber, Board),
@@ -383,7 +386,7 @@ initial(8-InitialBoard-[0, 0]) :-
 /**
  * Next Game State
  */
-play :- talpa(X).
+% play :- talpa(X).
 % play :- talpa(1).
 % play :- talpa(2).
 % play :- talpa(3).
