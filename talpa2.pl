@@ -261,14 +261,9 @@ display_game(Dimensions-Board-CapturedPieces, Player) :-
 /*
     1 - Inicial (Generating the Board)
     2 - Intermediate
-    3 - Red is forced to make a losing move
-    4 - Final
- */
-
-/*
-        TODO
-    On board number 3, Red is forced to capture one of two pieces that open the path of empty spaces 
-        for both players. Meaning that he has to open a path for Blue, which means Red has lost the game.
+    3 - Red has only two possible moves, a losing one and a winning one
+    4 - Final - Red has won the game
+    5 - Final - Blue has won the game (Red has opened a path for both players. Meaning that he has to open a path for Blue, which means Red has lost the game.)
 */
 
 /* Boards */
@@ -315,17 +310,30 @@ boards(4,[ ['X',' ','X',' ','X',' ','O',' '],
            [' ','O',' ','X',' ','X',' ',' ']
         ]).
 
+boards(5,[ ['X',' ','X',' ','X',' ','O',' '],
+           [' ','O',' ','X','X',' ','O',' '],
+           [' ','O',' ',' ',' ',' ',' ','O'],
+           ['O',' ',' ','O',' ',' ',' ',' '],
+           [' ','O',' ',' ','X',' ',' ','O'],
+           ['O',' ',' ',' ',' ',' ','X',' '],
+           [' ',' ','X',' ','X',' ','O',' '],
+           [' ','O',' ','X',' ','X',' ',' ']
+        ]).
+
+
 /* Captured Pieces */
 captured_pieces(1, [0, 0]).
 captured_pieces(2, [11, 10]).
 captured_pieces(3, [20, 20]).
-captured_pieces(4, [21, 20]). /* Blue Win */
+captured_pieces(4, [21, 20]). /* Red Win */
+captured_pieces(5, [21, 20]). /* Blue Win */
 
 /* Next Player to Move */
 player_on_move(1, red).
 player_on_move(2, blue).
 player_on_move(3, red).
-player_on_move(4, blue). /* Blue Win */
+player_on_move(4, blue). /* Red Win */
+player_on_move(5, blue). /* Blue Win */
 
 /*
  --------------------------------------------------------------------------------
@@ -339,7 +347,8 @@ player_on_move(4, blue). /* Blue Win */
  * 1 - Initial Board
  * 2 - Intermediate Board
  * 3 - Red is forced to make a losing move
- * 4 - Final Board - Blue Wins
+ * 4 - Final Board - Red Wins
+ * 5 - Final Board - Blue Wins
  */
 % talpa(+BoardNumber)
 /*This rule references the initial state of the game,
@@ -379,3 +388,4 @@ play :- talpa(X).
 % play :- talpa(2).
 % play :- talpa(3).
 % play :- talpa(4).
+% play :- talpa(5).
