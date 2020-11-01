@@ -12,7 +12,7 @@ The goal of our game is to open a path of empty spaces between opposite sides wi
 
 ### Game Board
 
-The gameboard is an 8x8 board or 6x6 for beginners and faster games.
+The gameboard is an 8x8 board. It can also be in 6x6 for beginners and faster games or 10x10 for experienced players and longer games.
 
 The red player owns the top and bottom edges while the blue player owns the left and right ones.
 
