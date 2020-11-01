@@ -172,12 +172,12 @@ display_player(blue) :-
 % display_captured_pieces([+NumberOfCaputuredPiecesByRed, +NumberOfCaputuredPiecesByBlue])
 display_captured_pieces([NumberOfCaputuredPiecesByRed, NumberOfCaputuredPiecesByBlue]) :-
     space(4),
-    write('Red as Captured '),
+    write('Red  has Captured '),
     write(NumberOfCaputuredPiecesByRed),
     write(' pieces.'),
     new_line(1),
     space(4),
-    write('Blue as Captured '),
+    write('Blue has Captured '),
     write(NumberOfCaputuredPiecesByBlue),
     write(' pieces.'),
     new_line(1).
