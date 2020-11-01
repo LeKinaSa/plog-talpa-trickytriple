@@ -272,6 +272,19 @@ display_game(Dimensions-Board-CapturedPieces, Player) :-
 */
 
 /* Boards */
+/*
+Static Representation of the Initial Board
+boards(1,[ ['O','X','O','X','O','X','O','X'],
+           ['X','O','X','O','X','O','X','O'],
+           ['O','X','O','X','O','X','O','X'],
+           ['X','O','X','O','X','O','X','O'],
+           ['O','X','O','X','O','X','O','X'],
+           ['X','O','X','O','X','O','X','O'],
+           ['O','X','O','X','O','X','O','X'],
+           ['X','O','X','O','X','O','X','O']
+]).
+*/
+
 boards(2,[ ['O','X','O',' ','X','X','O','X'],
            ['X','O',' ','X','X',' ','X','O'],
            [' ','O',' ',' ',' ',' ','O','X'],
