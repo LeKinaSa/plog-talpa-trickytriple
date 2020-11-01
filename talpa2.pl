@@ -150,11 +150,11 @@ print_line_marking(Line) :- write(Line).
  */
 % display_header
 display_header :-
-    write('*******************************************************\n'),
-    write('****                                               ****\n'),
-    write('****                     TALPA                     ****\n'),
-    write('****                                               ****\n'),
-    write('*******************************************************\n').
+    write('*****************************************\n'),
+    write('****                                 ****\n'),
+    write('****              TALPA              ****\n'),
+    write('****                                 ****\n'),
+    write('*****************************************\n').
 
 /**
  * Display the Current Player
@@ -359,21 +359,26 @@ talpa(1):-
     player_on_move(1, Player),
 
     clr,
+    new_line(1),
     display_header,
-    display_game(Dimensions-InitialBoard-CapturedPieces, Player).
+    display_game(Dimensions-InitialBoard-CapturedPieces, Player),
+    new_line(1).
 /*
     This predicate references the intermediates and final states of the game.
         These are defined statically, which means that we need to call them.
 */
 talpa(BoardNumber):-
+    BoardNumber > 1,
     Dimensions is 8,
     boards(BoardNumber, Board),
     captured_pieces(BoardNumber, CapturedPieces),
     player_on_move(BoardNumber, Player),
 
     clr,
+    new_line(1),
     display_header,
-    display_game(Dimensions-Board-CapturedPieces, Player).
+    display_game(Dimensions-Board-CapturedPieces, Player),
+    new_line(1).
 
 /**
  * Initial Game State
