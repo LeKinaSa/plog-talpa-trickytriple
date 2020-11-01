@@ -30,7 +30,7 @@ The turns alter, and the players move alternately.
 
 When it is their turn, the player should move one of his pieces, capturing an enemy one, either horizontally adjacent or vertically adjacent, and leaving his in that spot.
 
-If possible, the player is forced to capture enemy pieces. However, when that is no longer possible, the player removes one of his own.
+If possible, the player has to capture enemy pieces. However, when that is no longer possible, the player removes one of his own.
 
 ### Win Conditions
 
@@ -45,31 +45,31 @@ There are no draws.
 - Rulebooks: http://www.iggamecenter.com/info/en/talpa.html , https://www.nestorgames.com/rulebooks/TALPA_EN.pdf
 
 ## Internal Game State
-The current game state is composed of the Dimensions of the board, the Board itself and the number of captured pieces from both players. It is a complex member impleted as "Dimensions-Board-CapturedPieces".
+The current game state is composed of the Dimensions of the board, the Board itself, and the number of captured pieces from both players. It is a complex member implemented as "Dimensions-Board-CapturedPieces".
 
 ### Board Representation
 The game board ("Board" in the complex member representing the Game State) is a list of lists
 forming a square matrix of dimension "Dimensions" (present in the member Game State).
 
-In this matrix each cell represents a cell of the board and they can have one of three values: a space (" ") representing an empty cell of the board, a upper case "x" ("X") representing a board cell ocupied by a piece of the red player, a upper case "o" ("O") representing a board cell ocupied by a piece of the blue player.
+In this matrix, each cell represents a cell of the board and can have one of three values: space (" ") representing an empty cell of the board, an upper case "x" ("X") representing a board cell occupied by a piece of the red player, an upper case "o" ("O") representing a board cell occupied by a piece of the blue player.
 
 ### Current Player
-The Game State is normally acompanied by the player on the move wich can either be "red" or "blue".
+The player on the move accompanies the game state. This player can either be "red" or "blue".
 
 ### Captured Pieces
-The Captured Pieces are represented by a list with two elements that work as counters.
+The Captured Pieces are a list with two elements that work as counters.
 
-The first being the number of pieces captured by the "red" player and the second one being the number of pieces captured by the "blue" player
+The first element is the number of pieces captured by the "red" player, and the second one is the number of pieces captured by the "blue" player.
 
 ## Representation Examples
 
 ### Meaning of Piece Representation
-Pieces represented with an "X" belong to the "red" player and pieces represented with an "O" belong to the "blue" player.
+Pieces represented with an "X" belong to the "red" player, and the ones with an "O" belong to the "blue" player.
 
 ### Initial Game State
 (Game State is "Dimensions-Board-CapturedPieces")
 
-#### Can be visualized with "talpa(1)".
+#### Can be visualized with "talpa(1)."
 
 ```
 8-[ ['O','X','O','X','O','X','O','X'],
@@ -86,7 +86,7 @@ Pieces represented with an "X" belong to the "red" player and pieces represented
 ### Intermediate Game State
 (Game State is "Dimensions-Board-CapturedPieces")
 
-#### Can be visualized with "talpa(2)".
+#### Can be visualized with "talpa(2)."
 
 ```
 8-[ ['O','X','O',' ','X','X','O','X'],
@@ -100,7 +100,7 @@ Pieces represented with an "X" belong to the "red" player and pieces represented
 ]-[11, 10]
 ```
 
-#### Can be visualized with "talpa(3)".
+#### Can be visualized with "talpa(3)."
 
 ```
 8-[ ['X',' ','X',' ','X',' ','O',' '],
@@ -117,7 +117,7 @@ Pieces represented with an "X" belong to the "red" player and pieces represented
 ### Final Game State
 (Game State is "Dimensions-Board-CapturedPieces")
 
-#### Can be visualized with "talpa(4)".
+#### Can be visualized with "talpa(4)."
 
 ```
 8-[ ['X',' ','X',' ','X',' ','O',' '],
@@ -132,10 +132,10 @@ Pieces represented with an "X" belong to the "red" player and pieces represented
 ```
 
 ## Game Visualization
-The presentation of the game is handled by the predicate display_game/2.
+The predicate display_game/2 handles the presentation of the game.
 
-This predicate prints on the screen the player on the move, the pieces that have been captured so far and the current game board.
+This predicate prints all the game state information on the screen. This information includes the player on the move, the pieces captured until that point, and the current game board.
 
-The game board is the more complex. To print it, the predicate display_game uses some auxliary predicates that parse the list of lists that represent the board internally. These predicates go through each element of the main list, these being equivalent to the lines of the board, printing each symbol of each cell on the screen; every symbol of a board line is printed on the same screen line and each board line is printed on a separed screen line.
+The game board is the most complex object. When printing it, the predicate display_game uses some auxiliary predicates that parse the list of lists that represent the board internally. These predicates go through each element of the main list, these being equivalent to the lines of the board, printing each symbol of each cell on the screen; every piece in a board line appears on the same screen line, and each board line appears on a separate screen line.
 
-During the board printing processes some minor auxiliary predicates are used to create divides in the form of spaces (" "), slashes ("|") and hifens ("-"). These help in the readbillity of the board once printed on the screen. 
+During the board printing, some minor auxiliary predicates create dividers in the form of spaces (" "), slashes ("|"), and hyphens ("-"). These help in the readability of the board once printed on the screen. 
