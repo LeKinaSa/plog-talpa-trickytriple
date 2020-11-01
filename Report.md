@@ -1,16 +1,16 @@
 # PLOG_TP1_RI_T6_TALPA_2
 
-## Identification: T6 Talpa 2
+## **Identification: T6 Talpa 2**
 - Ângelo Daniel Pereira Mendes Moura (up201303828)
 - Clara Alves Martins (up201806528)
 
-## Game Description
+## **Game Description**
 
-### Objective
+## Objective
 
 The goal of our game is to open a path of empty spaces between opposite sides with the same color without opening a similar route between the sides with the enemy color.
 
-### Game Board
+## Game Board
 
 The gameboard is an 8x8 board. It can also be in 6x6 for beginners and faster games or 10x10 for experienced players and longer games.
 
@@ -18,13 +18,13 @@ The red player owns the top and bottom edges while the blue player owns the left
 
 The corner between edges is part of both sides.
 
-### Game Start
+## Game Start
 
 At the start of the game, all the pieces are inside the board. Their position is in such a pattern that there are no orthogonally adjacent pieces from the same player.
 
 The starting player is red. 
 
-### Rules
+## Rules
 
 The turns alter, and the players move alternately.
 
@@ -32,7 +32,7 @@ When it is their turn, the player should move one of his pieces, capturing an en
 
 If possible, the player has to capture enemy pieces. However, when that is no longer possible, the player removes one of his own.
 
-### Win Conditions
+## Win Conditions
 
 The only way to win is to connect orthogonally (horizontally or vertically, but not diagonally) adjacent empty squares to form a path between the player's edges without forming a similar route between the enemy's sides.
 
@@ -40,116 +40,65 @@ If a player opens a path between his edges in the same move/turn as a path betwe
 
 There are no draws.
 
-### References
+## References
 - Official Game Page: https://nestorgames.com/#talpa_detail
 - Rulebooks: http://www.iggamecenter.com/info/en/talpa.html , https://www.nestorgames.com/rulebooks/TALPA_EN.pdf
 
-## Internal Game State
+## **Internal Game State**
 The current game state is composed of the Dimensions of the board, the Board itself, and the number of captured pieces from both players. It is a complex member implemented as "Dimensions-Board-CapturedPieces".
 
-### Board Representation
+## Board Representation
 The game board ("Board" in the complex member representing the Game State) is a list of lists
 forming a square matrix of dimension "Dimensions" (present in the member Game State).
 
 In this matrix, each cell represents a cell of the board and can have one of three values: space (" ") representing an empty cell of the board, an upper case "x" ("X") representing a board cell occupied by a piece of the red player, an upper case "o" ("O") representing a board cell occupied by a piece of the blue player.
 
-### Current Player
+## Current Player
 The player on the move accompanies the game state. This player can either be "red" or "blue".
 
-### Captured Pieces
+## Captured Pieces
 The Captured Pieces are a list with two elements that work as counters.
 
 The first element is the number of pieces captured by the "red" player, and the second one is the number of pieces captured by the "blue" player.
 
-## Representation Examples
+## **Representation Examples**
+Game State is "Dimensions-Board-CapturedPieces"
 
-### Meaning of Piece Representation
+
+## Meaning of Piece Representation
 Pieces represented with an "X" belong to the "red" player, and the ones with an "O" belong to the "blue" player.
 
-### Initial Game State
-(Game State is "Dimensions-Board-CapturedPieces")
+## Initial Game State
 
-#### Can be visualized with "talpa(1)."
+Can be visualized with "talpa(1)."
 
-```
-8-[ ['O','X','O','X','O','X','O','X'],
-    ['X','O','X','O','X','O','X','O'],
-    ['O','X','O','X','O','X','O','X'],
-    ['X','O','X','O','X','O','X','O'],
-    ['O','X','O','X','O','X','O','X'],
-    ['X','O','X','O','X','O','X','O'],
-    ['O','X','O','X','O','X','O','X'],
-    ['X','O','X','O','X','O','X','O']
-]-[0, 0]
-```
+![Talpa Image 1](/images/1.png)
 
-### Intermediate Game State
-(Game State is "Dimensions-Board-CapturedPieces")
+## Intermediate Game State
 
-#### Can be visualized with "talpa(2)."
+Can be visualized with "talpa(2)."
 
-```
-8-[ ['O','X','O',' ','X','X','O','X'],
-    ['X','O',' ','X','X',' ','X','O'],
-    [' ','O',' ',' ',' ',' ','O','X'],
-    ['X','O',' ','X','X','O','X','O'],
-    [' ','O',' ',' ','O','O','O','O'],
-    ['O','O','X',' ',' ',' ','X',' '],
-    [' ','X','O',' ','X',' ','O','O'],
-    ['X','O','X','X',' ','X','X',' ']
-]-[11, 10]
-```
+![Talpa Image 2](/images/2.png)
 
-#### Can be visualized with "talpa(3)."
+Can be visualized with "talpa(3)."
 
-```
-8-[ ['X',' ','X',' ','X',' ','O',' '],
-    [' ','O',' ','X','X',' ','O',' '],
-    [' ','O',' ',' ',' ',' ',' ','O'],
-    ['O',' ',' ','O',' ',' ',' ',' '],
-    [' ','O',' ',' ','X',' ',' ','O'],
-    ['O',' ',' ',' ',' ',' ','X',' '],
-    [' ','X','O',' ','X',' ','O',' '],
-    [' ','O',' ','X',' ','X',' ',' ']
-]-[20, 20]
-```
+![Talpa Image 3](/images/3.png)
 
-### Final Game State
-(Game State is "Dimensions-Board-CapturedPieces")
+## Final Game State
 
-#### Red has won.
+### Red Wins
 
-#### Can be visualized with "talpa(4)."
+Can be visualized with "talpa(4)."
 
-```
-8-[ ['X',' ','X',' ','X',' ','O',' '],
-    [' ','O',' ','X','X',' ','O',' '],
-    [' ','O',' ',' ',' ',' ',' ','O'],
-    ['O',' ',' ','O',' ',' ',' ',' '],
-    [' ','O',' ',' ','X',' ',' ','O'],
-    ['O',' ',' ',' ',' ',' ',' ',' '],
-    [' ','X','O',' ','X',' ','X',' '],
-    [' ','O',' ','X',' ','X',' ',' ']
-]-[21, 20]
-```
+![Talpa Image 4](/images/4.png)
 
-#### Blue has won.
+#### Blue Wins
 
-#### Can be visualized with "talpa(5)."
+Can be visualized with "talpa(5)."
 
-```
-8-[ ['X',' ','X',' ','X',' ','O',' '],
-    [' ','O',' ','X','X',' ','O',' '],
-    [' ','O',' ',' ',' ',' ',' ','O'],
-    ['O',' ',' ','O',' ',' ',' ',' '],
-    [' ','O',' ',' ','X',' ',' ','O'],
-    ['O',' ',' ',' ',' ',' ','X',' '],
-    [' ',' ','X',' ','X',' ','O',' '],
-    [' ','O',' ','X',' ','X',' ',' ']
-]-[21,20]
-```
+![Talpa Image 5](/images/5.png)
 
-## Game Visualization
+## **Game Visualization**
 The predicate display_game/2 handles the presentation of the game.
 
 This predicate prints all the game state information on the screen. This information includes the player on the move, the pieces captured until that point, and the current game board.
