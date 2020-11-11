@@ -158,12 +158,16 @@ display_header :-
 
 /**
  * Display the Current Player
+ * + 1 is Red
+ * - 1 is Blue
  */
 % display_player(+Player)
-display_player(red) :-
+display_player(player) :-
+    player > 0,
     space(4),
     write('Red (X) on move').
-display_player(blue) :-
+display_player(player) :-
+    player < 0,
     space(4),
     write('Blue (O) on move').
 /**
@@ -329,11 +333,11 @@ captured_pieces(4, [21, 20]). /* Red Win */
 captured_pieces(5, [21, 20]). /* Blue Win */
 
 /* Next Player to Move */
-player_on_move(1, red).
-player_on_move(2, blue).
-player_on_move(3, red).
-player_on_move(4, blue). /* Red Win */
-player_on_move(5, blue). /* Blue Win */
+player_on_move(1, + 1).
+player_on_move(2, - 1).
+player_on_move(3, + 1).
+player_on_move(4, - 1).  /* Red Win */
+player_on_move(5, + 1).  /* Blue Win */
 
 /*
  --------------------------------------------------------------------------------
