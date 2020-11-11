@@ -170,21 +170,6 @@ display_player(player) :-
     player < 0,
     space(4),
     write('Blue (O) on move').
-/**
- * Display the Number of Captured Pieces, for red and blue
- */
-% display_captured_pieces([+NumberOfCaputuredPiecesByRed, +NumberOfCaputuredPiecesByBlue])
-display_captured_pieces([NumberOfCaputuredPiecesByRed, NumberOfCaputuredPiecesByBlue]) :-
-    space(4),
-    write('Red  has Captured '),
-    write(NumberOfCaputuredPiecesByRed),
-    write(' pieces.'),
-    new_line(1),
-    space(4),
-    write('Blue has Captured '),
-    write(NumberOfCaputuredPiecesByBlue),
-    write(' pieces.'),
-    new_line(1).
 
 /**
  * Print All the Lines on the Board
@@ -242,17 +227,14 @@ display_board(Board, Dimensions) :-
 
 /**
  * Display the Game State on Screen
- * Game State      - complex member made of Board, Dimensions and Captured Pieces ( Dimensions-Board-CapturedPieces )
+ * Game State      - complex member made of Board and Dimensions ( Dimensions-Board )
  * Dimensions      - dimension of the square board
  * Board           - list of lists that represents the square board of the game
- * Captured Pieces - list of 2 elements that count the number of pieces captured ( [NumberOfCaputuredPiecesByRed, NumberOfCaputuredPiecesByBlue] )
  * Player          - the next player to move
  */
 % display_game(+GameState, +Player)
-display_game(Dimensions-Board-CapturedPieces, Player) :-
+display_game(Dimensions-Board, Player) :-
     display_player(Player),
-    new_line(2),
-    display_captured_pieces(CapturedPieces),
     new_line(2),
     display_board(Board, Dimensions).
 
@@ -324,14 +306,6 @@ boards(5,[ ['X',' ','X',' ','X',' ','O',' '],
            [' ','O',' ','X',' ','X',' ',' ']
         ]).
 
-
-/* Captured Pieces */
-captured_pieces(1, [0, 0]).
-captured_pieces(2, [11, 10]).
-captured_pieces(3, [20, 20]).
-captured_pieces(4, [21, 20]). /* Red Win */
-captured_pieces(5, [21, 20]). /* Blue Win */
-
 /* Next Player to Move */
 player_on_move(1, + 1).
 player_on_move(2, - 1).
@@ -359,13 +333,13 @@ player_on_move(5, + 1).  /* Blue Win */
     This predicate references the initial state of the game. Therefore, it uses the predicate initial/1.
  */
 talpa(1):-
-    initial(Dimensions-InitialBoard-CapturedPieces),
+    initial(Dimensions-InitialBoard),
     player_on_move(1, Player),
 
     clr,
     new_line(1),
     display_header,
-    display_game(Dimensions-InitialBoard-CapturedPieces, Player),
+    display_game(Dimensions-InitialBoard, Player),
     new_line(1).
 /*
     This predicate references the intermediates and final states of the game.
@@ -375,18 +349,17 @@ talpa(BoardNumber):-
     BoardNumber > 1,
     Dimensions is 8,
     boards(BoardNumber, Board),
-    captured_pieces(BoardNumber, CapturedPieces),
     player_on_move(BoardNumber, Player),
 
     clr,
     new_line(1),
     display_header,
-    display_game(Dimensions-Board-CapturedPieces, Player),
+    display_game(Dimensions-Board, Player),
     new_line(1).
 
 /**
  * Initial Game State
- * Game State = Dimensions-Board-CapturedPieces
+ * Game State = Dimensions-Board
  */
 % initial(-GameState)
 initial(8-InitialBoard-[0, 0]) :-
