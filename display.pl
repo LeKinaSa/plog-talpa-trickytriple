@@ -90,11 +90,13 @@ print_line_marking(Line) :- write(Line).
  */
 % display_header
 display_header :-
+    new_line(1),
     write('*****************************************\n'),
     write('****                                 ****\n'),
     write('****              TALPA              ****\n'),
     write('****                                 ****\n'),
-    write('*****************************************\n').
+    write('*****************************************\n'),
+    new_line(1).
 
 /**
  * Display the Current Player
@@ -102,12 +104,10 @@ display_header :-
  * - 1 is Blue
  */
 % display_player(+Player)
-display_player(Player) :-
-    Player > 0,
+display_player(+ 1) :-
     space(4),
     write('Red (X) on move').
-display_player(Player) :-
-    Player < 0,
+display_player(- 1) :-
     space(4),
     write('Blue (O) on move').
 
@@ -177,3 +177,85 @@ display_game(Dimensions-Board, Player) :-
     display_player(Player),
     new_line(2),
     display_board(Board, Dimensions).
+
+/*
+ --------------------------------------------------------------------------------
+ --------------------              Draw the Menu             --------------------
+ --------------------------------------------------------------------------------
+**/
+/**
+ * Display a Menu
+ */
+% display_menu(+Menu)
+display_menu(Menu) :-
+    clr,
+    display_header,
+    print_menu(Menu),
+    new_line(1).
+
+/**
+ * Print the Selected Menu
+ * 0 -       Main Menu
+ * 1 -  Human   VS  Human
+ * 2 -  Human   VS Computer
+ * 3 - Computer VS  Human
+ * 4 - Computer VS Computer
+ */
+% print_menu(+SelectedMenu)
+print_menu(0) :-
+    write('               MAIN MENU         \n'),
+    write('      ************************** \n'),
+    write('  [1]  Human   VS  Human         \n'),
+    write('  [2]  Human   VS Computer       \n'),
+    write('  [3] Computer VS  Human         \n'),
+    write('  [4] Computer VS Computer       \n').
+
+print_menu(1) :-
+    write('             HUMAN VS HUMAN      \n'),
+    write('      ************************** \n'),
+    write('  [1] Beginners     (6x6 board)  \n'),
+    write('  [2] Intermediates (8x8 board)  \n'),
+    write('  [3] Advanced     (10x10 board) \n'),
+    write('  [0] Back                       \n').
+
+print_menu(2) :-
+    write('            HUMAN VS COMPUTER    \n'),
+    write('      ************************** \n'),
+    write('  [1] Beginners     (6x6 board)  \n'),
+    write('  [2] Intermediates (8x8 board)  \n'),
+    write('  [3] Advanced     (10x10 board) \n'),
+    write('  [0] Back                       \n').
+
+print_menu(3) :-
+    write('            COMPUTER VS HUMAN    \n'),
+    write('      ************************** \n'),
+    write('  [1] Beginners     (6x6 board)  \n'),
+    write('  [2] Intermediates (8x8 board)  \n'),
+    write('  [3] Advanced     (10x10 board) \n'),
+    write('  [0] Back                       \n').
+
+print_menu(4) :-
+    write('          COMPUTER VS COMPUTER   \n'),
+    write('      ************************** \n'),
+    write('  [1] Beginners     (6x6 board)  \n'),
+    write('  [2] Intermediates (8x8 board)  \n'),
+    write('  [3] Advanced     (10x10 board) \n'),
+    write('  [0] Back                       \n').
+
+/**
+ * Print Bot Difficulty Menu
+ */
+% print_bot_difficulty_menu(+BotColor)
+print_bot_difficulty_menu(+ 1) :-
+    write('           RED BOT DIFFICULTY    \n'),
+    write('      ************************** \n'),
+    write('  [1] AI Random Movement         \n'),
+    write('  [2] AI Greedy Movement         \n'),
+    write('  [0] Player                     \n').
+
+print_bot_difficulty_menu(- 1) :-
+    write('          BLUE BOT DIFFICULTY    \n'),
+    write('      ************************** \n'),
+    write('  [1] AI Random Movement         \n'),
+    write('  [2] AI Greedy Movement         \n'),
+    write('  [0] Player                     \n').

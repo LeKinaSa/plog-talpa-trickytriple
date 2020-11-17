@@ -92,12 +92,11 @@ player_on_move(5, + 1).  /* Blue Win */
 /*
     This predicate references the initial state of the game. Therefore, it uses the predicate initial/1.
  */
-talpa_game(1):-
+talpa_demo(1):-
     initial(Dimensions-InitialBoard),
     player_on_move(1, Player),
 
     clr,
-    new_line(1),
     display_header,
     display_game(Dimensions-InitialBoard, Player),
     new_line(1).
@@ -105,14 +104,13 @@ talpa_game(1):-
     This predicate references the intermediates and final states of the game.
         These are defined statically, which means that we need to call them.
 */
-talpa_game(BoardNumber):-
+talpa_demo(BoardNumber):-
     BoardNumber > 1,
     Dimensions is 8,
     boards(BoardNumber, Board),
     player_on_move(BoardNumber, Player),
 
     clr,
-    new_line(1),
     display_header,
     display_game(Dimensions-Board, Player),
     new_line(1).

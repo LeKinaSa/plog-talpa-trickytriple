@@ -2,4 +2,5 @@
 :-include('board.pl').
 :-include('intermediate_delivery.pl').
 
-talpa(N) :- talpa_game(N).
+talpa_game(N) :- talpa_demo(N).
+play :- menu(0).
