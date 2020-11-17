@@ -102,12 +102,12 @@ display_header :-
  * - 1 is Blue
  */
 % display_player(+Player)
-display_player(player) :-
-    player > 0,
+display_player(Player) :-
+    Player > 0,
     space(4),
     write('Red (X) on move').
-display_player(player) :-
-    player < 0,
+display_player(Player) :-
+    Player < 0,
     space(4),
     write('Blue (O) on move').
 

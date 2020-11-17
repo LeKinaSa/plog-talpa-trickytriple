@@ -88,11 +88,11 @@ player_on_move(5, + 1).  /* Blue Win */
  * 4 - Final Board - Red Wins
  * 5 - Final Board - Blue Wins
  */
-% talpa(+BoardNumber)
+% talpa_game(+BoardNumber)
 /*
     This predicate references the initial state of the game. Therefore, it uses the predicate initial/1.
  */
-talpa(1):-
+talpa_game(1):-
     initial(Dimensions-InitialBoard),
     player_on_move(1, Player),
 
@@ -105,7 +105,7 @@ talpa(1):-
     This predicate references the intermediates and final states of the game.
         These are defined statically, which means that we need to call them.
 */
-talpa(BoardNumber):-
+talpa_game(BoardNumber):-
     BoardNumber > 1,
     Dimensions is 8,
     boards(BoardNumber, Board),

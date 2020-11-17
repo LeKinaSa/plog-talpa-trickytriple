@@ -1,2 +1,5 @@
-:- include_once (display.pl)
-:- include_once (board.pl)
+:-include('display.pl').
+:-include('board.pl').
+:-include('intermediate_delivery.pl').
+
+talpa(N) :- talpa_game(N).

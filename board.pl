@@ -64,5 +64,5 @@ populate_odd_line([], 0).
  * Game State = Dimensions-Board
  */
 % initial(-GameState)
-initial(8-InitialBoard-[0, 0]) :-
+initial(8-InitialBoard) :-
     create_initial_board(8, InitialBoard).
