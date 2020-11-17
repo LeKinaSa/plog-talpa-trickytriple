@@ -25,6 +25,7 @@ menu(Menu) :-
 menu(0) :-
     display_menu(0),
     obtain_menu_input(NextMenu, 4),
+    NextMenu > 0,
     menu(NextMenu).
 
 /*
@@ -33,6 +34,7 @@ menu(0) :-
  */
 % select_next_menu(+CurrentMenu, +NextMenu)
 select_next_menu(CurrentMenu, NextMenu) :-
+    CurrentMenu > 0,
     NextMenu > 0,
     start_game(CurrentMenu, NextMenu).
 
@@ -61,6 +63,7 @@ select_next_menu(Menu, 0) :-
  */
 % start_game(+Gamemode, +BoardDifficulty)
 start_game(Gamemode, BoardDifficulty) :-
+    new_line(1), write(Gamemode), new_line(1), write(BoardDifficulty),
     Dimensions is (BoardDifficulty + 2) * 2,
     obtain_bot_difficulty(Gamemode, RedBot-BlueBot),
     talpa(Dimensions, RedBot-BlueBot).
@@ -101,7 +104,8 @@ obtain_bot_difficulty(4, RedBot-BlueBot) :-
  */
 % obtain_menu_input(-Input, +Max)
 obtain_menu_input(Input, Max) :-
-    get_code(Input),
+    get_code(Code),
     skip_line,
-    Input >= (48 + 0),
-    Input =< (48 + Max).
+    Code >= (48 + 0),
+    Code =< (48 + Max),
+    Input is Code - 48.

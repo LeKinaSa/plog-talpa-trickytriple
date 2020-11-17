@@ -90,13 +90,11 @@ print_line_marking(Line) :- write(Line).
  */
 % display_header
 display_header :-
-    new_line(1),
     write('*****************************************\n'),
     write('****                                 ****\n'),
     write('****              TALPA              ****\n'),
     write('****                                 ****\n'),
-    write('*****************************************\n'),
-    new_line(1).
+    write('*****************************************\n').
 
 /**
  * Display the Current Player
@@ -203,59 +201,68 @@ display_menu(Menu) :-
  */
 % print_menu(+SelectedMenu)
 print_menu(0) :-
-    write('               MAIN MENU         \n'),
-    write('      ************************** \n'),
-    write('  [1]  Human   VS  Human         \n'),
-    write('  [2]  Human   VS Computer       \n'),
-    write('  [3] Computer VS  Human         \n'),
-    write('  [4] Computer VS Computer       \n').
+    write('*               MAIN MENU               *\n'),
+    write('*****************************************\n'),
+    write('*   [1]  Human   VS  Human              *\n'),
+    write('*   [2]  Human   VS Computer            *\n'),
+    write('*   [3] Computer VS  Human              *\n'),
+    write('*   [4] Computer VS Computer            *\n'),
+    write('*****************************************\n').
 
 print_menu(1) :-
-    write('             HUMAN VS HUMAN      \n'),
-    write('      ************************** \n'),
-    write('  [1] Beginners     (6x6 board)  \n'),
-    write('  [2] Intermediates (8x8 board)  \n'),
-    write('  [3] Advanced     (10x10 board) \n'),
-    write('  [0] Back                       \n').
+    write('*             HUMAN VS HUMAN            *\n'),
+    write('*****************************************\n'),
+    write('*   [1] Beginners     (6x6 board)       *\n'),
+    write('*   [2] Intermediates (8x8 board)       *\n'),
+    write('*   [3] Advanced     (10x10 board)      *\n'),
+    write('*   [0] Back                            *\n'),
+    write('*****************************************\n').
 
 print_menu(2) :-
-    write('            HUMAN VS COMPUTER    \n'),
-    write('      ************************** \n'),
-    write('  [1] Beginners     (6x6 board)  \n'),
-    write('  [2] Intermediates (8x8 board)  \n'),
-    write('  [3] Advanced     (10x10 board) \n'),
-    write('  [0] Back                       \n').
+    write('*           HUMAN VS COMPUTER           *\n'),
+    write('*****************************************\n'),
+    write('*   [1] Beginners     (6x6 board)       *\n'),
+    write('*   [2] Intermediates (8x8 board)       *\n'),
+    write('*   [3] Advanced     (10x10 board)      *\n'),
+    write('*   [0] Back                            *\n'),
+    write('*****************************************\n').
 
 print_menu(3) :-
-    write('            COMPUTER VS HUMAN    \n'),
-    write('      ************************** \n'),
-    write('  [1] Beginners     (6x6 board)  \n'),
-    write('  [2] Intermediates (8x8 board)  \n'),
-    write('  [3] Advanced     (10x10 board) \n'),
-    write('  [0] Back                       \n').
+    write('*           COMPUTER VS HUMAN           *\n'),
+    write('*****************************************\n'),
+    write('*   [1] Beginners     (6x6 board)       *\n'),
+    write('*   [2] Intermediates (8x8 board)       *\n'),
+    write('*   [3] Advanced     (10x10 board)      *\n'),
+    write('*   [0] Back                            *\n'),
+    write('*****************************************\n').
 
 print_menu(4) :-
-    write('          COMPUTER VS COMPUTER   \n'),
-    write('      ************************** \n'),
-    write('  [1] Beginners     (6x6 board)  \n'),
-    write('  [2] Intermediates (8x8 board)  \n'),
-    write('  [3] Advanced     (10x10 board) \n'),
-    write('  [0] Back                       \n').
+    write('*          COMPUTER VS COMPUTER         *\n'),
+    write('*****************************************\n'),
+    write('*   [1] Beginners     (6x6 board)       *\n'),
+    write('*   [2] Intermediates (8x8 board)       *\n'),
+    write('*   [3] Advanced     (10x10 board)      *\n'),
+    write('*   [0] Back                            *\n'),
+    write('*****************************************\n').
 
 /**
  * Print Bot Difficulty Menu
  */
 % print_bot_difficulty_menu(+BotColor)
 print_bot_difficulty_menu(+ 1) :-
-    write('           RED BOT DIFFICULTY    \n'),
-    write('      ************************** \n'),
-    write('  [1] AI Random Movement         \n'),
-    write('  [2] AI Greedy Movement         \n'),
-    write('  [0] Player                     \n').
+    write('*****************************************\n'),
+    write('*           RED BOT DIFFICULTY          *\n'),
+    write('*****************************************\n'),
+    write('*   [1] AI Random Movement              *\n'),
+    write('*   [2] AI Greedy Movement              *\n'),
+    write('*   [0] Player                          *\n'),
+    write('*****************************************\n').
 
-print_bot_difficulty_menu(- 1) :-
-    write('          BLUE BOT DIFFICULTY    \n'),
-    write('      ************************** \n'),
-    write('  [1] AI Random Movement         \n'),
-    write('  [2] AI Greedy Movement         \n'),
-    write('  [0] Player                     \n').
+print_bot_difficulty_menu(+ 1) :-
+    write('*****************************************\n'),
+    write('*          BLUE BOT DIFFICULTY          *\n'),
+    write('*****************************************\n'),
+    write('*   [1] AI Random Movement              *\n'),
+    write('*   [2] AI Greedy Movement              *\n'),
+    write('*   [0] Player                          *\n'),
+    write('*****************************************\n').
