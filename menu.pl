@@ -17,7 +17,7 @@ talpa(Dimensions, RedBot-BlueBot) :-
  */
 % menu(+Menu)
 menu(Menu) :-
-    Menu \= 0,
+    Menu > 0,
     display_menu(Menu),
     obtain_menu_input(NextMenu, 3),
     select_next_menu(Menu, NextMenu).
@@ -33,7 +33,7 @@ menu(0) :-
  */
 % select_next_menu(+CurrentMenu, +NextMenu)
 select_next_menu(CurrentMenu, NextMenu) :-
-    NextMenu \= 0,
+    NextMenu > 0,
     start_game(CurrentMenu, NextMenu).
 
 select_next_menu(Menu, 0) :-
@@ -101,8 +101,7 @@ obtain_bot_difficulty(4, RedBot-BlueBot) :-
  */
 % obtain_menu_input(-Input, +Max)
 obtain_menu_input(Input, Max) :-
-    get_char(Input),
+    get_code(Input),
     skip_line,
-    %Input is int, //TODO
-    Input >= 0,
-    Input =< Max.
+    Input >= (48 + 0),
+    Input =< (48 + Max).
