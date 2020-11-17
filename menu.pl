@@ -1,4 +1,4 @@
-:- include('display.pl')
+:- include('display.pl').
 
 % talpa(BoardDifficulty, GameMode)
 talpa(Dimensions, RedBot-BlueBot) :-
@@ -105,4 +105,4 @@ obtain_menu_input(Input, Max) :-
     skip_line,
     %Input is int, //TODO
     Input >= 0,
-    Input <= Max.
+    Input =< Max.
