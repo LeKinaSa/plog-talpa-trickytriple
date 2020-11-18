@@ -188,8 +188,7 @@ display_game(Dimensions-Board, Player) :-
 display_menu(Menu) :-
     clr,
     display_header,
-    print_menu(Menu),
-    new_line(1).
+    print_menu(Menu).
 
 /**
  * Print the Selected Menu
@@ -258,7 +257,7 @@ print_bot_difficulty_menu(+ 1) :-
     write('*   [0] Player                          *\n'),
     write('*****************************************\n').
 
-print_bot_difficulty_menu(+ 1) :-
+print_bot_difficulty_menu(- 1) :-
     write('*****************************************\n'),
     write('*          BLUE BOT DIFFICULTY          *\n'),
     write('*****************************************\n'),
@@ -266,3 +265,43 @@ print_bot_difficulty_menu(+ 1) :-
     write('*   [2] AI Greedy Movement              *\n'),
     write('*   [0] Player                          *\n'),
     write('*****************************************\n').
+
+/**
+ * Display the Game Start Menu
+ * Contains all the Options from the Game
+ */
+% display_start_game_menu(+Dimensions, +BotDifficulty)
+display_start_game_menu(Dimensions, RedBot-BlueBot) :-
+    write('*              GAME OPTIONS             *\n'),
+    write('*****************************************\n'),
+    write('*   - '), print_dimensions(Dimensions), write('                     *\n'),
+    write('*   - Red : '), print_bot( RedBot), write('                      *\n'),
+    write('*   - Blue: '), print_bot(BlueBot), write('                      *\n'),
+    write('*****************************************\n').
+
+/**
+ * Print Board Dimensions
+ * 7 chars
+ */
+% print_dimensions(+Dimensions)
+print_dimensions(Dimensions) :-
+    Dimensions < 10,
+    write(Dimensions),
+    write(' x '),
+    write(Dimensions),
+    write(' board'),
+    space(2).
+print_dimensions(10) :-
+    write('10 x 10 board').
+
+/**
+ * Print Bot Difficulty
+ * 6 chars
+ */
+% print_bot(+BotDifficulty)
+print_bot(0) :-
+    write('Player').
+print_bot(1) :-
+    write('Random').
+print_bot(2) :-
+    write('Greedy').

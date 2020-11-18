@@ -93,6 +93,7 @@ player_on_move(5, + 1).  /* Blue Win */
     This predicate references the initial state of the game. Therefore, it uses the predicate initial/1.
  */
 talpa_demo(1):-
+    Dimensions is 8,
     initial(Dimensions-InitialBoard),
     player_on_move(1, Player),
 

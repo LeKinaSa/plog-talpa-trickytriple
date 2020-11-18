@@ -1,16 +1,16 @@
 :- include('display.pl').
+:- include('game.pl').
 
-% talpa(BoardDifficulty, GameMode)
-talpa(Dimensions, RedBot-BlueBot) :-
+/**
+ * Menu Cointaining All the Selected Game Options
+ */
+% talpa_game(+Dimensions, +BotDifficulty)
+talpa_game(Dimensions, RedBot-BlueBot) :-
     clr,
-    new_line(1),
-    write(Dimensions),
-    new_line(2),
-    space(4),
-    write(RedBot),
-    space(4),
-    write(BlueBot),
-    new_line(1).
+    display_header,
+    display_start_game_menu(Dimensions, RedBot-BlueBot),
+    obtain_menu_input(Input, 0),
+    talpa(Dimensions, RedBot-BlueBot).
 
 /*
  * Menu Selector
@@ -29,7 +29,6 @@ menu(0) :-
     menu(NextMenu).
 
 /*
- * Helper Function
  * Helps decide which menu will be shown next
  */
 % select_next_menu(+CurrentMenu, +NextMenu)
@@ -43,7 +42,6 @@ select_next_menu(Menu, 0) :-
 
 /**
  * Obtains All the Information Needed to Start the Game
- * Then Starts It
  * 
  * Gamemode:
  *      1 -  Human   VS  Human
@@ -63,10 +61,9 @@ select_next_menu(Menu, 0) :-
  */
 % start_game(+Gamemode, +BoardDifficulty)
 start_game(Gamemode, BoardDifficulty) :-
-    new_line(1), write(Gamemode), new_line(1), write(BoardDifficulty),
     Dimensions is (BoardDifficulty + 2) * 2,
     obtain_bot_difficulty(Gamemode, RedBot-BlueBot),
-    talpa(Dimensions, RedBot-BlueBot).
+    talpa_game(Dimensions, RedBot-BlueBot).
 
 /**
  * Obtain Bot Difficulty (According to Gamemode)
@@ -104,8 +101,13 @@ obtain_bot_difficulty(4, RedBot-BlueBot) :-
  */
 % obtain_menu_input(-Input, +Max)
 obtain_menu_input(Input, Max) :-
+    Max > 0,
     get_code(Code),
     skip_line,
     Code >= (48 + 0),
     Code =< (48 + Max),
     Input is Code - 48.
+
+obtain_menu_input(_, 0) :-
+    get_code(_),
+    skip_line.
