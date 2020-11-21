@@ -103,11 +103,17 @@ display_header :-
  */
 % display_player(+Player)
 display_player(+ 1) :-
+    player_symbol(+ 1, Symbol),
     space(4),
-    write('Red (X) on move').
+    write('Red ('),
+    write(Symbol),
+    write(') on move').
 display_player(- 1) :-
+    player_symbol(-1, Symbol),
     space(4),
-    write('Blue (O) on move').
+    write('Blue ('),
+    write(Symbol),
+    write(') on move').
 
 /**
  * Print All the Lines on the Board

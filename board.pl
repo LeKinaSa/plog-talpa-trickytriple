@@ -38,8 +38,8 @@ populate_board([], _, _).
 % populate_even_line(-Line, +Columns)
 populate_even_line([X , Y | Line], Columns) :-
     Columns >= 2,
-    X = 'O',
-    Y = 'X',
+    player_symbol(- 1, X),
+    player_symbol(+ 1, Y),
     ColumnsAux is Columns - 2,
     populate_even_line(Line, ColumnsAux).
 
@@ -52,8 +52,8 @@ populate_even_line([], 0).
 % populate_odd_line(-Line, +Columns)
 populate_odd_line([X, Y | Line], Columns) :-
     Columns >= 2,
-    X = 'X',
-    Y = 'O',
+    player_symbol(+ 1, X),
+    player_symbol(- 1, Y),
     ColumnsAux is Columns - 2,
     populate_odd_line(Line, ColumnsAux).
 
