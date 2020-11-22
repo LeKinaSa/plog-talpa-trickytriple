@@ -171,13 +171,13 @@ display_board(Board, Dimensions) :-
 
 /**
  * Display the Game State on Screen
- * Game State      - complex member made of Board and Dimensions ( Dimensions-Board )
+ * GameState       - complex member made of Dimensions, Board and Player ( Dimensions-Board-Player )
  * Dimensions      - dimension of the square board
  * Board           - list of lists that represents the square board of the game
  * Player          - the next player to move
  */
 % display_game(+GameState, +Player)
-display_game(Dimensions-Board, Player) :-
+display_game(Dimensions-Board-Player, _) :-
     display_player(Player),
     new_line(2),
     display_board(Board, Dimensions).

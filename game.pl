@@ -96,7 +96,7 @@ replace_on_line(TargetColumn, TargetColumn, Element, [_ | Line], [Element | Line
 /**
  * Decides the Winner of the Game based on the Current GameState
  * In this particular function,
- * GameState = Dimensions-Board-PlayerOnMove
+ * GameState = Dimensions-Board-Player
  * 
  * Winner:
  *        0 -> not gameover yet
@@ -121,11 +121,12 @@ find_winner(1-1, Player, Winner) :-
 
 /**
  * Checks if a path exists between the red edges (up and down)
+ * BoardInfo = Dimensions-Board
  * Return Values:
  *          0 - no path
  *          1 - path
  */
-% find_path_red_red(+GameState, -Path)
+% find_path_red_red(+BoardInfo, -Path)
 find_path_red_red(Dimensions-Board, 1) :-
     find_red_paths(Dimensions-Board).
 find_path_red_red(Dimensions-Board, 0).
@@ -134,11 +135,12 @@ find_red_paths(Dimensions-Board).
 
 /**
  * Checks if a path exists between the blue edges (left and right)
+ * BoardInfo = Dimensions-Board
  * Return Values:
  *          0 - no path
  *          1 - path
  */
-% find_path_blue_blue(+GameState, -Path)
+% find_path_blue_blue(+BoardInfo, -Path)
 find_path_blue_blue(Dimensions-Board, 1) :-
     find_blue_paths(Dimensions-Board).
 find_path_blue_blue(Dimensions-Board, 0).

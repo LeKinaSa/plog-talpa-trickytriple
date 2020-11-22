@@ -67,7 +67,6 @@ boards(5,[ ['X',' ','X',' ','X',' ','O',' '],
         ]).
 
 /* Next Player to Move */
-player_on_move(1, + 1).
 player_on_move(2, - 1).
 player_on_move(3, + 1).
 player_on_move(4, - 1).  /* Red Win */
@@ -94,8 +93,7 @@ player_on_move(5, + 1).  /* Blue Win */
  */
 talpa_demo(1):-
     Dimensions is 8,
-    initial(Dimensions-InitialBoard),
-    player_on_move(1, Player),
+    initial(Dimensions-InitialBoard-Player),
 
     clr,
     display_header,
