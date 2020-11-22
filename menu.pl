@@ -86,11 +86,11 @@ obtain_bot_difficulty(2, 0-BlueBot) :-
     obtain_menu_input(BlueBot, 2).
 
 obtain_bot_difficulty(3, RedBot-0) :-
-    print_bot_difficulty_menu(+ 1),
+    print_bot_difficulty_menu(  1),
     obtain_menu_input(RedBot, 2).
 
 obtain_bot_difficulty(4, RedBot-BlueBot) :-
-    print_bot_difficulty_menu(+ 1),
+    print_bot_difficulty_menu(  1),
     obtain_menu_input(RedBot, 2),
     print_bot_difficulty_menu(- 1),
     obtain_menu_input(BlueBot, 2).

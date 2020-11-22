@@ -68,9 +68,9 @@ boards(5,[ ['X',' ','X',' ','X',' ','O',' '],
 
 /* Next Player to Move */
 player_on_move(2, - 1).
-player_on_move(3, + 1).
+player_on_move(3,   1).
 player_on_move(4, - 1).  /* Red Win */
-player_on_move(5, + 1).  /* Blue Win */
+player_on_move(5,   1).  /* Blue Win */
 
 /*
  --------------------------------------------------------------------------------

@@ -1,3 +1,4 @@
+:-include('utils.pl').
 
 /*
  --------------------------------------------------------------------------------
@@ -98,18 +99,18 @@ display_header :-
 
 /**
  * Display the Current Player
- * + 1 is Red
+ *   1 is Red
  * - 1 is Blue
  */
 % display_player(+Player)
-display_player(+ 1) :-
-    player_symbol(+ 1, Symbol),
+display_player(  1) :-
+    player_symbol(  1, Symbol),
     space(4),
     write('Red ('),
     write(Symbol),
     write(') on move').
 display_player(- 1) :-
-    player_symbol(-1, Symbol),
+    player_symbol(- 1, Symbol),
     space(4),
     write('Blue ('),
     write(Symbol),
@@ -254,7 +255,7 @@ print_menu(4) :-
  * Print Bot Difficulty Menu
  */
 % print_bot_difficulty_menu(+BotColor)
-print_bot_difficulty_menu(+ 1) :-
+print_bot_difficulty_menu(  1) :-
     write('*****************************************\n'),
     write('*           RED BOT DIFFICULTY          *\n'),
     write('*****************************************\n'),

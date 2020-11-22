@@ -39,7 +39,7 @@ populate_board([], _, _).
 populate_even_line([X , Y | Line], Columns) :-
     Columns >= 2,
     player_symbol(- 1, X),
-    player_symbol(+ 1, Y),
+    player_symbol(  1, Y),
     ColumnsAux is Columns - 2,
     populate_even_line(Line, ColumnsAux).
 
@@ -52,7 +52,7 @@ populate_even_line([], 0).
 % populate_odd_line(-Line, +Columns)
 populate_odd_line([X, Y | Line], Columns) :-
     Columns >= 2,
-    player_symbol(+ 1, X),
+    player_symbol(  1, X),
     player_symbol(- 1, Y),
     ColumnsAux is Columns - 2,
     populate_odd_line(Line, ColumnsAux).
@@ -64,5 +64,5 @@ populate_odd_line([], 0).
  * GameState = Dimensions-Board-Player
  */
 % initial(-GameState)
-initial(Dimensions-InitialBoard-(+1)) :-
+initial(Dimensions-InitialBoard-1) :-
     create_initial_board(Dimensions, InitialBoard).
