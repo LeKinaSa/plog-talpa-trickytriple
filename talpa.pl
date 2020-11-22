@@ -2,11 +2,16 @@
 :-include('menu.pl').
 
 % play :- menu(0).
-play :- initial(Dimensions-Board-Player),
-        new_line(3),
-        write(Dimensions),
-        space(5),
-        write(Player),
-        new_line(3),
-        display_board(Board, Dimensions),
-        new_line(3).
+init(D, D-[['O','X','O','X','O','X','O','X'],
+              ['X','O','X','O','X','O','X','O'],
+              ['O','X','O','X','O','X','O','X'],
+              ['X','O','X','O','X','O','X','O'],
+              ['O','X','O','X','O','X','O','X'],
+              ['X','O','X','O','X','O','X','O'],
+              ['O','X','O','X','O','X','O','X'],
+              ['X','O','X','O','X','O','X','O']]-1).
+
+play :- init(8, GameState1),
+        move(GameState1, 3-3-x, GameState2),
+        move(GameState2, 8-5-l, GameState3),
+        display_game(GameState3, + 1).

@@ -19,37 +19,37 @@ talpa(Dimensions, RedBot-BlueBot).
  *      Others : l, r, u, d
  */
 % move(+GameState, +Move, -NewGameState)
-move(Dimensions-Board-PlayerOnMove, Column-Line-Movement, Dimensions-NewBoard-NextPlayer) :-
+move(Dimensions-Board-Player, Column-Line-Movement, Dimensions-NewBoard-NextPlayer) :-
     Movement \= x,
-    replace_on_board(Column-Line, ' ', Dimensions-Board, NewBoard),
+    replace(Column-Line, ' ', Dimensions-Board, AuxBoard),
     movement_position(Column-Line, Movement, NextColumn-NextLine),
-    player_symbol(PlayerOnMove, Element),
-    replace(NextColumn-NewLine, Element, Dimensions-Board, NewBoard),
+    player_symbol(Player, Element),
+    replace(NextColumn-NextLine, Element, Dimensions-AuxBoard, NewBoard),
     NextPlayer is -Player.
 
-move(Dimensions-Board-PlayerOnMove, Column-Line-x, Dimensions-NewBoard-NextPlayer) :-
+move(Dimensions-Board-Player, Column-Line-x, Dimensions-NewBoard-NextPlayer) :-
     replace(Column-Line, ' ', Dimensions-Board, NewBoard),
     NextPlayer is -Player.
 
 /**
  * Calculates the cell to where the piece is going to be moved to
  * Movement:
- *      Up    : u - 117
- *      Down  : d - 100
- *      Left  : l - 108
- *      Right : r - 114
+ *      Up    : u
+ *      Down  : d
+ *      Left  : l
+ *      Right : r
  */
 % movement_position(+Cell, +Movement, -NewCell)
-movement_position(Column-Line, 117, Column-NextLine) :-
+movement_position(Column-Line, u, Column-NextLine) :-
     NextLine is Line + 1.
 
-movement_position(Column-Line, 100, Column-NextLine) :-
+movement_position(Column-Line, d, Column-NextLine) :-
     NextLine is Line - 1.
 
-movement_position(Column-Line, 108, NextColumn-Line) :-
+movement_position(Column-Line, l, NextColumn-Line) :-
     NextColumn is Column - 1.
 
-movement_position(Column-Line, 114, NextColumn-Line) :-
+movement_position(Column-Line, r, NextColumn-Line) :-
     NextColumn is Column + 1.
 
 /**
@@ -67,6 +67,7 @@ replace(Column-Line, Element, Dimensions-Board, NewBoard) :-
  * Helper Function for replace/4
  */
 % replace_on_board(+TargetCell, +CurrentLine, +Element, +Board, -NewBoard)
+
 replace_on_board(TargetColumn-TargetLine, CurrentLine, Element, [Line | Board], [Line | NewBoard]) :-
     CurrentLine > TargetLine,
     NextLine is CurrentLine - 1,
@@ -82,7 +83,7 @@ replace_on_board(TargetColumn-TargetLine, TargetLine, Element, [Line | Board], [
 % replace_on_line(+TargetColumn, +CurrentColumn, +Element, +Line, -NewLine)
 replace_on_line(TargetColumn, CurrentColumn, Element, [Cell | Line],  [Cell | NewLine]) :-
     CurrentColumn < TargetColumn,
-    NextColumn is CurrentColumn - 1,
+    NextColumn is CurrentColumn + 1,
     replace_on_line(TargetColumn, NextColumn, Element, Line, NewLine).
 
 replace_on_line(TargetColumn, TargetColumn, Element, [_ | Line], [Element | Line]).
@@ -113,9 +114,9 @@ game_over(Dimensions-Board-PlayerOnMove, Winner) :-
  * Choose the Winner based on the Existing Path Between the Edges
  */
 % find_winner(+Paths, +PlayerOnMove, -Winner)
-find_winner(0-0, _, 0).
+find_winner(0-0, _,  0).
 find_winner(1-0, _, -1).
-find_winner(0-1, _, +1).
+find_winner(0-1, _,  1).
 find_winner(1-1, Player, Winner) :-
     Winner is -Player.
 

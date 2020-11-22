@@ -9,7 +9,7 @@ talpa_game(Dimensions, RedBot-BlueBot) :-
     clr,
     display_header,
     display_start_game_menu(Dimensions, RedBot-BlueBot),
-    obtain_menu_input(Input, 0),
+    obtain_menu_input(_, 0),
     talpa(Dimensions, RedBot-BlueBot).
 
 /*
@@ -37,7 +37,7 @@ select_next_menu(CurrentMenu, NextMenu) :-
     NextMenu > 0,
     start_game(CurrentMenu, NextMenu).
 
-select_next_menu(Menu, 0) :-
+select_next_menu(_, 0) :-
     menu(0).
 
 /**
