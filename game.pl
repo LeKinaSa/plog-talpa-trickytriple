@@ -1,7 +1,8 @@
 :- include('board.pl').
 
 /**
- * Game State = Dimensions-Board
+ * Game State = Dimensions-Board-Player
+ * BoardInfo  = Dimensions-Board
  */
 talpa(Dimensions, RedBot-BlueBot).
 
@@ -10,8 +11,136 @@ talpa(Dimensions, RedBot-BlueBot).
  --------------------               Valid Moves              --------------------
  --------------------------------------------------------------------------------
 **/
+
+/**
+ * Obtain All the Possible Valid Moves at a certain GameState
+ */
 % valid_moves(+GameState, +Player, -ListOfMoves)
-valid_moves(Dimensions-Board-Player, _, PossibleMoves).
+valid_moves(GameState, _, PossibleMoves) :-
+    valid_moves_by_moving_pieces(GameState, PossibleMovesByMoving),
+    valid_moves_by_not_moving_pieces(GameState, PossibleMovesByMoving, PossibleMoves).
+
+/**
+ * Obtain All the Possible Valid Moves Obtained by Moving a Piece
+ */
+% valid_moves_by_moving_pieces(+GameState, -ListOfMoves)
+valid_moves_by_moving_pieces(GameState, PossibleMoves) :-
+    get_pieces_from_player(GameState, Pieces),
+    obtain_moving_piece_moves(GameState, Pieces, PossibleMoves).
+
+/**
+ * Obtain All the Possible Valid Moves Obtained by NOT Moving a Piece
+ *
+ * If there's a possible move by moving a piece, there's no other valid moves.
+ * Otherwise, we have to remove a piece.
+ */
+% valid_moves_by_not_moving_pieces(+GameState, +ListOfMovesByMoving, -ListOfMoves)
+valid_moves_by_not_moving_pieces(GameState, PossibleMovesByMoving, PossibleMovesByRemovingPiece) :-
+    length(PossibleMovesByMoving, 0),
+    valid_moves_by_removing_pieces(Gametate, PossibleMovesByRemovingPiece).
+
+valid_moves_by_not_moving_pieces(GameState, PossibleMovesByMoving, PossibleMovesByMoving) :-
+    length(PossibleMovesByMoving, L),
+    L > 0.
+
+/**
+ * Obtain All the Possible Valid Moves Obtained by Removing a Piece
+ */
+% valid_moves_by_removing_pieces(+GameState, -ListOfMoves)
+valid_moves_by_removing_pieces(GameState, PossibleMoves) :-
+    get_pieces_from_player(GameState, Pieces),
+    obtain_removing_piece_moves(Pieces, PossibleMoves).
+
+/**
+ * Obtain All the Pieces' Positions on the Board from the Player
+ *  Line  goes from Dimensions to      1
+ * Column goes from     1     to Dimensions
+ */
+% get_pieces_from_player(+GameState, -Pieces)
+get_pieces_from_player(Dimensions-Board-Player, Pieces) :-
+    player_symbol(Player, PlayerSymbol),
+    get_pieces_from_player(Dimensions, Board, PlayerSymbol, [], Pieces).
+
+/**
+ * Obtain the Line for the Piece's Positions
+ */
+% get_pieces_from_player_on_board(+Line, +Board, +PlayerSymbol, +Pieces, -NewPieces)
+get_pieces_from_player_on_board(Line, [BoardLine | Board], PlayerSymbol, Pieces, NewPieces) :-
+    get_pieces_from_player_on_line(1-Line, BoardLine, PlayerSymbol, Pieces, AuxPieces),
+    NextLine is Line - 1,
+    get_pieces_from_player_on_board(NextLine, Board, PlayerSymbol, AuxPieces, NewPieces).
+
+/**
+ * Obtain the Column for the Piece's Positions
+ */
+% get_pieces_from_player_on_line(+Position, +BoardLine, +PlayerSymbol, +Pieces, -NewPieces)
+get_pieces_from_player_on_line(Column-Line, [PlayerSymbol | BoardLine],
+                                PlayerSymbol, Pieces, [Column-Line | NewPieces]) :-
+    NextColumn is Column + 1,
+    get_pieces_from_player_on_line(NextColumn-Line, BoardLine, PlayerSymbol, Pieces, NewPieces).
+
+get_pieces_from_player_on_line(Column-Line, [Element | BoardLine],
+                                PlayerSymbol, Pieces, NewPieces) :-
+    Element \= PlayerSymbol,
+    NextColumn is Column + 1,
+    get_pieces_from_player_on_line(NextColumn-Line, BoardLine, PlayerSymbol, Pieces, NewPieces).
+
+get_pieces_from_player_on_line(_, [], Pieces, Pieces).
+
+
+/**
+ * Obtain All Movements accordingly to the Positions of the Player's Pieces and the Enemy's Pieces
+ */
+% obtain_moving_piece_moves(+GameState, +Pieces, -ListOfMoves)
+obtain_moving_piece_moves(GameState, Pieces, PossibleMoves) :-
+    obtain_all_moving_piece_moves(GameState, Pieces, AllMoves),
+    clear_invalid_moves(AllMoves, PossibleMoves).
+
+/**
+ * Remove all the invalid moves
+ * Invalid Move : 0
+ */
+% clear_invalid_moves(+AllMoves, -ValidMoves)
+clear_invalid_moves(AllMoves, ValidMoves) :-
+    delete(AllMoves, 0, ValidMoves).
+
+/**
+ * Obtain All Movements (valid or invalid)
+ */
+% obtain_all_moving_piece_moves(+GameState, +Pieces, -ListOfMoves)
+obtain_all_moving_piece_moves(GameState, [Piece | Pieces], [R L U D | PossibleMoves]) :-
+    obtain_piece_movement(GameState, Piece, r, R),
+    obtain_piece_movement(GameState, Piece, l, L),
+    obtain_piece_movement(GameState, Piece, u, U),
+    obtain_piece_movement(GameState, Piece, d, D).
+
+obtain_all_moving_piece_moves(_, [], []).
+
+/**
+ * Obtain the Movement Towards a Direction
+ */
+% obtain_piece_movement(+GameState, +Position, +Direction, -Move)
+obtain_piece_movement(Dimensions-Board-Player, Position, Direction, Move) :-
+    adjacent_cell(Position, Direction, Dimensions-Board, Element),
+    obtain_move_from_element(Position, Direction, Player, Element, Move).
+
+/**
+ * Obtain the Move Accordingly to the Player
+ * Invalid Move : 0
+ */
+obtain_move_from_element(Position, Direction, Player, Element, Position-Direction) :-
+    Enemy is -Player,
+    player_symbol(Enemy, Symbol),
+    Element == Symbol.
+
+obtain_move_from_element(_, _, _, _, 0).
+
+/**
+ * Obtain All the Removing Moves accordingly to the Positions of the Player's Pieces
+ */
+% obtain_removing_piece_moves(+PlayerPieces, -ListOfMoves)
+obtain_removing_piece_moves([Piece | Pieces], [Piece-x | PossibleMoves]).
+obtain_removing_piece_moves([], []).
 
 /**
  --------------------------------------------------------------------------------
@@ -46,7 +175,6 @@ move(Dimensions-Board-Player, Column-Line-x, Dimensions-NewBoard-NextPlayer) :-
 
 /**
  * Decides the Winner of the Game based on the Current GameState
- * In this particular function,
  * GameState = Dimensions-Board-Player
  * 
  * Winner:
