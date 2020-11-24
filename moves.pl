@@ -131,8 +131,12 @@ move(Dimensions-Board-Player, Column-Line-x, Dimensions-NewBoard-NextPlayer) :-
  --------------------------------------------------------------------------------
 **/
 /**
- * Choose the Next Move from Player
+ * Choose the Next Move According to the Level
  * Move has to be a Valid Move
+ * Levels:
+ *      0 - Player
+ *      1 - Random
+ *      2 - Greedy
  */
 % choose_move(+GameState, +Player, +Level, -Move)
 choose_move(GameState, _, 0, Move) :-
@@ -144,7 +148,103 @@ choose_move(GameState, _, 1, Move) :-
 choose_move(GameState, _, 2, Move) :-
     choose_ai_greedy_move(GameState, Move).
 
+/* ---------- Player Move ---------- */
 
+/**
+ * Choose the Next Move According to the Player
+ */
+% choose_player_move(+GameState, -Move)
+choose_player_move(GameState, Move) :-
+    valid_moves(GameState, _, ValidMoves),
+    obtain_player_move(ValidMoves, Move).
 
-% valid_moves(GameState, _, PossibleMoves).
+/**
+ * Obtain the Next Move from Player
+ * Move has to be Valid
+ */
+% obtain_player_move(+ValidMoves, -Move)
+obtain_player_move(ValidMoves, Move) :-
+    obtain_move_input(Move),
+    member(Move, ValidMoves).
 
+obtain_player_move(ValidMoves, Move) :-
+    obtain_player_move(ValidMoves, Move).
+
+/**
+ * Obtain Move Input
+ */
+% obtain_move_input(-Move)
+obtain_move_input(Move) :-
+    get_code(ColumnCode),
+    get_code(LineCode),
+    get_code(DirectionCode),
+    skip_line,
+    get_move(ColumnCode-LineCode-DirectionCode, Move).
+
+/**
+ * Obtain Move From Input Codes
+ */
+% get_move(+MoveCodes, -Move)
+get_move(ColumnCode-LineCode-DirectionCode, Column-Line-Direction) :-
+    get_column(ColumnCode, Column),
+    get_line(LineCode, Line),
+    get_direction(DirectionCode, Direction).
+
+/**
+ * Obtain Column From Input Code
+ */
+% get_column(+Code, -Column)
+get_column(Code, Column) :-
+    Code >= 65, % A
+    Code =< 90, % Z
+    Column is Code - 64.
+
+get_column(Code, Column) :-
+    Code >= 97,  % a
+    Code =< 122, % z
+    Column is Code - 96.
+
+get_column(_, 0).
+
+/**
+ * Obtain Line From Input Code
+ */
+% get_line(+Code, -Line)
+get_line(Code, Line) :-
+    Code >= 49, % 1
+    Code =< 57, % 9
+    Line is Code - 48.
+
+get_line(_, 0). % Default Error
+
+/**
+ * Obtain Direction From Input Code
+ */
+% get_direction(+Code, -Direction)
+get_direction( 82, r). % R
+get_direction(114, r). % r
+get_direction( 76, l). % L
+get_direction(108, l). % l
+get_direction( 85, u). % U
+get_direction(117, u). % u
+get_direction( 68, d). % D
+get_direction(100, d). % d
+get_direction( 88, x). % X
+get_direction(120, x). % x
+get_direction(_, 0). % Default (Error)
+
+/* ----------   AI   Move ---------- */
+
+/**
+ * Choose the Next Move According to the Random AI
+ */
+% choose_ai_random_move(+GameState, -Move)
+choose_ai_random_move(GameState, Move) :-
+    valid_moves(GameState, _, ValidMoves),
+    random_member(Move, ValidMoves).
+
+/**
+ * Choose the Next Move According to the Greedy AI
+ */
+% choose_ai_greedy_move(+GameState, -Move)
+choose_ai_greedy_move(_, _). /* TODO */
