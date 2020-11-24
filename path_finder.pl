@@ -110,7 +110,7 @@ find_blue_path(Line, Dimensions, Board, Visited) :-
     Line =< Dimensions,
     find_path_left_right(1-Line, Dimensions, Board, Visited).
 
-find_blue_path(Column, Dimensions, Board, Visited) :-
+find_blue_path(Line, Dimensions, Board, Visited) :-
     NextLine is Line + 1,
     find_blue_path(NextLine, Dimensions, Board, Visited).
 

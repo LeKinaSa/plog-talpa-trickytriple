@@ -2,10 +2,21 @@
 :- include('path_finder.pl').
 
 /**
+ * Talpa Game
+ * Dimensions = Size of the Board
+ * Players    = RedBot-BlueBot
+ * RedBot     = Red Bot
+ * BlueBot    = Blue Bot
+ * Bots:
+ *      0 - Player
+ *      1 - Random
+ *      2 - Greedy
+ * 
  * Game State = Dimensions-Board-Player
  * BoardInfo  = Dimensions-Board
  */
-talpa(Dimensions, RedBot-BlueBot).
+% talpa(Dimensions, RedBot-BlueBot)
+talpa(_, _).
 
 /**
  --------------------------------------------------------------------------------
@@ -38,9 +49,9 @@ valid_moves_by_moving_pieces(GameState, PossibleMoves) :-
 % valid_moves_by_not_moving_pieces(+GameState, +ListOfMovesByMoving, -ListOfMoves)
 valid_moves_by_not_moving_pieces(GameState, PossibleMovesByMoving, PossibleMovesByRemovingPiece) :-
     length(PossibleMovesByMoving, 0),
-    valid_moves_by_removing_pieces(Gametate, PossibleMovesByRemovingPiece).
+    valid_moves_by_removing_pieces(GameState, PossibleMovesByRemovingPiece).
 
-valid_moves_by_not_moving_pieces(GameState, PossibleMovesByMoving, PossibleMovesByMoving) :-
+valid_moves_by_not_moving_pieces(_, PossibleMovesByMoving, PossibleMovesByMoving) :-
     length(PossibleMovesByMoving, L),
     L > 0.
 
@@ -72,11 +83,12 @@ clear_invalid_moves(AllMoves, ValidMoves) :-
  * Obtain All Movements (valid or invalid)
  */
 % obtain_all_moving_piece_moves(+GameState, +Pieces, -ListOfMoves)
-obtain_all_moving_piece_moves(GameState, [Piece | Pieces], [R L U D | PossibleMoves]) :-
+obtain_all_moving_piece_moves(GameState, [Piece | Pieces], [R, L, U, D | PossibleMoves]) :-
     obtain_piece_movement(GameState, Piece, r, R),
     obtain_piece_movement(GameState, Piece, l, L),
     obtain_piece_movement(GameState, Piece, u, U),
-    obtain_piece_movement(GameState, Piece, d, D).
+    obtain_piece_movement(GameState, Piece, d, D),
+    obtain_all_moving_piece_moves(GameState, Pieces, PossibleMoves).
 
 obtain_all_moving_piece_moves(_, [], []).
 
@@ -103,7 +115,8 @@ obtain_move_from_element(_, _, _, _, 0).
  * Obtain All the Removing Moves accordingly to the Positions of the Player's Pieces
  */
 % obtain_removing_piece_moves(+PlayerPieces, -ListOfMoves)
-obtain_removing_piece_moves([Piece | Pieces], [Piece-x | PossibleMoves]).
+obtain_removing_piece_moves([Piece | Pieces], [Piece-x | PossibleMoves]) :-
+    obtain_removing_piece_moves(Pieces, PossibleMoves).
 obtain_removing_piece_moves([], []).
 
 /**
