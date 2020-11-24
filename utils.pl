@@ -139,6 +139,48 @@ adjacent_cell(Position, Adjacency, BoardInfo, Element) :-
 
 /**
  --------------------------------------------------------------------------------
+ --------------------              Player Pieces             --------------------
+ --------------------------------------------------------------------------------
+**/
+
+/**
+ * Obtain All the Pieces' Positions on the Board from the Player
+ *  Line  goes from Dimensions to      1
+ * Column goes from     1     to Dimensions
+ */
+% get_pieces_from_player(+GameState, -Pieces)
+get_pieces_from_player(Dimensions-Board-Player, Pieces) :-
+    player_symbol(Player, PlayerSymbol),
+    get_pieces_from_player(Dimensions, Board, PlayerSymbol, [], Pieces).
+
+/**
+ * Obtain the Line for the Piece's Positions
+ */
+% get_pieces_from_player_on_board(+Line, +Board, +PlayerSymbol, +Pieces, -NewPieces)
+get_pieces_from_player_on_board(Line, [BoardLine | Board], PlayerSymbol, Pieces, NewPieces) :-
+    get_pieces_from_player_on_line(1-Line, BoardLine, PlayerSymbol, Pieces, AuxPieces),
+    NextLine is Line - 1,
+    get_pieces_from_player_on_board(NextLine, Board, PlayerSymbol, AuxPieces, NewPieces).
+
+/**
+ * Obtain the Column for the Piece's Positions
+ */
+% get_pieces_from_player_on_line(+Position, +BoardLine, +PlayerSymbol, +Pieces, -NewPieces)
+get_pieces_from_player_on_line(Column-Line, [PlayerSymbol | BoardLine],
+                                PlayerSymbol, Pieces, [Column-Line | NewPieces]) :-
+    NextColumn is Column + 1,
+    get_pieces_from_player_on_line(NextColumn-Line, BoardLine, PlayerSymbol, Pieces, NewPieces).
+
+get_pieces_from_player_on_line(Column-Line, [Element | BoardLine],
+                                PlayerSymbol, Pieces, NewPieces) :-
+    Element \= PlayerSymbol,
+    NextColumn is Column + 1,
+    get_pieces_from_player_on_line(NextColumn-Line, BoardLine, PlayerSymbol, Pieces, NewPieces).
+
+get_pieces_from_player_on_line(_, [], Pieces, Pieces).
+
+/**
+ --------------------------------------------------------------------------------
  --------------------               Path Finder              --------------------
  --------------------------------------------------------------------------------
 **/

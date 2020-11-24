@@ -52,43 +52,6 @@ valid_moves_by_removing_pieces(GameState, PossibleMoves) :-
     obtain_removing_piece_moves(Pieces, PossibleMoves).
 
 /**
- * Obtain All the Pieces' Positions on the Board from the Player
- *  Line  goes from Dimensions to      1
- * Column goes from     1     to Dimensions
- */
-% get_pieces_from_player(+GameState, -Pieces)
-get_pieces_from_player(Dimensions-Board-Player, Pieces) :-
-    player_symbol(Player, PlayerSymbol),
-    get_pieces_from_player(Dimensions, Board, PlayerSymbol, [], Pieces).
-
-/**
- * Obtain the Line for the Piece's Positions
- */
-% get_pieces_from_player_on_board(+Line, +Board, +PlayerSymbol, +Pieces, -NewPieces)
-get_pieces_from_player_on_board(Line, [BoardLine | Board], PlayerSymbol, Pieces, NewPieces) :-
-    get_pieces_from_player_on_line(1-Line, BoardLine, PlayerSymbol, Pieces, AuxPieces),
-    NextLine is Line - 1,
-    get_pieces_from_player_on_board(NextLine, Board, PlayerSymbol, AuxPieces, NewPieces).
-
-/**
- * Obtain the Column for the Piece's Positions
- */
-% get_pieces_from_player_on_line(+Position, +BoardLine, +PlayerSymbol, +Pieces, -NewPieces)
-get_pieces_from_player_on_line(Column-Line, [PlayerSymbol | BoardLine],
-                                PlayerSymbol, Pieces, [Column-Line | NewPieces]) :-
-    NextColumn is Column + 1,
-    get_pieces_from_player_on_line(NextColumn-Line, BoardLine, PlayerSymbol, Pieces, NewPieces).
-
-get_pieces_from_player_on_line(Column-Line, [Element | BoardLine],
-                                PlayerSymbol, Pieces, NewPieces) :-
-    Element \= PlayerSymbol,
-    NextColumn is Column + 1,
-    get_pieces_from_player_on_line(NextColumn-Line, BoardLine, PlayerSymbol, Pieces, NewPieces).
-
-get_pieces_from_player_on_line(_, [], Pieces, Pieces).
-
-
-/**
  * Obtain All Movements accordingly to the Positions of the Player's Pieces and the Enemy's Pieces
  */
 % obtain_moving_piece_moves(+GameState, +Pieces, -ListOfMoves)
@@ -128,10 +91,10 @@ obtain_piece_movement(Dimensions-Board-Player, Position, Direction, Move) :-
  * Obtain the Move Accordingly to the Player
  * Invalid Move : 0
  */
+% obtain_move_from_element(+Position, +Direction, +Player, +Element, -Move)
 obtain_move_from_element(Position, Direction, Player, Element, Position-Direction) :-
     Enemy is -Player,
-    player_symbol(Enemy, Symbol),
-    Element == Symbol.
+    player_symbol(Enemy, Element).
 
 obtain_move_from_element(_, _, _, _, 0).
 
