@@ -10,7 +10,7 @@ in the way.
 It works for size 4 boards so the code is somewhat correct but for anyting bigger than that
 it takes forever, or it runs out of memory.
 
-Maybe a diferent aprouch or optimise this.
+Maybe a diferent aproach or optimise this.
 
 Also I got the player switched at some point in the code so the values are reversed
 */
