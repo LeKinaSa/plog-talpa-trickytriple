@@ -107,6 +107,9 @@ obtain_menu_input(Input, Max) :-
     Code >= (48 + 0),
     Code =< (48 + Max),
     Input is Code - 48.
+obtain_menu_input(Input, Max) :-
+    Max > 0,
+    obtain_menu_input(Input, Max).
 
 obtain_menu_input(_, 0) :-
     get_code(_),
