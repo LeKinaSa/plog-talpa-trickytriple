@@ -83,7 +83,7 @@ inside_board(Column-Line, Dimensions) :-
  *  Line  goes from Dimensions to      1
  * Column goes from      1     to Dimensions
  */
-% board_cell(+Position, +BoardInfo, -Element)
+% board_cell(+Position, +BoardInfo, ?Element)
 board_cell(Column-Line, Dimensions-Board, Element) :-
     inside_board(Column-Line, Dimensions),
     LineNumber is Dimensions - Line + 1,
@@ -186,7 +186,7 @@ get_pieces_from_player_on_line(_, [], Pieces, Pieces).
 **/
 
 /**
- * Creates a visited board
+ * Creates a Visited Board
  *          0 - not visited
  *          1 - visited
  */
@@ -200,7 +200,7 @@ create_visited_board(Line, Dimensions, [BoardLine | Visited]) :-
 create_visited_board(0, _, []).
 
 /**
- * Creates a visited line
+ * Creates a Visited Line
  */
 % create_visited_line(+Column, -VisitedLine)
 create_visited_line(Column, [0 | Line]) :-
@@ -211,7 +211,7 @@ create_visited_line(Column, [0 | Line]) :-
 create_visited_line(0, []).
 
 /**
- * Checks if a path exists between the red edges (up and down)
+ * Checks if a Path exists between the Red Edges (up and down)
  * BoardInfo = Dimensions-Board
  * Return Values:
  *          0 - no path
@@ -237,14 +237,39 @@ find_red_path(Column, Dimensions, Board, Visited) :-
     find_red_path(NextColumn, Dimensions, Board, Visited).
 
 /**
- * Tries to find a path between the edges UP and DOWN
+ * Tries to Find a Path between the Edges UP and DOWN
  */
 % find_path_up_down(+Cell, +Dimensions, +Board, +Visited)
-find_path_up_down(Cell, Dimensions, Board, Visited).
+find_path_up_down(Cell, Dimensions, Board, Visited) :-
+    board_cell(Cell, Dimensions-Board, ' '),
+    board_cell(Cell, Dimensions-Visited, 0),
+    replace(Cell, 1, Dimensions-Visited, NextVisited),
+    find_path_up_down_adjacent(Cell, Dimensions, Board, NextVisited).
+
 find_path_up_down(_-1, _, _, _).
 
 /**
- * Checks if a path exists between the blue edges (left and right)
+ * Tries to find a UP-DOWN Path through All the Adjacent Positions
+ */
+% find_path_up_down_adjacent(+Cell, +Dimensions, +Board, +Visited)
+find_path_up_down_adjacent(Cell, Dimensions, Board, Visited) :-
+    adjacent_position(Cell, r, NextCell),
+    find_path_up_down(NextCell, Dimensions, Board, Visited).
+
+find_path_up_down_adjacent(Cell, Dimensions, Board, Visited) :-
+    adjacent_position(Cell, l, NextCell),
+    find_path_up_down(NextCell, Dimensions, Board, Visited).
+
+find_path_up_down_adjacent(Cell, Dimensions, Board, Visited) :-
+    adjacent_position(Cell, u, NextCell),
+    find_path_up_down(NextCell, Dimensions, Board, Visited).
+
+find_path_up_down_adjacent(Cell, Dimensions, Board, Visited) :-
+    adjacent_position(Cell, d, NextCell),
+    find_path_up_down(NextCell, Dimensions, Board, Visited).
+
+/**
+ * Checks if a Path exists between the Blue Edges (left and right)
  * BoardInfo = Dimensions-Board
  * Return Values:
  *          0 - no path
@@ -271,8 +296,33 @@ find_blue_path(Column, Dimensions, Board, Visited) :-
 
 
 /**
- * Tries to find a path between the edges LEFT and RIGHT
+ * Tries to Find a Path between the Edges LEFT and RIGHT
  */
 % find_path_left_right(+Cell, +Dimensions, +Board, +Visited)
-find_path_left_right(Cell, Dimensions, Board, Visited).
+find_path_left_right(Cell, Dimensions, Board, Visited) :-
+    board_cell(Cell, Dimensions-Board, ' '),
+    board_cell(Cell, Dimensions-Visited, 0),
+    replace(Cell, 1, Dimensions-Visited, NextVisited),
+    find_path_left_right_adjacent(Cell, Dimensions, Board, NextVisited).
+
 find_path_left_right(Dimensions-_, Dimensions, _, _).
+
+/**
+ * Tries to find a LEFT-RIGHT Path through All the Adjacent Positions
+ */
+% find_path_left_right_adjacent(+Cell, +Dimensions, +Board, +Visited)
+find_path_left_right_adjacent(Cell, Dimensions, Board, Visited) :-
+    adjacent_position(Cell, r, NextCell),
+    find_path_left_right(NextCell, Dimensions, Board, Visited).
+
+find_path_left_right_adjacent(Cell, Dimensions, Board, Visited) :-
+    adjacent_position(Cell, l, NextCell),
+    find_path_left_right(NextCell, Dimensions, Board, Visited).
+
+find_path_left_right_adjacent(Cell, Dimensions, Board, Visited) :-
+    adjacent_position(Cell, u, NextCell),
+    find_path_left_right(NextCell, Dimensions, Board, Visited).
+
+find_path_left_right_adjacent(Cell, Dimensions, Board, Visited) :-
+    adjacent_position(Cell, d, NextCell),
+    find_path_left_right(NextCell, Dimensions, Board, Visited).
