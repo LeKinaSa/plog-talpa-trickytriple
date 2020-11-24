@@ -1,4 +1,5 @@
 :- include('board.pl').
+:- include('path_finder.pl').
 
 /**
  * Game State = Dimensions-Board-Player
