@@ -15,8 +15,10 @@
  * Game State = Dimensions-Board-Player
  * BoardInfo  = Dimensions-Board
  */
-% talpa(Dimensions, RedBot-BlueBot)
-talpa(_, _).
+% talpa(+Dimensions, +Players)
+talpa(Dimensions, _) :-
+    initial(Dimensions-Board-Player),
+    display_game(Dimensions-Board-Player, _).
 
 /**
  --------------------------------------------------------------------------------
