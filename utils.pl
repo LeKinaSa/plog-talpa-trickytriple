@@ -83,7 +83,7 @@ inside_board(Column-Line, Dimensions) :-
  *  Line  goes from Dimensions to      1
  * Column goes from      1     to Dimensions
  */
-% board_cell(+Position, +BoardInfo, -Element)
+% board_cell(+Position, +BoardInfo, ?Element)
 board_cell(Column-Line, Dimensions-Board, Element) :-
     inside_board(Column-Line, Dimensions),
     LineNumber is Dimensions - Line + 1,
@@ -139,40 +139,42 @@ adjacent_cell(Position, Adjacency, BoardInfo, Element) :-
 
 /**
  --------------------------------------------------------------------------------
- --------------------               Path Finder              --------------------
+ --------------------              Player Pieces             --------------------
  --------------------------------------------------------------------------------
 **/
 
 /**
- * Checks if a path exists between the red edges (up and down)
- * BoardInfo = Dimensions-Board
- * Return Values:
- *          0 - no path
- *          1 - path
+ * Obtain All the Pieces' Positions on the Board from the Player
+ *  Line  goes from Dimensions to      1
+ * Column goes from     1     to Dimensions
  */
-% find_path_red_red(+BoardInfo, -Path)
-find_path_red_red(Dimensions-Board, 1) :-
-    find_path_up_down(Dimensions-Board).
+% get_pieces_from_player(+GameState, -Pieces)
+get_pieces_from_player(Dimensions-Board-Player, Pieces) :-
+    player_symbol(Player, PlayerSymbol),
+    get_pieces_from_player(Dimensions, Board, PlayerSymbol, [], Pieces).
 
 /**
- * Tries to find a path between the edges UP and DOWN
+ * Obtain the Line for the Piece's Positions
  */
-% find_path_up_down(+BoardInfo)
-find_path_up_down(_).
+% get_pieces_from_player_on_board(+Line, +Board, +PlayerSymbol, +Pieces, -NewPieces)
+get_pieces_from_player_on_board(Line, [BoardLine | Board], PlayerSymbol, Pieces, NewPieces) :-
+    get_pieces_from_player_on_line(1-Line, BoardLine, PlayerSymbol, Pieces, AuxPieces),
+    NextLine is Line - 1,
+    get_pieces_from_player_on_board(NextLine, Board, PlayerSymbol, AuxPieces, NewPieces).
 
 /**
- * Checks if a path exists between the blue edges (left and right)
- * BoardInfo = Dimensions-Board
- * Return Values:
- *          0 - no path
- *          1 - path
+ * Obtain the Column for the Piece's Positions
  */
-% find_path_blue_blue(+BoardInfo, -Path)
-find_path_blue_blue(Dimensions-Board, 1) :-
-    find_path_left_right(Dimensions-Board).
+% get_pieces_from_player_on_line(+Position, +BoardLine, +PlayerSymbol, +Pieces, -NewPieces)
+get_pieces_from_player_on_line(Column-Line, [PlayerSymbol | BoardLine],
+                                PlayerSymbol, Pieces, [Column-Line | NewPieces]) :-
+    NextColumn is Column + 1,
+    get_pieces_from_player_on_line(NextColumn-Line, BoardLine, PlayerSymbol, Pieces, NewPieces).
 
-/**
- * Tries to find a path between the edges LEFT and RIGHT
- */
-% find_path_left_right(+BoardInfo)
-find_path_left_right(_).
+get_pieces_from_player_on_line(Column-Line, [Element | BoardLine],
+                                PlayerSymbol, Pieces, NewPieces) :-
+    Element \= PlayerSymbol,
+    NextColumn is Column + 1,
+    get_pieces_from_player_on_line(NextColumn-Line, BoardLine, PlayerSymbol, Pieces, NewPieces).
+
+get_pieces_from_player_on_line(_, [], Pieces, Pieces).
