@@ -1,6 +1,7 @@
 :- ensure_loaded('board.pl').
 :- ensure_loaded('display.pl').
 :- ensure_loaded('path_finder.pl').
+:- ensure_loaded('moves.pl').
 
 /**
  --------------------------------------------------------------------------------
@@ -12,9 +13,9 @@
  * Talpa Game
  * Dimensions = Size of the Board
  * Players    = RedBot-BlueBot
- * RedBot     = Red Bot
- * BlueBot    = Blue Bot
- * Bots:
+ * RedBot     = Red  Player Difficulty
+ * BlueBot    = Blue Player Difficulty
+ * Bots Difficulty:
  *      0 - Player
  *      1 - Random
  *      2 - Greedy
@@ -23,9 +24,27 @@
  * BoardInfo  = Dimensions-Board
  */
 % talpa(+Dimensions, +Players)
-talpa(Dimensions, _) :-
+talpa(Dimensions, Players) :-
     initial(Dimensions-Board-Player),
-    display_game(Dimensions-Board-Player, _).
+    game(Dimensions-Board-Player, Players).
+
+/**
+ * Game Loop
+ * Keeps Playing the Game until Game Over
+ */
+game(GameState, Players) :-
+    display_game(GameState, _),
+    choose_player_level(GameState, Players),
+    choose_move(GameState, _, Level, Move),
+    move(GameState, Move, NewGameState),
+    game(NewGameState, Players).
+
+/**
+ * Choose Player Level / Difficulty
+ */
+% choose_player_level(+GameState, +Players, -Level)
+choose_player_level(_-_-( 1),  RedBot-_,  RedBot).
+choose_player_level(_-_-(-1), _-BlueBot, BlueBot).
 
 /**
  --------------------------------------------------------------------------------
