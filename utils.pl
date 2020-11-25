@@ -85,7 +85,7 @@ inside_board(Column-Line, Dimensions) :-
  */
 % board_cell(+Position, +BoardInfo, ?Element)
 board_cell(Column-Line, Dimensions-Board, Element) :-
-    inside_board(Column-Line, Dimensions),
+    inside_board(Column-Line, Dimensions),!,
     LineNumber is Dimensions - Line + 1,
     nth1(LineNumber, Board, BoardLine),
     nth1(Column, BoardLine, Element).
