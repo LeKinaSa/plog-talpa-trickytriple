@@ -177,18 +177,19 @@ obtain_player_move(ValidMoves, Move) :-
 obtain_move_input(Move) :-
     get_code(ColumnCode),
     get_code(LineCode),
+    get_code(LineOrDirectionCode),
     get_code(DirectionCode),
-    skip_line,
-    get_move(ColumnCode-LineCode-DirectionCode, Move).
+    skip_rest_of_line(DirectionCode),
+    get_move(ColumnCode-LineCode-LineOrDirectionCode-DirectionCode, Move).
 
 /**
  * Obtain Move From Input Codes
  */
 % get_move(+MoveCodes, -Move)
-get_move(ColumnCode-LineCode-DirectionCode, Column-Line-Direction) :-
+get_move(ColumnCode-LineCode-LineOrDirectionCode-DirectionCode, Column-Line-Direction) :-
     get_column(ColumnCode, Column),
-    get_line(LineCode, Line),
-    get_direction(DirectionCode, Direction).
+    get_line(LineCode-LineOrDirectionCode, Line),
+    get_direction_based_on_line(LineOrDirectionCode-DirectionCode, Line, Direction).
 
 /**
  * Obtain Column From Input Code
@@ -199,7 +200,7 @@ get_column(Code, Column) :-
     Code =< 90, % Z
     Column is Code - 64.
 
-get_column(Code, Column) :-
+get_column(Code1, Column) :-
     Code >= 97,  % a
     Code =< 122, % z
     Column is Code - 96.
@@ -207,15 +208,29 @@ get_column(Code, Column) :-
 get_column(_, 0).
 
 /**
- * Obtain Line From Input Code
+ * Obtain Line From Input Codes
  */
-% get_line(+Code, -Line)
-get_line(Code, Line) :-
-    Code >= 49, % 1
-    Code =< 57, % 9
-    Line is Code - 48.
+% get_line(+Codes, -Line)
+get_line(Code1-Code2, Line) :-
+    Code2 \= 48, % 0
+    Code1 >= 49, % 1
+    Code1 =< 57, % 9
+    Line is Code1 - 48.
+
+get_line(49-48, 10).
 
 get_line(_, 0). % Default Error
+
+/**
+ * Obtain Direction From Line and Input Codes
+ */
+% get_direction_based_on_line(+Codes, +Line, -Direction)
+get_direction_based_on_line(Code-_, Line, Direction) :-
+    Line < 10,
+    get_direction(Code, Direction).
+
+get_direction_based_on_line(_-Code, 10, Direction) :-
+    get_direction(Code, Direction).
 
 /**
  * Obtain Direction From Input Code

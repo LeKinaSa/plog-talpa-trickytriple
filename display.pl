@@ -1,4 +1,4 @@
-:-include('utils.pl').
+:- ensure_loaded('utils.pl').
 
 /*
  --------------------------------------------------------------------------------
@@ -135,7 +135,16 @@ print_board([], _, 0).
  */
 % print_board_line(+Line, +LineNumber)
 print_board_line(Line, LineNumber) :-
+    LineNumber < 10,
     space(2),
+    print_line_marking(LineNumber),
+    print_vertical_division,
+    print_board_line_elements(Line),
+    print_line_marking(LineNumber).
+
+print_board_line(Line, LineNumber) :-
+    LineNumber >= 10,
+    space(1),
     print_line_marking(LineNumber),
     print_vertical_division,
     print_board_line_elements(Line),
