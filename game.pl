@@ -34,7 +34,7 @@ talpa(Dimensions, Players) :-
  */
 game(GameState, Players) :-
     display_game(GameState, _),
-    choose_player_level(GameState, Players),
+    choose_player_level(GameState, Players, Level),
     choose_move(GameState, _, Level, Move),
     move(GameState, Move, NewGameState),
     game(NewGameState, Players).

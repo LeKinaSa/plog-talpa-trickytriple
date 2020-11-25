@@ -167,7 +167,7 @@ adjacent_cell(Position, Adjacency, BoardInfo, Element) :-
 % get_pieces_from_player(+GameState, -Pieces)
 get_pieces_from_player(Dimensions-Board-Player, Pieces) :-
     player_symbol(Player, PlayerSymbol),
-    get_pieces_from_player(Dimensions, Board, PlayerSymbol, [], Pieces).
+    get_pieces_from_player_on_board(Dimensions, Board, PlayerSymbol, [], Pieces).
 
 /**
  * Obtain the Line for the Piece's Positions
@@ -182,15 +182,15 @@ get_pieces_from_player_on_board(Line, [BoardLine | Board], PlayerSymbol, Pieces,
  * Obtain the Column for the Piece's Positions
  */
 % get_pieces_from_player_on_line(+Position, +BoardLine, +PlayerSymbol, +Pieces, -NewPieces)
-get_pieces_from_player_on_line(Column-Line, [PlayerSymbol | BoardLine],
-                                PlayerSymbol, Pieces, [Column-Line | NewPieces]) :-
-    NextColumn is Column + 1,
-    get_pieces_from_player_on_line(NextColumn-Line, BoardLine, PlayerSymbol, Pieces, NewPieces).
-
 get_pieces_from_player_on_line(Column-Line, [Element | BoardLine],
                                 PlayerSymbol, Pieces, NewPieces) :-
     Element \= PlayerSymbol,
     NextColumn is Column + 1,
     get_pieces_from_player_on_line(NextColumn-Line, BoardLine, PlayerSymbol, Pieces, NewPieces).
 
-get_pieces_from_player_on_line(_, [], Pieces, Pieces).
+get_pieces_from_player_on_line(Column-Line, [PlayerSymbol | BoardLine],
+                                PlayerSymbol, Pieces, [Column-Line | NewPieces]) :-
+    NextColumn is Column + 1,
+    get_pieces_from_player_on_line(NextColumn-Line, BoardLine, PlayerSymbol, Pieces, NewPieces).
+
+get_pieces_from_player_on_line(_, [], _, Pieces, Pieces).

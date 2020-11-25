@@ -1,4 +1,5 @@
-:- ensure_loaded('value.pl').
+:- ensure_loaded('utils.pl').
+% :- ensure_loaded('value.pl').
 
 /**
  --------------------------------------------------------------------------------
@@ -201,7 +202,7 @@ get_column(Code, Column) :-
     Code =< 90, % Z
     Column is Code - 64.
 
-get_column(Code1, Column) :-
+get_column(Code, Column) :-
     Code >= 97,  % a
     Code =< 122, % z
     Column is Code - 96.
