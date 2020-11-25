@@ -106,7 +106,17 @@ board_cell(Column-Line, Dimensions-Board, Element) :-
     nth1(LineNumber, Board, BoardLine),
     nth1(Column, BoardLine, Element).
 
-board_cell(_, _, '-').
+board_cell(Column-_, _, '-') :-
+    Column =< 0.
+
+board_cell(Column-_, Dimensions-_, '-') :-
+    Column > Dimensions.
+
+board_cell(_-Line, _, '-') :-
+    Line =< 0.
+
+board_cell(_-Line, Dimensions-_, '-') :-
+    Line > Dimensions.
 
 /**
  --------------------------------------------------------------------------------
