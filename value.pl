@@ -3,8 +3,8 @@
 *
 * Game State = Dimensions-Board-PlayerOnMove
 * Player: The Board will be evaluated acording to this player perspective.  
-* Value: An integer beteween 0 and 5 in which 0 is equal to no progress made in forming the path beteween the sides of
-*       Player (only on StartingBoard) and 5 is equal to both sides being conected for Player.
+* Value: An integer beteween 0 and Dimensions in which 0 is equal to no progress made in forming the path beteween the sides of
+*       Player (only on StartingBoard) and if value equals Dimensions that means that both sides of Player are conected.
 *
 * Ps: GameState is a complex member with Dimensions-Board-PlayerOnMove. This is PlayerOnMove is usually just called Player
 * because on most predicates PlayerOnMove is the one that matters. But value doesn't care about which player is on the move
@@ -50,9 +50,10 @@ calculate_board_value(Dimensions-Board-Player, Column, Line, ListOfCheckedEmptyS
 calculate_board_value(Dimensions-Board-Player, Column, Line, ListOfCheckedEmptySpaces, MaxValue, FinalValue):-
     board_cell(Column-Line, Dimensions-Board, ' '),
     \+member(Column-Line, ListOfCheckedEmptySpaces),
-    explore_empty_cell_cluster(Dimensions-Board-Player, [Column-Line-1], 0, [], PossibleMaxValue, AuxListOfCheckedEmptySpaces),
+    explore_empty_cell_cluster(Dimensions-Board-Player, [Column-Line], [], ClusterCells),
+    calculate_cluster_value(Player, ClusterCells, [], PossibleMaxValue),
     NewMaxValue is max(PossibleMaxValue, MaxValue),
-    append(AuxListOfCheckedEmptySpaces, ListOfCheckedEmptySpaces, NewListOfCheckedEmptySpaces),
+    append(ClusterCells, ListOfCheckedEmptySpaces, NewListOfCheckedEmptySpaces),
     increase_column_and_line(Dimensions, Column, Line, NewColumn, NewLine),
     calculate_board_value(Dimensions-Board-Player, NewColumn, NewLine, NewListOfCheckedEmptySpaces, NewMaxValue, FinalValue).
 
@@ -61,34 +62,63 @@ calculate_board_value(Dimensions-Board-Player, Column, Line, ListOfCheckedEmptyS
 * This predicate explores an empty cell cluster.
 * It finds all the adjacent empty cells to the starting one and keeps exporing each new empty cell to find 
 * the ones adjacent to that one.
-* For each adjacent cell to the bottom it adds 1 to the cluster value if player is red (1).
-* For each adjacent cell to the right it adds 1 to the cluster value if player is blue (- 1).
 *
 * Game State = Dimensions-Board-Player
 * CellsToExplore: is a list of empty cells (Column-Line) not already processed.
-* AccValue: Acumulator of cluster value.
 * ListOfCheckedEmptySpacesSoFar: is a list of empty cells (Column-Line) already processed, used to avoid loops
-* FinalMaxValue: Cluster Value
-* FinalListOfCheckedEmptySpaces: list of all empty cells (Column-Line) in the cluster
+* ClusterCells: list of all empty cells (Column-Line) in the cluster
 *
 *
 * Ps: In here the Player in GameState is the player for which the Board is being evaluated not necessarlly
 * the player on move.
 */
-% explore_empty_cell_cluster(+GameState, CellsToExplore, AccValue , ListOfCheckedEmptySpacesSoFar, -FinalMaxValue, -FinalListOfCheckedEmptySpaces)
+% explore_empty_cell_cluster(+GameState, CellsToExplore, ListOfCheckedEmptySpacesSoFar, -ClusterCells)
 /*no more empty cells to process*/
-explore_empty_cell_cluster(_, [], AccValue , ListOfCheckedEmptySpacesSoFar, AccValue , ListOfCheckedEmptySpacesSoFar).
+explore_empty_cell_cluster(_, [], ClusterCells, ClusterCells).
 /*already processed empty cell, skip*/
-explore_empty_cell_cluster(Dimensions-Board-Player, [Column-Line-_ | Tail], AccValue, ListOfCheckedEmptySpacesSoFar, FinalMaxValue, FinalListOfCheckedEmptySpaces):-
-    member(Column-Line, ListOfCheckedEmptySpacesSoFar),
-    explore_empty_cell_cluster(Dimensions-Board-Player, Tail, AccValue, ListOfCheckedEmptySpacesSoFar, FinalMaxValue, FinalListOfCheckedEmptySpaces).
-/*get all adjacent cells to Head cell, and if they added any value */
-explore_empty_cell_cluster(Dimensions-Board-Player, [Column-Line-Inc | Tail], AccValue, ListOfCheckedEmptySpacesSoFar, FinalMaxValue, FinalListOfCheckedEmptySpaces):-
-    \+member(Column-Line, ListOfCheckedEmptySpacesSoFar),
-    NewAccValue is Inc + AccValue,
-    findall(X-Y-V, adjacent_empty_cell(Dimensions-Board-Player, Column-Line, X-Y, V), MoreEmptyCells),
-    append(Tail, MoreEmptyCells, CellsToExplore),
-    explore_empty_cell_cluster(Dimensions-Board-Player, CellsToExplore, NewAccValue, [Column-Line | ListOfCheckedEmptySpacesSoFar], FinalMaxValue, FinalListOfCheckedEmptySpaces).
+explore_empty_cell_cluster(GameState, [Cell | CellsToExploreTail], ListOfCheckedEmptySpacesSoFar, ClusterCells):-
+    member(Cell, ListOfCheckedEmptySpacesSoFar),
+    explore_empty_cell_cluster(GameState, CellsToExploreTail, ListOfCheckedEmptySpacesSoFar, ClusterCells).
+/*get all adjacent cells to Head cell*/
+explore_empty_cell_cluster(GameState, [Cell | CellsToExploreTail], ListOfCheckedEmptySpacesSoFar, ClusterCells):-
+    \+member(Cell, ListOfCheckedEmptySpacesSoFar),
+    findall(X-Y, adjacent_empty_cell(GameState, Cell, X-Y), MoreEmptyCells),
+    append(CellsToExploreTail, MoreEmptyCells, CellsToExplore),
+    explore_empty_cell_cluster(GameState, CellsToExplore, [Cell | ListOfCheckedEmptySpacesSoFar], ClusterCells).
+
+
+
+
+/**
+* This predicate is responsible for calculating the cluster value.
+* In order to do that it projects the cluster on to the column-axis for the blue player (- 1) or on to the line-axis for the red player (1).
+* The value of the cluster will be the range of that projection.
+* 
+* Player - Perspective of wich the Board is being valued 
+* ClusterCells - List containing the empty cells (Column-Line) of the cluster. 
+* ListofDiferentRelevantCoordinates : The Projection of the cluster; it takes the from of a list of cell cordinates: for the red (1) player its a list
+*       of Line(s) and for the blue (- 1) player its a list of Column(s).   
+* Value - value of the cluster
+*/
+
+% calculate_cluster_value(+Player, +ClusterCells, ListofDiferentRelevantCoordinates, -Value)
+/*finished processing the cluster cells*/
+calculate_cluster_value(_, [], ListofDiferentRelevantCoordinates, Value):-
+    length(ListofDiferentRelevantCoordinates, Value).
+/*projection of the cluster on to Lines, used for the red (1) player*/
+calculate_cluster_value(1, [_-Line | ClusterCellsTail], ListofDiferentRelevantCoordinates, Value):-
+    member(Line, ListofDiferentRelevantCoordinates),
+    calculate_cluster_value(1, ClusterCellsTail, ListofDiferentRelevantCoordinates, Value).
+calculate_cluster_value(1, [_-Line | ClusterCellsTail], ListofDiferentRelevantCoordinates, Value):-
+    \+member(Line, ListofDiferentRelevantCoordinates),
+    calculate_cluster_value(1, ClusterCellsTail, [Line | ListofDiferentRelevantCoordinates], Value).
+/*projection of the cluster on to Columnss, used for the blue (- 1) player*/
+calculate_cluster_value(-1, [Column-_ | ClusterCellsTail], ListofDiferentRelevantCoordinates, Value):-
+    member(Column, ListofDiferentRelevantCoordinates),
+    calculate_cluster_value(-1, ClusterCellsTail, ListofDiferentRelevantCoordinates, Value).
+calculate_cluster_value(-1, [Column-_ | ClusterCellsTail], ListofDiferentRelevantCoordinates, Value):-
+    \+member(Column, ListofDiferentRelevantCoordinates),
+    calculate_cluster_value(-1, ClusterCellsTail, [Column | ListofDiferentRelevantCoordinates], Value).
 
 /*
 * Auxiliar predicate. Used to calculate the next cell on the board after receiving the current Column and Line.
@@ -114,68 +144,42 @@ increase_column_and_line(Dimensions, Column, Line, NewColumn, Line):-
 
 
 /**
-* DO NOT CHANGE THE ORDER OF THESE NEXT PREDICATES
-* THE ORDER THEY ARE IN IS CRUCIAL FOR THE CORRECT WORKING OF PREDICATE value/3
-*
 * This predicate was designed to be called on a findall. By doing this we can get all the adjacent empty cells to an initial
 * cell.
-* This also gives an added value that depends on the player: if value is being called for the red (1) player then
-* every adjacent empty cell on the bottom adds value to the overall cluster; if value is being called for the blue (- 1)
-* player then its the right adjacent cells that give value to the cluster.
 * 
 * Game State = Dimensions-Board-Player
 * InitialCell : complex member Column-Line that gives the location of the cell being processed
 * AdjacentCell : complex member Column-Line that gives the location of the adjacent cell
-* AddedValue : 0 or 1 depeding if the adjacent cell adds value to Player
-*
-* Ps: the order is important in order to avoid double counting value. 
 */
 
-% adjacent_empty_cell(+GameState, +InitialCell, -AdjacentCell, -AddedValue)
-adjacent_empty_cell(Dimensions-Board-1, X-Y, X-UpY, 1):-
-    X >= 1, X =< Dimensions,
-    Y >= 1, Y =< Dimensions,
-    UpY is Y - 1,
-    UpY >= 1,
-    board_cell(X-UpY, Dimensions-Board, ' ').
-
-adjacent_empty_cell(Dimensions-Board-Player, X-Y, RightX-Y, 1):-
-    Player \= 1,
-    X >= 1, X =< Dimensions,
-    Y >= 1, Y =< Dimensions,
-    RightX is X + 1,
-    RightX =< Dimensions,
-    board_cell(RightX-Y, Dimensions-Board, ' ').
-
-adjacent_empty_cell(Dimensions-Board-Player, X-Y, X-UpY, 0):-
-    Player \= 1,
-    X >= 1, X =< Dimensions,
-    Y >= 1, Y =< Dimensions,
-    UpY is Y - 1,
-    UpY >= 1,
-    board_cell(X-UpY, Dimensions-Board, ' ').
-
-adjacent_empty_cell(Dimensions-Board-1, X-Y, RightX-Y, 0):-
-    X >= 1, X =< Dimensions,
-    Y >= 1, Y =< Dimensions,
-    RightX is X + 1,
-    RightX =< Dimensions,
-    board_cell(RightX-Y, Dimensions-Board, ' ').
-
-adjacent_empty_cell(Dimensions-Board-_, X-Y, X-DownY, 0):-
+% adjacent_empty_cell(+GameState, +InitialCell, -AdjacentCell)
+adjacent_empty_cell(Dimensions-Board-_, X-Y, X-DownY):-
     X >= 1, X =< Dimensions,
     Y >= 1, Y =< Dimensions,
     DownY is Y + 1,
     DownY =< Dimensions,
     board_cell(X-DownY, Dimensions-Board, ' ').
 
-adjacent_empty_cell(Dimensions-Board-_, X-Y, LeftX-Y, 0):-
+adjacent_empty_cell(Dimensions-Board-_, X-Y, RightX-Y):-
+    X >= 1, X =< Dimensions,
+    Y >= 1, Y =< Dimensions,
+    RightX is X + 1,
+    RightX =< Dimensions,
+    board_cell(RightX-Y, Dimensions-Board, ' ').
+
+adjacent_empty_cell(Dimensions-Board-_, X-Y, X-UpY):-
+    X >= 1, X =< Dimensions,
+    Y >= 1, Y =< Dimensions,
+    UpY is Y - 1,
+    UpY >= 1,
+    board_cell(X-UpY, Dimensions-Board, ' ').
+
+adjacent_empty_cell(Dimensions-Board-_, X-Y, LeftX-Y):-
     X >= 1, X =< Dimensions,
     Y >= 1, Y =< Dimensions,
     LeftX is X - 1,
     LeftX >= 1,
     board_cell(LeftX-Y, Dimensions-Board, ' ').
-
 
 
 /*
@@ -184,13 +188,13 @@ TODO::TESTING PREDICATES DELETE BEFORE DELIVERY
 
 */
 
-boards(1,[ ['O','X','O','X','O','X',' ','X'],
-           ['X','O','X','O','X','O',' ','O'],
-           ['O','X','O','X','O','X','O','X'],
+boards(1,[ ['O','X',' ','X','O','X','O','X'],
            ['X','O',' ',' ',' ','O','X','O'],
            ['O','X',' ','X',' ','X','O','X'],
-           ['X','O','X','O',' ','O','X','O'],
-           ['O','X','O','X','O','X','O','X'],
+           ['X','O',' ','O',' ','O','X','O'],
+           ['O','X',' ',' ',' ','X','O','X'],
+           ['X','O',' ','O',' ','O','X','O'],
+           ['O','X','O','X',' ','X','O','X'],
            ['X','O','X','O','X','O','X','O']
 ]).
 
