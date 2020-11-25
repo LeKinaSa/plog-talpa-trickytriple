@@ -1,5 +1,6 @@
-:- include('board.pl').
-:- include('path_finder.pl').
+:- ensure_loaded('board.pl').
+:- ensure_loaded('display.pl').
+:- ensure_loaded('path_finder.pl').
 
 /**
  --------------------------------------------------------------------------------

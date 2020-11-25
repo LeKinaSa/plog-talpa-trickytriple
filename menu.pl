@@ -1,5 +1,6 @@
-:- include('display.pl').
-:- include('game.pl').
+:- ensure_loaded('utils.pl').
+:- ensure_loaded('display.pl').
+:- ensure_loaded('game.pl').
 
 /**
  * Menu Cointaining All the Selected Game Options
