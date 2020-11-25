@@ -103,7 +103,7 @@ obtain_bot_difficulty(4, RedBot-BlueBot) :-
 obtain_menu_input(Input, Max) :-
     Max > 0,
     get_code(Code),
-    skip_line,
+    skip_rest_of_line(Code),
     Code >= (48 + 0),
     Code =< (48 + Max),
     Input is Code - 48.
@@ -112,5 +112,5 @@ obtain_menu_input(Input, Max) :-
     obtain_menu_input(Input, Max).
 
 obtain_menu_input(_, 0) :-
-    get_code(_),
-    skip_line.
+    get_code(Code),
+    skip_rest_of_line(Code).
