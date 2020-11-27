@@ -26,6 +26,7 @@ menu(Menu) :-
 menu(0) :-
     display_menu(0),
     obtain_menu_input(NextMenu, 4),
+    !,
     NextMenu > 0,
     menu(NextMenu).
 
