@@ -80,5 +80,4 @@ game_over(Dimensions-Board-PlayerOnMove, Winner) :-
 find_winner(0-0, _,  0).
 find_winner(1-0, _, -1).
 find_winner(0-1, _,  1).
-find_winner(1-1, Player, Winner) :-
-    Winner is -Player.
+find_winner(1-1, Winner, Winner).

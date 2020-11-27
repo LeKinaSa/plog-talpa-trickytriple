@@ -122,13 +122,13 @@ display_player(- 1) :-
  * - 1 is Blue
  */
 % display_winner(+Winner)
-display_player(  1) :-
+display_winner(  1) :-
     player_symbol(  1, Symbol),
     space(4),
     write('Red ('),
     write(Symbol),
     write(') won!').
-display_player(- 1) :-
+display_winner(- 1) :-
     player_symbol(- 1, Symbol),
     space(4),
     write('Blue ('),
