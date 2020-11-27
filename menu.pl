@@ -21,6 +21,7 @@ menu(Menu) :-
     Menu > 0,
     display_menu(Menu),
     obtain_menu_input(NextMenu, 3),
+    !,
     select_next_menu(Menu, NextMenu).
 
 menu(0) :-
