@@ -117,6 +117,25 @@ display_player(- 1) :-
     write(') on move').
 
 /**
+ * Display the Winner
+ *   1 is Red
+ * - 1 is Blue
+ */
+% display_winner(+Winner)
+display_player(  1) :-
+    player_symbol(  1, Symbol),
+    space(4),
+    write('Red ('),
+    write(Symbol),
+    write(') won!').
+display_player(- 1) :-
+    player_symbol(- 1, Symbol),
+    space(4),
+    write('Blue ('),
+    write(Symbol),
+    write(') won!').
+
+/**
  * Print All the Lines on the Board
  */
 % print_board(+Board, +Columns, +LineNumber)
@@ -188,6 +207,8 @@ display_board(Board, Dimensions) :-
  */
 % display_game(+GameState, +Player)
 display_game(Dimensions-Board-Player, _) :-
+    clr,
+    display_header,
     display_player(Player),
     new_line(2),
     display_board(Board, Dimensions).
