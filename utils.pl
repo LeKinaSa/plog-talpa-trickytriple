@@ -7,6 +7,14 @@
 **/
 
 /**
+ * Obtain an empty input
+ */
+% obtain_empty_input
+obtain_empty_input :-
+    get_code(Code),
+    skip_rest_of_line(Code).
+
+/**
  * Skips the rest of the line
  */
 % skip_rest_of_line(+Code)

@@ -1,4 +1,6 @@
+:- use_module(library(random)).
 :- ensure_loaded('utils.pl').
+:- ensure_loaded('display.pl').
 % :- ensure_loaded('value.pl').
 
 /**
@@ -258,7 +260,9 @@ get_direction(_, 0). % Default (Error)
 % choose_ai_random_move(+GameState, -Move)
 choose_ai_random_move(GameState, Move) :-
     valid_moves(GameState, _, ValidMoves),
-    random_member(Move, ValidMoves).
+    random_member(Move, ValidMoves),
+    display_ai_move(Move),
+    obtain_empty_input.
 
 /**
  * Choose the Next Move According to the Greedy AI

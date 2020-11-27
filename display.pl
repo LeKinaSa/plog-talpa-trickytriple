@@ -211,7 +211,9 @@ display_game(Dimensions-Board-Player, _) :-
     display_header,
     display_player(Player),
     new_line(2),
-    display_board(Board, Dimensions).
+    display_board(Board, Dimensions),
+    new_line(2).
+
 /**
  * Display the Winner and the Game Board on Screen
  * GameState       - complex member made of Dimensions, Board and Player ( Dimensions-Board-Player )
@@ -226,7 +228,53 @@ display_game_winner(Dimensions-Board-_, Winner) :-
     display_header,
     display_winner(Winner),
     new_line(2),
-    display_board(Board, Dimensions).
+    display_board(Board, Dimensions),
+    new_line(2).
+
+/**
+ * Display Move Instructions
+ */
+% display_move_instructions
+display_move_instructions :-
+    write('*              MOVE FORMAT              *\n'),
+    write('*****************************************\n'),
+    write('*   Column Line Direction (no spaces)   *\n'),
+    write('*   Directions:                         *\n'),
+    write('*                 r - right             *\n'),
+    write('*                 l - left              *\n'),
+    write('*                 u - up                *\n'),
+    write('*                 d - down              *\n'),
+    write('*                 x - extract           *\n'),
+    write('*****************************************\n').
+
+/**
+ * Display AI Move
+ */
+% display_ai_move(+Move)
+display_ai_move(Column-Line-Direction) :-
+    new_line(1),
+    write('Move: '),
+    ColumnLetter is Column + 64,
+    put_code(ColumnLetter),
+    write(Line),
+    space(1),
+    print_direction(Direction),
+    new_line(2).
+
+/**
+ * Prints the Direction
+ */
+% print_direction(+Direction)
+print_direction(r) :-
+    write('right').
+print_direction(l) :-
+    write('left').
+print_direction(u) :-
+    write('up').
+print_direction(d) :-
+    write('down').
+print_direction(x) :-
+    write('extract').
 
 /*
  --------------------------------------------------------------------------------

@@ -10,7 +10,8 @@ talpa_game(Dimensions, RedBot-BlueBot) :-
     clr,
     display_header,
     display_start_game_menu(Dimensions, RedBot-BlueBot),
-    obtain_menu_input(_, 0),
+    display_move_instructions,
+    obtain_empty_input,
     talpa(Dimensions, RedBot-BlueBot).
 
 /*
@@ -113,7 +114,3 @@ obtain_menu_input(Input, Max) :-
 obtain_menu_input(Input, Max) :-
     Max > 0,
     obtain_menu_input(Input, Max).
-
-obtain_menu_input(_, 0) :-
-    get_code(Code),
-    skip_rest_of_line(Code).
