@@ -74,7 +74,7 @@ find_path_up_down(Cell, Dimensions, Board, Visited) :-
     replace(Cell, 1, Dimensions-Visited, NextVisited),
     find_path_up_down_adjacent(Cell, Dimensions, Board, NextVisited).
 
-find_path_up_down(_-1, _, _, _).
+find_path_up_down(_-0, _, _, _).
 
 /**
  * Tries to find a UP-DOWN Path through All the Adjacent Positions
@@ -134,7 +134,8 @@ find_path_left_right(Cell, Dimensions, Board, Visited) :-
     replace(Cell, 1, Dimensions-Visited, NextVisited),
     find_path_left_right_adjacent(Cell, Dimensions, Board, NextVisited).
 
-find_path_left_right(Dimensions-_, Dimensions, _, _).
+find_path_left_right(OutOfDimensions-_, Dimensions, _, _) :-
+    OutOfDimensions is Dimensions + 1.
 
 /**
  * Tries to find a LEFT-RIGHT Path through All the Adjacent Positions
