@@ -56,10 +56,11 @@ find_path_red_red(_, 0).
  */
 % find_red_path(+Column, +Dimensions, +Board, +Visited)
 find_red_path(Column, Dimensions, Board, Visited) :-
+    Column =< Dimensions,
     find_path_up_down(Column-Dimensions, Dimensions, Board, Visited).
 
 find_red_path(Column, Dimensions, Board, Visited) :-
-    Column < Dimensions,
+    Column =< Dimensions,
     NextColumn is Column + 1,
     find_red_path(NextColumn, Dimensions, Board, Visited).
 
@@ -114,10 +115,11 @@ find_path_blue_blue(_, 0).
  */
 % find_blue_path(+BoardInfo)
 find_blue_path(Line, Dimensions, Board, Visited) :-
+    Line =< Dimensions,
     find_path_left_right(1-Line, Dimensions, Board, Visited).
 
 find_blue_path(Line, Dimensions, Board, Visited) :-
-    Line < Dimensions,
+    Line =< Dimensions,
     NextLine is Line + 1,
     find_blue_path(NextLine, Dimensions, Board, Visited).
 
