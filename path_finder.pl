@@ -10,12 +10,19 @@
  *          0 - not visited
  *          1 - visited
  */
-% create_visited_board(+Line, +Dimensions, -Visited)
-create_visited_board(Line, Dimensions, [BoardLine | Visited]) :-
-    Line > 0,
+% create_visited(+Dimensions, -Visited)
+create_visited(Dimensions, Visited) :-
     create_visited_line(Dimensions, BoardLine),
+    create_visited_board(Dimensions, BoardLine, Visited).
+
+/**
+ * Creates a Visited Board Based on a Board Line
+ */
+% create_visited_board(+Line, +BoardLine, -Visited)
+create_visited_board(Line, BoardLine, [BoardLine | Visited]) :-
+    Line > 0,
     NextLine is Line - 1,
-    create_visited_board(NextLine, Dimensions, Visited).
+    create_visited_board(NextLine, BoardLine, Visited).
 
 create_visited_board(0, _, []).
 
@@ -39,7 +46,7 @@ create_visited_line(0, []).
  */
 % find_path_red_red(+BoardInfo, -Path)
 find_path_red_red(Dimensions-Board, 1) :-
-    create_visited_board(Dimensions, Dimensions, Visited),
+    create_visited(Dimensions, Visited),
     find_red_path(1, Dimensions, Board, Visited).
 
 find_path_red_red(_, 0).
@@ -97,7 +104,7 @@ find_path_up_down_adjacent(Cell, Dimensions, Board, Visited) :-
  */
 % find_path_blue_blue(+BoardInfo, -Path)
 find_path_blue_blue(Dimensions-Board, 1) :-
-    create_visited_board(Dimensions, Dimensions, Visited),
+    create_visited(Dimensions, Visited),
     find_blue_path(1, Dimensions, Board, Visited).
 
 find_path_blue_blue(_, 0).

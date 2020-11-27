@@ -32,6 +32,12 @@ talpa(Dimensions, Players) :-
  * Game Loop
  * Keeps Playing the Game until Game Over
  */
+game(GameState, _) :-
+    game_over(GameState, Winner),
+    Winner \= 0,
+    display_game(GameState, _),
+    display_winner(Winner).
+
 game(GameState, Players) :-
     display_game(GameState, _),
     choose_player_level(GameState, Players, Level),
@@ -63,8 +69,8 @@ choose_player_level(_-_-(-1), _-BlueBot, BlueBot).
  */
 % game_over(+GameState, -Winner)
 game_over(Dimensions-Board-PlayerOnMove, Winner) :-
-    find_path_left_right(Dimensions-Board, BluePath),
-    find_path_up_down(Dimensions-Board, RedPath),
+    find_path_blue_blue(Dimensions-Board, BluePath),
+    find_path_red_red(Dimensions-Board, RedPath),
     find_winner(BluePath-RedPath, PlayerOnMove, Winner).
 
 /**
