@@ -35,8 +35,7 @@ talpa(Dimensions, Players) :-
 game(GameState, _) :-
     game_over(GameState, Winner),
     Winner \= 0,
-    display_game(GameState, _),
-    display_winner(Winner).
+    display_game_winner(GameState, Winner).
 
 game(GameState, Players) :-
     display_game(GameState, _),

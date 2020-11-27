@@ -127,13 +127,13 @@ display_winner(  1) :-
     space(4),
     write('Red ('),
     write(Symbol),
-    write(') won!').
+    write(') won!!!!!').
 display_winner(- 1) :-
     player_symbol(- 1, Symbol),
     space(4),
     write('Blue ('),
     write(Symbol),
-    write(') won!').
+    write(') won!!!!!').
 
 /**
  * Print All the Lines on the Board
@@ -210,6 +210,21 @@ display_game(Dimensions-Board-Player, _) :-
     clr,
     display_header,
     display_player(Player),
+    new_line(2),
+    display_board(Board, Dimensions).
+/**
+ * Display the Winner and the Game Board on Screen
+ * GameState       - complex member made of Dimensions, Board and Player ( Dimensions-Board-Player )
+ * Dimensions      - dimension of the square board
+ * Board           - list of lists that represents the square board of the game
+ * Player          - the next player to move
+ * Winner          - the player that won the game
+ */
+% display_game_winner(+GameState, +Winner)
+display_game_winner(Dimensions-Board-_, Winner) :-
+    clr,
+    display_header,
+    display_winner(Winner),
     new_line(2),
     display_board(Board, Dimensions).
 
