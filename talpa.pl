@@ -1,10 +1,16 @@
 % :- ensure_loaded('intermediate_delivery.pl').
 :- ensure_loaded('menu.pl').
 
-play :- menu(0).
+% play :- menu(0).
 
-/*
-init(D, D-[['O','X','O','X','O','X','O','X'],
+init(6, 6-[   ['O','X','O','X','O','X'],
+              ['X','O','X','O','X','O'],
+              ['O','X','O','X','O','X'],
+              ['X','O','X','O','X','O'],
+              ['O','X','O','X','O','X'],
+              ['X','O','X','O','X','O']]-1).
+
+init(8, 8-[   ['O','X','O','X','O','X','O','X'],
               ['X','O','X','O','X','O','X','O'],
               ['O','X','O','X','O','X','O','X'],
               ['X','O','X','O','X','O','X','O'],
@@ -13,7 +19,22 @@ init(D, D-[['O','X','O','X','O','X','O','X'],
               ['O','X','O','X','O','X','O','X'],
               ['X','O','X','O','X','O','X','O']]-1).
 
-play :- init(8, GameState),
+init(10, 10-[ ['O','X','O','X','O','X','O','X','O','X'],
+              ['X','O','X','O','X','O','X','O','X','O'],
+              ['O','X','O','X','O','X','O','X','O','X'],
+              ['X','O','X','O','X','O','X','O','X','O'],
+              ['O','X','O','X','O','X','O','X','O','X'],
+              ['X','O','X','O','X','O','X','O','X','O'],
+              ['O','X','O','X','O','X','O','X','O','X'],
+              ['X','O','X','O','X','O','X','O','X','O'],
+              ['O','X','O','X','O','X','O','X','O','X'],
+              ['X','O','X','O','X','O','X','O','X','O']]-1).
+
+play :- init(6, GameState),
+        game(GameState, 0-0).
+
+
+/*play :- init(8, GameState),
         game2(GameState, 0-0).
 
 play :- init(8, GameState),
