@@ -1,3 +1,4 @@
+:- use_module(library(lists)).
 
 /**
  --------------------------------------------------------------------------------
@@ -177,6 +178,8 @@ get_pieces_from_player_on_board(Line, [BoardLine | Board], PlayerSymbol, Pieces,
     get_pieces_from_player_on_line(1-Line, BoardLine, PlayerSymbol, Pieces, AuxPieces),
     NextLine is Line - 1,
     get_pieces_from_player_on_board(NextLine, Board, PlayerSymbol, AuxPieces, NewPieces).
+
+get_pieces_from_player_on_board(0, [], _, Pieces, Pieces).
 
 /**
  * Obtain the Column for the Piece's Positions
