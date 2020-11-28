@@ -279,8 +279,10 @@ choose_ai_greedy_move(GameState, Move):-
     display_ai_move(Move), 
     obtain_empty_input.
 
-
-%calculate_value_of_possible_next_boards(+GameState, +ValidMoves, -ListOfValueMovePares)
+/**
+ TODO : comment
+ */
+% calculate_value_of_possible_next_boards(+GameState, +ValidMoves, -ListOfValueMovePares)
 calculate_value_of_possible_next_boards(_, [], []).
 calculate_value_of_possible_next_boards(Dimensions-CurrBoard-CurrPlayer, [Move | Tail], [Value-Move |ListOfValueMovePares]):-
     move(Dimensions-CurrBoard-CurrPlayer, Move, Dimensions-NextBoard-NextPlayer),
