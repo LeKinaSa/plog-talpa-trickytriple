@@ -1,3 +1,4 @@
+:- use_module(library(system)).
 :- use_module(library(random)).
 :- ensure_loaded('utils.pl').
 :- ensure_loaded('display.pl').
@@ -260,6 +261,8 @@ get_direction(_, 0). % Default (Error)
 % choose_ai_random_move(+GameState, -Move)
 choose_ai_random_move(GameState, Move) :-
     valid_moves(GameState, _, ValidMoves),
+    now(Time),
+    setrand(Time),
     random_member(Move, ValidMoves),
     display_ai_move(Move),
     obtain_empty_input.
