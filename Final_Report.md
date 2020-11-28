@@ -23,7 +23,7 @@ The corner between edges is part of both sides.
 
 ## Game Start
 
-At the start of the game, all the pieces are inside the board. Their position is in such a pattern that there are no orthogonally adjacent pieces from the same player.
+At the start of the game, all the pieces are inside the gameboard. Their position is in such a pattern that there are no orthogonally adjacent pieces from the same player.
 
 The starting player is red. 
 
@@ -47,29 +47,58 @@ There are no draws.
 TODO
 
 ## Game State Representation
-TODO : baseado no relatório intercalar (atenção : GameState = Dimensions-Board-Player)
+The current game state is a composition of the Dimensions of the gameboard, the Board itself, and the next player to move.
+It is a complex term implemented as ```Dimensions-Board-Player```.
+
+The game board (```Board```) is a list of lists forming a square matrix of dimension ```Dimensions```.
+
+In this matrix, each cell represents a cell of the gameboard and can have one of three values:
+space (" ") representing an empty cell of the gameboard,
+an upper case "x" ("X") representing a board cell occupied by a piece of the red player,
+an upper case "o" ("O") representing a board cell occupied by a piece of the blue player.
+
+The ```Player``` represents the player on the move. It can be either red, represented as 1, or blue, represented as -1.
 
 ## Game State Visualization
-TODO : baseado no relatório intercalar + menus
+Before entering the game, the predicate ```display_menu/1``` will display some menus that allow the user to configure the game.
+The game configurations cover the dimension of the game board and the type of game, and the level of artificial intelligence.
+
+The predicate ```display_game/2``` handles the presentation of the game.
+
+This predicate prints all the game state information on the screen.
+This information includes the player on the move, and the current game board.
+
+The game board is the most complex object. When printing it, the predicate ```display_game/2``` uses some auxiliary predicates that parse the list of lists that represent the gameboard internally.
+These predicates go through each element of the main list, these being equivalent to the lines of the gameboard, printing each symbol of each cell on the screen; so that every piece in a board line appears on the same screen line, and each board line appears on a separate screen line.
+
+During the board printing, some minor auxiliary predicates create dividers in the form of spaces (" "), slashes ("|"), and hyphens ("-"). These help in the readability of the gameboard once printed on the screen.
 
 ## Valid Moves
-TODO
+The predicate ```valid_moves/3``` obtains a list of possible and valid moves.
+TODO: It is only possible to remove a piece if there is no way of moving any of the pieces inside the gameboard.
+The move that a player or the computer will make must be within this list.
 
 ## Move
-TODO
+When moving, the predicate ```move/3``` will calculate the next game state based on the previous game state and the move made by the player or computer.
 
 ## Game Over
-TODO
+The game ends when a path opens between two opposite edges. At this point, we can determine the winner, and the game ends.
+TODO: If the path is between the upper and lower edges (aka the red edges), the red player wins.
+If the path is between the left and right edges (aka the blue edges), the blue player wins.
+However, if there's an open path both between red and blue edges, the player that opened them loses.
 
 ## Board Value
 TODO
 
 ## Computer Move
-TODO
+The predicate ```choose_move/4``` is used to determine the next move. The ```Level```argument in this predicate is used to determine the level of artificial intelligence.
+- Level 0: Player Move (```choose_player_move/2```)
+- Level 1: Random AI Move (```choose_ai_random_move/2```)
+- Level 2: Greedy AI Move (```choose_ai_greedy_move/2```)
 
 ## **Conclusions**
 TODO : limitações do trabalho desenvolvido + possíveis melhorias identificadas
-Melhoria : melhor AI
+Melhoria: better AI
 
 ## **Bibliography**
 - Official Game Page: https://nestorgames.com/#talpa_detail
