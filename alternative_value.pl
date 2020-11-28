@@ -20,24 +20,10 @@
 value(Dimensions-Board-_, Player, Value):-
     calculate_board_value(Dimensions-Board-Player, 1, Dimensions, [], 0, PositiveCalculatedValue),
     get_representative_value(Dimensions, Player, Player, PositiveCalculatedValue, PositiveValue),
-
-    next_player(Player, NextPlayer),
+    NextPlayer is -Player,
     calculate_board_value(Dimensions-Board-NextPlayer, 1, Dimensions, [], 0, NegativeCalculatedValue),
     get_representative_value(Dimensions, Player, NextPlayer, NegativeCalculatedValue, NegativeValue),
-    
     Value is PositiveValue - NegativeValue.
-
-
-/*
-* Gives the next player.
-*
-* CurrentPlayer: current player
-* NextPlayer: next player
-*/
-%next_player(+CurrentPlayer, -NextPlayer)
-next_player(1, -1).
-next_player(-1, 1).
-
 
 /**
 * Ensures that the Value returned by value/3 is representative of a losing situation for the player being evaluated. 

@@ -33,13 +33,10 @@ valid_moves_by_moving_pieces(GameState, PossibleMoves) :-
  * Otherwise, we have to remove a piece.
  */
 % valid_moves_by_not_moving_pieces(+GameState, +ListOfMovesByMoving, -ListOfMoves)
-valid_moves_by_not_moving_pieces(GameState, PossibleMovesByMoving, PossibleMovesByRemovingPiece) :-
-    length(PossibleMovesByMoving, 0),
+valid_moves_by_not_moving_pieces(GameState, [], PossibleMovesByRemovingPiece) :-
     valid_moves_by_removing_pieces(GameState, PossibleMovesByRemovingPiece).
 
-valid_moves_by_not_moving_pieces(_, PossibleMovesByMoving, PossibleMovesByMoving) :-
-    length(PossibleMovesByMoving, L),
-    L > 0.
+valid_moves_by_not_moving_pieces(_, PossibleMovesByMoving, PossibleMovesByMoving).
 
 /**
  * Obtain All the Possible Valid Moves Obtained by Removing a Piece
