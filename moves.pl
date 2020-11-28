@@ -271,4 +271,18 @@ choose_ai_random_move(GameState, Move) :-
  * Choose the Next Move According to the Greedy AI
  */
 % choose_ai_greedy_move(+GameState, -Move)
-choose_ai_greedy_move(_, _). /* TODO */
+choose_ai_greedy_move(GameState, Move):-
+    valid_moves(GameState,_, ValidMoves), 
+    calculate_value_of_possible_next_boards(GameState, ValidMoves, ListOfValueMovePares),
+    sort(ListOfValueMovePares, AscendingListOfValueMovePares),
+    last(AscendingListOfValueMovePares, _ - Move),
+    display_ai_move(Move), 
+    obtain_empty_input.
+
+
+%calculate_value_of_possible_next_boards(+GameState, +ValidMoves, -ListOfValueMovePares)
+calculate_value_of_possible_next_boards(_, [], []).
+calculate_value_of_possible_next_boards(Dimensions-CurrBoard-CurrPlayer, [Move | Tail], [Value-Move |ListOfValueMovePares]):-
+    move(Dimensions-CurrBoard-CurrPlayer, Move, Dimensions-NextBoard-NextPlayer),
+    value(Dimensions-NextBoard-NextPlayer, CurrPlayer, Value),
+    calculate_value_of_possible_next_boards(Dimensions-CurrBoard-CurrPlayer, Tail, ListOfValueMovePares).
