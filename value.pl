@@ -145,7 +145,7 @@ calculate_cluster_value(-1, [Column-_ | ClusterCellsTail], ListofDiferentRelevan
     calculate_cluster_value(-1, ClusterCellsTail, [Column | ListofDiferentRelevantCoordinates], Value).
 
 /**
- * Auxiliar predicate
+ * Auxiliar Predicate
  * Used to calculate the next cell on the board after receiving the current Column and Line.
  * If Board as ended it returns -1, -1.
  *
