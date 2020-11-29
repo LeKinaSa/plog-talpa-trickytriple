@@ -51,7 +51,6 @@ If a player opens a path between his sides in the same move/turn as a path betwe
 There are no draws.
 
 ## **Game Logic**
-TODO
 
 ### Game State Representation
 The current game state is a composition of the Dimensions of the gameboard,
