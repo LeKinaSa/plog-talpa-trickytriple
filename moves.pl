@@ -277,11 +277,11 @@ choose_ai_greedy_move(GameState, Move):-
     obtain_empty_input.
 
 /**
- TODO : comment
+ * Calculates the Value of All the Possible Next Boards 
  */
 % calculate_value_of_possible_next_boards(+GameState, +ValidMoves, -ListOfValueMovePares)
 calculate_value_of_possible_next_boards(_, [], []).
-calculate_value_of_possible_next_boards(Dimensions-CurrBoard-CurrPlayer, [Move | Tail], [Value-Move |ListOfValueMovePares]):-
+calculate_value_of_possible_next_boards(Dimensions-CurrBoard-CurrPlayer, [Move | Tail], [Value-Move |ListOfValueMovePairs]):-
     move(Dimensions-CurrBoard-CurrPlayer, Move, Dimensions-NextBoard-NextPlayer),
     value(Dimensions-NextBoard-NextPlayer, CurrPlayer, Value),
-    calculate_value_of_possible_next_boards(Dimensions-CurrBoard-CurrPlayer, Tail, ListOfValueMovePares).
+    calculate_value_of_possible_next_boards(Dimensions-CurrBoard-CurrPlayer, Tail, ListOfValueMovePairs).
