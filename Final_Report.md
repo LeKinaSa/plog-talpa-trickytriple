@@ -213,8 +213,7 @@ The ```Level``` argument in this predicate determines the level of artificial in
         according to the evaluation of the predicate ```value/3```.
 
 ## **Conclusions**
-TODO : limitações do trabalho desenvolvido + possíveis melhorias identificadas
-Melhoria: better AI
+All in all, we managed to implement all the features proposed, which helped a lot with our understanding of prolog and the ways to work with it. Our game supports all the rules of the original game as well as two levels of artificial intelligence (one random and one greedy).
 
 ## **Bibliography**
 - Official Game Page: https://nestorgames.com/#talpa_detail
