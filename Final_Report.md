@@ -6,37 +6,16 @@
 
 ## **Installation and Execution**
 ### **Windows**
-1. Install SICStus Prolog.
-   - Download the latest version for Windows from [here](https://sicstus.sics.se/download4.html#download).
-   - Execute the installer and follow the instructions.
-   - If you encounter problems with the installation or if you want more details, consult the instructions presents [here](https://sicstus.sics.se/download4.html#win32).
-2. Launch SICStus Prolog.
-   - Open the Start Menu and search for SICStus.
-   - Or navigate to the installation folder, open bin, and open the 'spwin.exe'.
-3. Go to File, then Consult.
-4. Search for the folder that contains the code.
-5. Open the talpa.pl file.
-6. Type ```play.```.
+1. Launch SICStus Prolog.
+2. Go to File, then Consult.
+3. Search for the folder that contains the code.
+4. Open the ```talpa.pl``` file.
+5. Type ```play.```.
 
 ### **Linux**
-1. Install SICStus Prolog.
-   - Download the latest version for Linux from [here](https://sicstus.sics.se/download4.html#download).
-   - Unpack the downloaded file: ```cat <downloaded_file_name>.tar.gz | gzip -cd | tar xf -```.
-   - Execute the installation script: ```cd <downloaded_file_name>```, followed by ```sudo ./InstallSICStus```.
-   - Follow the instructions on the installation script.
-   - If you encounter problems with the installation or if you want more details, consult the instructions presents [here](https://sicstus.sics.se/download4.html#unix).
-2. Launch SICStus Prolog.
-   - Launch the development system by executing ```sicstus```, located in the installation path specified to InstallSICStus (usually, ```/usr/local/sicstus4.6.0/bin/sicstus```).
-
-        %/usr/local/sicstus4.6.0/bin/sicstus
-
-3. Type ```consult('<file_path>/talpa.pl').```, where ```file_path``` is the path to the folder that contains the code.
-
-    ?- consult('<file_path>/talpa.pl').
-
-4. Type ```play.```.
-
-    ?- play.
+1. Launch SICStus Prolog.
+2. Type ```consult('<file_path>/talpa.pl').```, where ```file_path``` is the path to the folder that contains the code.
+3. Type ```play.```.
 
 ## **The TALPA Game**
 
