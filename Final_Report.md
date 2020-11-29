@@ -198,7 +198,16 @@ The ```Level``` argument in this predicate determines the level of artificial in
         according to the evaluation of the predicate ```value/3```.
 
 ## **Conclusions**
-All in all, we managed to implement all the features proposed, which helped a lot with our understanding of prolog and the ways to work with it. Our game supports all the rules of the original game as well as two levels of artificial intelligence (one random and one greedy).
+The goal of this project was for us to deepen our understanding of prolog by coding a game in that language.
+
+Throughout the development we had to reconsider how previous methods we had used in order languages were translated into prolog, if they could be more efficient due to the inner workings of prolog, or if they were none-compatible with the language all together. In short, we had to change our perspective from iterative programming to declarative programming, something easier said than done sometimes.
+
+Still we managed to deliver a fully working game that we can be proud of. All the features proposed where implemented, the program can deal with multiple sizes of boards and supports two levels of artificial intelligence (one random and one greedy).
+
+There isn’t a very clear path for improvements at the moment. Some little nitpicks to be sure, but major improvements don’t seem possible with our current approach. Maybe we could have devised a different way to evaluate the boards that would be a better representation of the inner logic of the game, improving our greedy AI, but every attempt at this, ended with a really time consuming algorithm. Or maybe we could have implemented a mid-level AI, that doesn't pick the best move, but a suboptimal one, but this would only require for us to pick a move further down the list that we already calculate so there isn’t much reason to do that.
+
+In conclusion, we are fully confident in the project we have developed and we truly believe that it proves that we have deepened our understanding of prolog.
+
 
 ## **Bibliography**
 - Official Game Page: https://nestorgames.com/#talpa_detail
