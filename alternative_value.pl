@@ -211,7 +211,7 @@ adjacent_empty_cell(Dimensions-Board-_, X-Y, LeftX-Y):-
 
 TODO::TESTING PREDICATES DELETE BEFORE DELIVERY
 
-*/
+
 
 boards(1,[ ['O','X',' ','X','O','X','O','X'],
            ['X','O',' ',' ',' ','O','X','O'],
@@ -226,11 +226,11 @@ boards(1,[ ['O','X',' ','X','O','X','O','X'],
 test_value(Player):-
     boards(1, Board),
     value(8-Board-1, Player, Value),
-    /*explore_empty_cell_cluster(8-Board-1, [3-4-0], 0, [], PossibleMaxValue, AuxListOfCheckedEmptySpaces),
+    % explore_empty_cell_cluster(8-Board-1, [3-4-0], 0, [], PossibleMaxValue, AuxListOfCheckedEmptySpaces),
 
     
-    write(PossibleMaxValue),
-    write(AuxListOfCheckedEmptySpaces).*/
+    % write(PossibleMaxValue),
+    % write(AuxListOfCheckedEmptySpaces).
     write(Value).
 
 
@@ -242,3 +242,4 @@ test_increase_colum:-
 print_board(Dimensions-Board-Player, Column, Line):-
     increase_column_and_line(Dimensions, Column, Line, X, Y),
     print_board(Dimensions-Board-Player, X, Y).
+*/

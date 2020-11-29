@@ -90,12 +90,31 @@ print_line_marking(Line) :- write(Line).
  * Display a Header for our Talpa Game Board
  */
 % display_header
-display_header :-
+display_header :- display_header(8).
+
+% display_header(+Dimensions)
+
+display_header(6) :-
+    write('*********************************\n'),
+    write('****                         ****\n'),
+    write('****          TALPA          ****\n'),
+    write('****                         ****\n'),
+    write('*********************************\n').
+
+display_header(8) :-
     write('*****************************************\n'),
     write('****                                 ****\n'),
     write('****              TALPA              ****\n'),
     write('****                                 ****\n'),
     write('*****************************************\n').
+
+display_header(10) :-
+    write('*************************************************\n'),
+    write('****                                         ****\n'),
+    write('****                  TALPA                  ****\n'),
+    write('****                                         ****\n'),
+    write('*************************************************\n').
+
 
 /**
  * Display the Current Player
@@ -208,7 +227,7 @@ display_board(Board, Dimensions) :-
 % display_game(+GameState, +Player)
 display_game(Dimensions-Board-Player, _) :-
     clr,
-    display_header,
+    display_header(Dimensions),
     display_player(Player),
     new_line(2),
     display_board(Board, Dimensions),
@@ -225,7 +244,7 @@ display_game(Dimensions-Board-Player, _) :-
 % display_game_winner(+GameState, +Winner)
 display_game_winner(Dimensions-Board-_, Winner) :-
     clr,
-    display_header,
+    display_header(Dimensions),
     display_winner(Winner),
     new_line(2),
     display_board(Board, Dimensions),
