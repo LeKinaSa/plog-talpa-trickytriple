@@ -5,16 +5,39 @@
 - Clara Alves Martins (up201806528)
 
 ## **Installation and Execution**
-TODO
+### **Windows**
+1. Install SICStus Prolog.
+   - Download the latest version for Windows from [here](https://sicstus.sics.se/download4.html#download).
+   - Execute the installer and follow the instructions.
+   - If you encounter problems with the installation or if you want more details, consult the instructions presents [here](https://sicstus.sics.se/download4.html#win32).
+2. Launch SICStus Prolog.
+   - Open the Start Menu and search for SICStus.
+   - Or navigate to the installation folder, open bin, and open the 'spwin.exe'.
+3. Go to File, then Consult.
+4. Search for the folder that contains the code.
+5. Open the talpa.pl file.
+6. Type ```play.```.
+
+### **Linux**
+1. Install SICStus Prolog.
+   - Download the latest version for Linux from [here](https://sicstus.sics.se/download4.html#download).
+   - TODO
+TODO: linux installation
+   - If you encounter problems with the installation or if you want more details, consult the instructions presents [here](https://sicstus.sics.se/download4.html#unix).
+1. Launch SICStus Prolog.
+   - Open the Start Menu and search for SICStus.
+   - Or navigate to the installation folder, open bin, and open the 'spwin.exe'.
+2. Type ```consult(file_path/talpa.pl).```, where ```file_path``` is the path to the folder that contains the code.
+3. Type ```play.```.
 
 ## **The TALPA Game**
 
-### Objective
+### **Objective**
 
 The goal of our game is to open a path of empty spaces between opposite sides with the same color
     without opening a similar route between the sides with the enemy color.
 
-### Game Board
+### **Game Board**
 
 The gameboard is an 8x8 board.
 It can also be in 6x6 for beginners and faster games or 10x10 for experienced players and longer games.
@@ -23,14 +46,14 @@ The red player owns the top and bottom edges while the blue player owns the left
 
 The corner between edges is part of both sides.
 
-### Game Start
+### **Game Start**
 
 At the start of the game, all the pieces are inside the gameboard.
 Their position is in such a pattern that there are no orthogonally adjacent pieces from the same player.
 
 The starting player is red. 
 
-### Rules
+### **Rules**
 
 The turns alter, and the players move alternately.
 
@@ -40,7 +63,7 @@ When it is their turn, the player should move one of his pieces, capturing an en
 If possible, the player must capture enemy pieces.
 However, when that is no longer possible, the player removes one of his own.
 
-### Win Conditions
+### **Win Conditions**
 
 The only way to win is to connect orthogonally (horizontally or vertically, but not diagonally)
     adjacent empty squares to form a path between the player's sides 
@@ -52,7 +75,7 @@ There are no draws.
 
 ## **Game Logic**
 
-### Game State Representation
+### **Game State Representation**
 The current game state is a composition of the Dimensions of the gameboard,
     the Board itself, and the next player to move.
 It is a complex term implemented as ```Dimensions-Board-Player```.
@@ -67,7 +90,7 @@ In this matrix, each cell represents a cell of the gameboard and can have one of
 The ```Player``` represents the player on the move.
 It can be either red, represented as 1, or blue, represented as -1.
 
-### Game State Visualization
+### **Game State Visualization**
 Before entering the game, the predicate ```display_menu/1``` will display some menus
     that allow the user to configure the game.
 The game configurations cover the dimension of the game board and the type of game,
@@ -90,7 +113,7 @@ During the gameboard printing, some minor auxiliary predicates create dividers
     in the form of spaces (" "), slashes ("|"), and hyphens ("-").
 These help in the readability of the gameboard once printed on the screen.
 
-### Valid Moves
+### **Valid Moves**
 The predicate ```valid_moves/3``` obtains a list of possible and valid moves for the player on the move.
 
 Each move is a complex term with the form ```Column-Line-Movement```.
@@ -110,7 +133,7 @@ If the list of moves that involve capturing a piece is empty,
 This predicate (```valid_moves_by_removing_pieces/2```) obtains this list by collecting all the positions
     of the player's pieces still inside the gameboard.
 
-### Move
+### **Move**
 When moving, the predicate ```move/3``` will calculate the next game state
     based on the previous game state and the move made by the player or computer.
 
@@ -121,7 +144,7 @@ If not, the predicate will obtain the ```Movement``` represented adjacent cell t
     and replace the symbol on it (which has to be the symbol of the player NOT on the move)
     with the one from the player on the move.
 
-### Game Over
+### **Game Over**
 The game ends when a path opens between two opposite sides. At this point, we can determine the winner, and the game ends.
 
 To determine this, the predicate ```game_over/2``` is used.
@@ -133,7 +156,7 @@ If the predicate finds the opposite, then the blue player (-1) is the winner.
 In the case that we can find both a path between the upper and lower edges and the right and left ones,
     then the player that just made a move is declared the loser.
 
-### Board Value
+### **Board Value**
 For the computer to be able to make the best move among a list of possible ones,
     it needs to compute the resulting board for a given movement and compare that resulting board
     to others that result from the other possible moves.
@@ -149,7 +172,7 @@ Once it finds one, it projects the cluster onto an axis of the gameboard,
     and the horizontal axis when concerning the blue player (-1).
 The numerical value of the gameboard will be the length of the biggest cluster projection of that board.
 
-### Computer Move
+### **Computer Move**
 The predicate ```choose_move/4``` is used to determine the next move.
 The ```Level``` argument in this predicate determines the level of artificial intelligence.
 
