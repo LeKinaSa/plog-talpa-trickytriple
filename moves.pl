@@ -2,7 +2,7 @@
 :- use_module(library(random)).
 :- ensure_loaded('utils.pl').
 :- ensure_loaded('display.pl').
-:- ensure_loaded('alternative_value.pl').
+:- ensure_loaded('value.pl').
 
 /**
  --------------------------------------------------------------------------------
