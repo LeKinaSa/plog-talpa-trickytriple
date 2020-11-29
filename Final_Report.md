@@ -21,35 +21,20 @@
 ### **Linux**
 1. Install SICStus Prolog.
    - Download the latest version for Linux from [here](https://sicstus.sics.se/download4.html#download).
-
-   - Once you have the binary distribution. Unpack by typing:
-
-        % cat <downloaded-file>.tar.gz | gzip -cd | tar xf -
-
-        If tar reports an error, try GNU tar instead.
-
-   - Execute the installation script by:
-
-        % cd sp-<version>-<platform>
-        % sudo ./InstallSICStus
-
-        You only need to use sudo if you are installing SICStus in a global location, like /usr/local.
-
-   - Then just follow the instructions of the instalation script. 
-
-        The installation script will ask you some questions about your license, installation directory, locations of third-party software, etc. If you don't understand the question, pressing return will give you the default action which is probably what you want.
-
+   - Unpack the downloaded file: ```cat <downloaded_file_name>.tar.gz | gzip -cd | tar xf -```.
+   - Execute the installation script: ```cd <downloaded_file_name>```, followed by ```sudo ./InstallSICStus```.
+   - Follow the instructions on the installation script.
    - If you encounter problems with the installation or if you want more details, consult the instructions presents [here](https://sicstus.sics.se/download4.html#unix).
 2. Launch SICStus Prolog.
-   - Launch the development system by executing `sicstus`, located in the installation path specified to InstallSICStus (e.g. /usr/local/sicstus4.6.0/bin/sicstus).
+   - Launch the development system by executing ```sicstus```, located in the installation path specified to InstallSICStus (usually, ```/usr/local/sicstus4.6.0/bin/sicstus```).
 
         %/usr/local/sicstus4.6.0/bin/sicstus
 
-2. Type ```consult('<file_path>/talpa.pl').```, where ```file_path``` is the path to the folder that contains the code.
+3. Type ```consult('<file_path>/talpa.pl').```, where ```file_path``` is the path to the folder that contains the code.
 
     ?- consult('<file_path>/talpa.pl').
 
-3. Type ```play.```.
+4. Type ```play.```.
 
     ?- play.
 
