@@ -2,6 +2,7 @@
 
 ## *Plog-Proj2* -> *Tricky Triple* : In folder "plog-proj2"
 
-### Next Steps
+### Next Steps:
   - Finish the puzzle and solution library
   - Make time keeping predicate
+  - Start testing
