@@ -36,7 +36,7 @@ tricky_triple(Difficulty, Id, LabelingOptions):-
 
     write(Board), write('\n'),
     puzzle_solution(Difficulty, Id, Solution),
-    write(Solution).
+    write(Solution),
     fail.
 
 /**
