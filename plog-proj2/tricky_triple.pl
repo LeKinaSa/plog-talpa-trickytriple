@@ -28,6 +28,7 @@ tricky_triple(Difficulty, Id, LabelingOptions):-
     flatten(Board, BoardList),
 
     domain(BoardList, 0, 3),
+    apply_non_zero_constraint(BoardList),
     findall(SequentialTriple, sequential_triple(Board, SequentialTriple), ListOfSequentialTriples),
     apply_triple_constraint(Board, ListOfSequentialTriples),
 
@@ -116,6 +117,21 @@ check_if_non_black(_).
 */
 
 /**
+* Makes it so no cell is labelled as 0, meaning white cells can't be labelled as black cells.
+*
+* BoardList -> the puzzle board as a single continuous list
+*
+*/
+% apply_non_zero_constraint(BoardList)
+apply_non_zero_constraint([]).
+apply_non_zero_constraint([H | Tail]):-
+    ground(H),
+    apply_non_zero_constraint(Tail).
+apply_non_zero_constraint([H | Tail]):-
+    H #\= 0,
+    apply_non_zero_constraint(Tail).
+
+/**
 * Applies the following constraint:
 * "When 3 adjacent white squares are in a line horizontally, vertically,
 *       or diagonally, they should contain exactly 2 of one of the symbols."
@@ -141,10 +157,6 @@ apply_triple_constraint(Board, [ [Y1-X1, Y2-X2, Y3-X3] |Tail]):-
     (BoardElement1 #= BoardElement3 #/\ BoardElement2 #\= BoardElement1 #/\ BoardElement2 #\= BoardElement3)
     #\/
     (BoardElement2 #= BoardElement3 #/\ BoardElement1 #\= BoardElement2 #/\ BoardElement1 #\= BoardElement3),
-
-    BoardElement1 #\= 0,
-    BoardElement2 #\= 0,
-    BoardElement3 #\= 0,
 
     apply_triple_constraint(Board,Tail).
 
