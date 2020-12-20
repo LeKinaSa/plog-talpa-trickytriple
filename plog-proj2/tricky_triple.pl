@@ -125,7 +125,7 @@ check_if_non_black(_).
 % apply_non_zero_constraint(BoardList)
 apply_non_zero_constraint([]).
 apply_non_zero_constraint([H | Tail]):-
-    ground(H),
+    ground(H),!,
     apply_non_zero_constraint(Tail).
 apply_non_zero_constraint([H | Tail]):-
     H #\= 0,
