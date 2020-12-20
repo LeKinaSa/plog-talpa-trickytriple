@@ -27,7 +27,7 @@ tricky_triple(Difficulty, Id, LabelingOptions):-
     puzzle(Difficulty, Id, Board), 
     flatten(Board, BoardList),
 
-    domain(BoardList, 1, 3),
+    domain(BoardList, 0, 3),
     findall(SequentialTriple, sequential_triple(Board, SequentialTriple), ListOfSequentialTriples),
     apply_triple_constraint(Board, ListOfSequentialTriples),
 
@@ -141,6 +141,10 @@ apply_triple_constraint(Board, [ [Y1-X1, Y2-X2, Y3-X3] |Tail]):-
     (BoardElement1 #= BoardElement3 #/\ BoardElement2 #\= BoardElement1 #/\ BoardElement2 #\= BoardElement3)
     #\/
     (BoardElement2 #= BoardElement3 #/\ BoardElement1 #\= BoardElement2 #/\ BoardElement1 #\= BoardElement3),
+
+    BoardElement1 #\= 0,
+    BoardElement2 #\= 0,
+    BoardElement3 #\= 0,
 
     apply_triple_constraint(Board,Tail).
 
