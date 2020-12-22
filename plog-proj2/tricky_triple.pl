@@ -24,7 +24,7 @@
 
 % tricky_triple(+Difficulty, +Id, +LabelingOptions) 
 tricky_triple(Difficulty, Id, LabelingOptions):-
-    puzzle(Difficulty, Id, Board), 
+    puzzle(Difficulty, Id, Board),
     flatten(Board, BoardList),
 
     domain(BoardList, 0, 3),
@@ -106,7 +106,7 @@ all_valid_white_cells(Board, [Y-X | Tail]):-
  * Checks if Element is representative of a white cell. Meaning element is either not instantiated or different that 0.
 **/
 check_if_non_black(Element):-
-    ground(Element),!, 
+    ground(Element), !, 
     Element =\= 0.
 check_if_non_black(_).
 
@@ -117,11 +117,11 @@ check_if_non_black(_).
 **/
 
 /**
-* Makes it so no cell is labelled as 0, meaning white cells can't be labelled as black cells.
-*
-* BoardList -> the puzzle board as a single continuous list
-*
-*/
+ * Makes it so no cell is labelled as 0, meaning white cells can't be labelled as black cells.
+ *
+ * BoardList -> the puzzle board as a single continuous list
+ *
+**/
 % apply_non_zero_constraint(BoardList)
 apply_non_zero_constraint([]).
 apply_non_zero_constraint([H | Tail]):-
@@ -132,14 +132,14 @@ apply_non_zero_constraint([H | Tail]):-
     apply_non_zero_constraint(Tail).
 
 /**
-* Applies the following constraint:
-* "When 3 adjacent white squares are in a line horizontally, vertically,
-*       or diagonally, they should contain exactly 2 of one of the symbols."
-*
-* Board -> the puzzle board
-* ListOfSequentialTriples -> A list containing all groups of 3 adjacent white squares that are in a line
-*            horizontally, vertically or diagonally.
-*/
+ * Applies the following constraint:
+ * "When 3 adjacent white squares are in a line horizontally, vertically,
+ *       or diagonally, they should contain exactly 2 of one of the symbols."
+ *
+ * Board -> the puzzle board
+ * ListOfSequentialTriples -> A list containing all groups of 3 adjacent white squares that are in a line
+ *            horizontally, vertically or diagonally.
+**/
 % apply_triple_constraint(+Board, +ListOfSequentialTriples)
 apply_triple_constraint(_, []).
 apply_triple_constraint(Board, [ [Y1-X1, Y2-X2, Y3-X3] |Tail]):-
