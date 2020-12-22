@@ -65,7 +65,7 @@ print_horizontal_division(0) :- write('-').
 print_board([Line | Board], Dimensions) :-
     print_board_line(Line),
     new_line(1),
-    space(4),
+    space(3),
     print_horizontal_division(Dimensions),
     new_line(1),
     print_board(Board, Dimensions).
@@ -86,6 +86,11 @@ print_board_line(Line) :-
  */
 % print_board_line_elements(+Line)
 print_board_line_elements([Element | Line]) :-
+    element_not_defined(Element),
+    write(' '),
+    print_vertical_division,
+    print_board_line_elements(Line).
+print_board_line_elements([Element | Line]) :-
     write(Element),
     print_vertical_division,
     print_board_line_elements(Line).
@@ -96,7 +101,17 @@ print_board_line_elements([]).
  */
 % display_board(+Board, +Dimensions)
 display_board(Board, Dimensions) :-
-    space(4),
+    space(3),
     print_horizontal_division(Dimensions),
     new_line(1),
     print_board(Board, Dimensions).
+
+/**
+ * Verifies if the element is not defined (meaning it is a variable)
+**/
+% element_not_defined(+Element)
+element_not_defined(Element) :-
+    Element \= ' ',
+    !,
+    fail.
+element_not_defined(_).
