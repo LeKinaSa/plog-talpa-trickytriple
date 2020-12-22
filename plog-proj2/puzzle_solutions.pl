@@ -1,28 +1,29 @@
 /**
-* Library of Solutions of Puzzles for Tricky Triple
-* available on "https://erich-friedman.github.io/puzzle/shape/"
-*
-* Difficulty -> directly connected to the dimensions of the puzzle
-*       1 - 4x4
-*       2 - 5x5
-*       3 - 6x6
-*       4 - 7x7
-*
-* Id -> numeric identifier of puzzle instance within a difficulty
-*
-* Solution -> a list of lists representative of the solution of a puzzle instance of tricky triple.
-*       Solution Cells Numeric Representation:
-*           0 - BALCK CELL
-*           1 - Green Triangle
-*           2 - Red Square
-*           3 - Blue Circle
-*/ 
+ * Library of Solutions of Puzzles for Tricky Triple
+ * available on "https://erich-friedman.github.io/puzzle/shape/"
+ *
+ * Difficulty -> directly connected to the dimensions of the puzzle
+ *       1 - 4x4
+ *       2 - 5x5
+ *       3 - 6x6
+ *       4 - 7x7
+ *
+ * Id -> numeric identifier of puzzle instance within a difficulty
+ *
+ * Solution -> a list of lists representative of the solution of a puzzle instance of tricky triple.
+ *       Solution Cells Numeric Representation:
+ *           0 - BALCK CELL
+ *           1 - Green Triangle
+ *           2 - Red Square
+ *           3 - Blue Circle
+**/ 
 % puzzle_solution(+Difficulty, +Id, -Solution)
 
 /**
-*----------------------------------------------------------
-*- Solutions of Puzzles of Difficulty 1 <-> Dimension 4x4 -
-*----------------------------------------------------------*/
+ * ----------------------------------------------------------
+ * - Solutions of Puzzles of Difficulty 1 <-> Dimension 4x4 -
+ * ----------------------------------------------------------
+**/
 
 puzzle_solution(1, 1,[
     [3, 1, 1, 2],
@@ -74,9 +75,10 @@ puzzle_solution(1, 7,[
     ]).
 
 /**
-*----------------------------------------------------------
-*- Solutions of Puzzles of Difficulty 2 <-> Dimension 5x5 -
-*----------------------------------------------------------*/
+ * ----------------------------------------------------------
+ * - Solutions of Puzzles of Difficulty 2 <-> Dimension 5x5 -
+ * ----------------------------------------------------------
+**/
 
 puzzle_solution(2, 1,[
     [1, 1, 3, 1, 3],
@@ -135,9 +137,10 @@ puzzle_solution(2, 7,[
     ]).
 
 /**
-*----------------------------------------------------------
-*- Solutions of Puzzles of Difficulty 3 <-> Dimension 6x6 -
-*----------------------------------------------------------*/
+ * ----------------------------------------------------------
+ * - Solutions of Puzzles of Difficulty 3 <-> Dimension 6x6 -
+ * ----------------------------------------------------------
+**/
 
 puzzle_solution(3, 1,[
     [2, 1, 0, 3, 2, 3],
@@ -185,9 +188,10 @@ puzzle_solution(3, 5,[
     ]).
 
 /**
-*----------------------------------------------------------
-*- Solutions of Puzzles of Difficulty 4 <-> Dimension 7x7 -
-*----------------------------------------------------------*/
+ * ----------------------------------------------------------
+ * - Solutions of Puzzles of Difficulty 4 <-> Dimension 7x7 -
+ * ----------------------------------------------------------
+**/
 
 puzzle_solution(4, 1,[
     [2, 2, 1, 1, 2, 2, 3],

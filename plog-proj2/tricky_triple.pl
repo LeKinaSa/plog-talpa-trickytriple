@@ -1,27 +1,27 @@
-:-use_module(library(clpfd)).
-:-use_module(library(lists)).
+:- use_module(library(clpfd)).
+:- use_module(library(lists)).
 
-:-ensure_loaded('puzzle_library.pl').
-:-ensure_loaded('puzzle_solutions.pl').
+:- ensure_loaded('puzzle_library.pl').
+:- ensure_loaded('puzzle_solutions.pl').
 
 /**
-* Main solver predicate of tricky triple puzzles.
-* A puzzle is uniquely identified by (Difficulty, Id),
-*    check file "puzzle_library.pl" for the full list of puzzles and 
-*    file "puzzle_solutions.pl" for the respective solutions.
-*
-*
-*
-* Difficulty -> directly connected to the dimensions of the puzzle
-*       1 - 4x4
-*       2 - 5x5
-*       3 - 6x6
-*       4 - 7x7
-*
-* Id -> numeric identifier of puzzle instance within a difficulty
-*
-* LabelingOptions -> list of options to be used on labeling
-*/
+ * Main solver predicate of tricky triple puzzles.
+ * A puzzle is uniquely identified by (Difficulty, Id),
+ *    check file "puzzle_library.pl" for the full list of puzzles and 
+ *    file "puzzle_solutions.pl" for the respective solutions.
+ *
+ *
+ * Difficulty -> directly connected to the dimensions of the puzzle
+ *       1 - 4x4
+ *       2 - 5x5
+ *       3 - 6x6
+ *       4 - 7x7
+ *
+ * Id -> numeric identifier of puzzle instance within a difficulty
+ *
+ * LabelingOptions -> list of options to be used on labeling
+**/
+
 % tricky_triple(+Difficulty, +Id, +LabelingOptions) 
 tricky_triple(Difficulty, Id, LabelingOptions):-
     puzzle(Difficulty, Id, Board), 
@@ -41,36 +41,36 @@ tricky_triple(Difficulty, Id, LabelingOptions):-
     fail.
 
 /**
-*--------------------------------------------------------------------------------
-*-----   Predicates that Discover All Groups of 3 Adjacent White Squares   ------
-*--------------------------------------------------------------------------------
-*/
+ * -------------------------------------------------------------------------------
+ * -----   Predicates that Discover All Groups of 3 Adjacent White Squares   -----
+ * -------------------------------------------------------------------------------
+**/
 
 /**
-* Predicate that verifies that Triple is representating a group of 3 Adjacent White Squares in board Board.
-* This predicate is used in a findall in order to get all groups of 3 adjacent white squares.
-*
-* Baord -> the puzzle board
-*
-* Triple -> a list of 3 elements of type Y-X. If valid Y-X are coordinates of a board cell.
-*/
+ * Predicate that verifies that Triple is representating a group of 3 Adjacent White Squares in board Board.
+ * This predicate is used in a findall in order to get all groups of 3 adjacent white squares.
+ *
+ * Baord -> the puzzle board
+ *
+ * Triple -> a list of 3 elements of type Y-X. If valid Y-X are coordinates of a board cell.
+**/
 % sequential_triple(Board, Triple)
 
-/*vertical triple*/
+/* vertical triple */
 sequential_triple(Board, [Y1-X1, Y2-X2, Y3-X3]):-
     all_valid_white_cells(Board, [Y1-X1, Y2-X2, Y3-X3]),
     Y1 =:= Y2 - 1,
     Y1 =:= Y3 - 2,
     X1 =:= X2, X2 =:= X3.
 
-/*horizontal triple*/
+/* horizontal triple */
 sequential_triple(Board, [Y1-X1, Y2-X2, Y3-X3]):-
     all_valid_white_cells(Board, [Y1-X1, Y2-X2, Y3-X3]),
     X1 =:= X2 - 1,
     X1 =:= X3 - 2,
     Y1 =:= Y2, Y2 =:= Y3.
 
-/*diagonal of type "\" triple*/
+/* diagonal of type "\" triple */
 sequential_triple(Board, [Y1-X1, Y2-X2, Y3-X3]):-
     all_valid_white_cells(Board, [Y1-X1, Y2-X2, Y3-X3]),
     Y1 =:= Y2 - 1,
@@ -78,7 +78,7 @@ sequential_triple(Board, [Y1-X1, Y2-X2, Y3-X3]):-
     X1 =:= X2 - 1,
     X1 =:= X3 - 2.
 
-/*diagonal of type "/" triple*/
+/* diagonal of type "/" triple */
 sequential_triple(Board, [Y1-X1, Y2-X2, Y3-X3]):-
     all_valid_white_cells(Board, [Y1-X1, Y2-X2, Y3-X3]),
     Y1 =:= Y2 + 1,
@@ -88,11 +88,11 @@ sequential_triple(Board, [Y1-X1, Y2-X2, Y3-X3]):-
 
 
 /**
-* Checks if pair Y-X is representing a cell on the board and if that cell is white (non-black)
-* 
-* Board -> the puzzle board
-* ListOfPairs -> List of elements in the form Y-X.
-*/
+ * Checks if pair Y-X is representing a cell on the board and if that cell is white (non-black)
+ * 
+ * Board -> the puzzle board
+ * ListOfPairs -> List of elements in the form Y-X.
+ */
 % all_valid_white_cells(+Board, +ListOfPairs)
 all_valid_white_cells(_, []).
 all_valid_white_cells(Board, [Y-X | Tail]):-
@@ -161,10 +161,10 @@ apply_triple_constraint(Board, [ [Y1-X1, Y2-X2, Y3-X3] |Tail]):-
     apply_triple_constraint(Board,Tail).
 
 /**
-*--------------------------------------------------------------------------------
-*---------------------------   Auxiliary Predicates   ---------------------------
-*--------------------------------------------------------------------------------
-*/
+ *--------------------------------------------------------------------------------
+ *---------------------------   Auxiliary Predicates   ---------------------------
+ *--------------------------------------------------------------------------------
+**/
 
 /**
 * Flattens a list of lists into a list

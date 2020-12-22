@@ -1,28 +1,29 @@
 /**
-* Library of Puzzles for Tricky Triple
-* available on "https://erich-friedman.github.io/puzzle/shape/"
-*
-* Difficulty -> directly connected to the dimensions of the puzzle
-*       1 - 4x4
-*       2 - 5x5
-*       3 - 6x6
-*       4 - 7x7
-*
-* Id -> numeric identifier of puzzle instance within a difficulty
-*
-* Board -> a list of lists representative of a puzzle instance of tricky triple
-*       Board Cells Numeric Representation:
-*           0 - BALCK CELL
-*           1 - Green Triangle
-*           2 - Red Square
-*           3 - Blue Circle
-*/
+ * Library of Puzzles for Tricky Triple
+ * available on "https://erich-friedman.github.io/puzzle/shape/"
+ *
+ * Difficulty -> directly connected to the dimensions of the puzzle
+ *       1 - 4x4
+ *       2 - 5x5
+ *       3 - 6x6
+ *       4 - 7x7
+ *
+ * Id -> numeric identifier of puzzle instance within a difficulty
+ *
+ * Board -> a list of lists representative of a puzzle instance of tricky triple
+ *       Board Cells Numeric Representation:
+ *           0 - Black Cell
+ *           1 - Green Triangle
+ *           2 - Red Square
+ *           3 - Blue Circle
+**/
 % puzzle(+Difficulty, +Id, -Board)
 
 /**
-*---------------------------------------------------------
-*----   Puzzles of Difficulty 1 <-> Dimension 4x4   -------
-*---------------------------------------------------------*/
+ * ---------------------------------------------------------
+ * -----   Puzzles of Difficulty 1 <-> Dimension 4x4   -----
+ * ---------------------------------------------------------
+**/
 
 puzzle(1, 1,[
     [_, _, 1, _],
@@ -74,9 +75,10 @@ puzzle(1, 7,[
     ]).
 
 /**
-*---------------------------------------------------------
-*----   Puzzles of Difficulty 2 <-> Dimension 5x5   -------
-*---------------------------------------------------------*/
+ * ---------------------------------------------------------
+ * -----   Puzzles of Difficulty 2 <-> Dimension 5x5   -----
+ * ---------------------------------------------------------
+**/
 
 puzzle(2, 1,[
     [_, 1, 3, _, 3],
@@ -135,9 +137,10 @@ puzzle(2, 7,[
     ]).
 
 /**
-*---------------------------------------------------------
-*----   Puzzles of Difficulty 3 <-> Dimension 6x6   -------
-*---------------------------------------------------------*/
+ * ---------------------------------------------------------
+ * -----   Puzzles of Difficulty 3 <-> Dimension 6x6   -----
+ * ---------------------------------------------------------
+**/
 
 puzzle(3, 1,[
     [_, 1, 0, 3, 2, _],
@@ -185,9 +188,10 @@ puzzle(3, 5,[
     ]).
 
 /**
-*---------------------------------------------------------
-*----   Puzzles of Difficulty 4 <-> Dimension 7x7   -------
-*---------------------------------------------------------*/
+ * ---------------------------------------------------------
+ * -----   Puzzles of Difficulty 4 <-> Dimension 7x7   -----
+ * ---------------------------------------------------------
+**/
 
 puzzle(4, 1,[
     [_, _, _, 1, _, _, 3],
