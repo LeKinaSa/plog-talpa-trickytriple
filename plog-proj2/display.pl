@@ -59,6 +59,16 @@ print_horizontal_division(0) :- write('-').
 **/
 
 /**
+ * Display the Board
+ */
+% display_board(+Board, +Dimensions)
+display_board(Board, Dimensions) :-
+    space(3),
+    print_horizontal_division(Dimensions),
+    new_line(1),
+    print_board(Board, Dimensions).
+
+/**
  * Print All the Lines on the Board
  */
 % print_board(+Board, +Dimensions)
@@ -95,16 +105,6 @@ print_board_line_elements([Element | Line]) :-
     print_vertical_division,
     print_board_line_elements(Line).
 print_board_line_elements([]).
-
-/**
- * Display the Game Board
- */
-% display_board(+Board, +Dimensions)
-display_board(Board, Dimensions) :-
-    space(3),
-    print_horizontal_division(Dimensions),
-    new_line(1),
-    print_board(Board, Dimensions).
 
 /**
  * Verifies if the element is not defined (meaning it is a variable)
