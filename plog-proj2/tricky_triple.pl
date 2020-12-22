@@ -3,6 +3,7 @@
 
 :- ensure_loaded('puzzle_library.pl').
 :- ensure_loaded('puzzle_solutions.pl').
+:- ensure_loaded('display.pl').
 
 /**
  * Main solver predicate of tricky triple puzzles.
@@ -35,9 +36,10 @@ tricky_triple(Difficulty, Id, LabelingOptions):-
     write('Labelling Starting (Should Only see this once)\n'),
     labeling(LabelingOptions, BoardList),
 
-    write(Board), write('\n'),
+    Dimensions is Difficulty + 3,
+    display_board(Board, Dimensions),
     puzzle_solution(Difficulty, Id, Solution),
-    write(Solution),
+    display_board(Solution, Dimensions),
     fail.
 
 /**
