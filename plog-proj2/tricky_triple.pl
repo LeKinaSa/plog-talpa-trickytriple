@@ -92,7 +92,7 @@ sequential_triple(Board, [Y1-X1, Y2-X2, Y3-X3]):-
  * 
  * Board -> the puzzle board
  * ListOfPairs -> List of elements in the form Y-X.
- */
+**/
 % all_valid_white_cells(+Board, +ListOfPairs)
 all_valid_white_cells(_, []).
 all_valid_white_cells(Board, [Y-X | Tail]):-
@@ -103,18 +103,18 @@ all_valid_white_cells(Board, [Y-X | Tail]):-
 
 
 /**
-*Checks if Element is representative of a white cell. Meaning element is either not instantiated or different that 0.
-*/
+ * Checks if Element is representative of a white cell. Meaning element is either not instantiated or different that 0.
+**/
 check_if_non_black(Element):-
     ground(Element),!, 
     Element =\= 0.
 check_if_non_black(_).
 
 /**
-*--------------------------------------------------------------------------------
-*------------------------   Constraint Appling Predicates   ---------------------
-*--------------------------------------------------------------------------------
-*/
+ * -----------------------------------------------------------------------------
+ * ---------------------   Constraint Appling Predicates   ---------------------
+ * -----------------------------------------------------------------------------
+**/
 
 /**
 * Makes it so no cell is labelled as 0, meaning white cells can't be labelled as black cells.
@@ -161,9 +161,9 @@ apply_triple_constraint(Board, [ [Y1-X1, Y2-X2, Y3-X3] |Tail]):-
     apply_triple_constraint(Board,Tail).
 
 /**
- *--------------------------------------------------------------------------------
- *---------------------------   Auxiliary Predicates   ---------------------------
- *--------------------------------------------------------------------------------
+ * --------------------------------------------------------------------------------
+ * ---------------------------   Auxiliary Predicates   ---------------------------
+ * --------------------------------------------------------------------------------
 **/
 
 /**
