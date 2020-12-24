@@ -90,7 +90,6 @@ print_board_line(Line) :-
     print_vertical_division,
     print_board_line_elements(Line).
 
-
 /**
  * Print All the Pieces on the Line
  */
@@ -105,3 +104,91 @@ print_board_line_elements([_ | Line]) :-
     print_vertical_division,
     print_board_line_elements(Line).
 print_board_line_elements([]).
+
+/*
+ * --------------------------------------------------------------------------------
+ * ------------------------------   Draw the Header   -----------------------------
+ * --------------------------------------------------------------------------------
+**/
+
+/**
+ * Display a Header for our Tricky Triple Puzzle
+ */
+% display_header
+display_header:-
+    write('*********************************\n'),
+    write('****                         ****\n'),
+    write('****          TALPA          ****\n'),
+    write('****                         ****\n'),
+    write('*********************************\n').
+
+/*
+ * --------------------------------------------------------------------------------
+ * ------------------------------   Draw the Menus   ------------------------------
+ * --------------------------------------------------------------------------------
+**/
+
+/**
+ * Display a Menu
+ */
+% display_menu(+Menu)
+display_menu(Menu) :-
+    clr,
+    display_header,
+    print_menu(Menu).
+
+/**
+ * Print the Selected Menu
+ * 0 - Main Menu
+ * 1 - Difficulty 1
+ * 2 - Difficulty 2
+ * 3 - Difficulty 3
+ * 4 - Difficulty 4
+ */
+% print_menu(+SelectedMenu)
+print_menu(0) :-
+    write('*********************************\n'),
+    write('*           MAIN MENU           *\n'),
+    write('*********************************\n'),
+    write('*   [1] Difficulty 1            *\n'),
+    write('*   [2] Difficulty 2            *\n'),
+    write('*   [3] Difficulty 3            *\n'),
+    write('*   [4] Difficulty 4            *\n'),
+    write('*********************************\n').
+
+print_menu(1) :-
+    write('*          Difficulty 1         *\n'),
+    write('*********************************\n'),
+    write('*   [1] *\n'),
+    write('*   [2] *\n'),
+    write('*   [3] *\n'),
+    write('*   [0] Back                    *\n'),
+    write('*********************************\n').
+
+print_menu(2) :-
+    write('*          Difficulty 2         *\n'),
+    write('*********************************\n'),
+    write('*   [1] *\n'),
+    write('*   [2] *\n'),
+    write('*   [3] *\n'),
+    write('*   [0] Back                    *\n'),
+    write('*********************************\n').
+
+print_menu(3) :-
+    write('*          Difficulty 3         *\n'),
+    write('*********************************\n'),
+    write('*   [1] *\n'),
+    write('*   [2] *\n'),
+    write('*   [3] *\n'),
+    write('*   [0] Back                    *\n'),
+    write('*********************************\n').
+
+print_menu(4) :-
+    write('*          Difficulty 4         *\n'),
+    write('*********************************\n'),
+    write('*   [1] *\n'),
+    write('*   [2] *\n'),
+    write('*   [3] *\n'),
+    write('*   [0] Back                    *\n'),
+    write('*********************************\n').
+
