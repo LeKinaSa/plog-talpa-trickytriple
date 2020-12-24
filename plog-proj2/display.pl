@@ -96,22 +96,12 @@ print_board_line(Line) :-
  */
 % print_board_line_elements(+Line)
 print_board_line_elements([Element | Line]) :-
-    element_not_defined(Element),
-    write(' '),
-    print_vertical_division,
-    print_board_line_elements(Line).
-print_board_line_elements([Element | Line]) :-
+    ground(Element), !,
     write(Element),
     print_vertical_division,
     print_board_line_elements(Line).
+print_board_line_elements([_ | Line]) :-
+    write(' '),
+    print_vertical_division,
+    print_board_line_elements(Line).
 print_board_line_elements([]).
-
-/**
- * Verifies if the element is not defined (meaning it is a variable)
-**/
-% element_not_defined(+Element)
-element_not_defined(Element) :-
-    Element \= ' ',
-    !,
-    fail.
-element_not_defined(_).
