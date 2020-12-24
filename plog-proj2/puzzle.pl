@@ -23,8 +23,8 @@
  * LabelingOptions -> list of options to be used on labeling
 **/
 
-% tricky_triple(+Difficulty, +Id, +LabelingOptions) 
-tricky_triple(Difficulty, Id, LabelingOptions):-
+% solve_puzzle(+Difficulty, +Id, +LabelingOptions) 
+solve_puzzle(Difficulty, Id, LabelingOptions):-
     puzzle(Difficulty, Id, Board),
     flatten(Board, BoardList),
 
