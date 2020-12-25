@@ -6,13 +6,13 @@
 
 /*
  * Clear the Board
- */
+**/
 % clr
 clr :- write('\33\[2J').
 
 /*
  * Prints N Empty Lines to the Screen
- */
+**/
 % new_line(+N)
 new_line(N) :-
     N > 1,
@@ -23,7 +23,7 @@ new_line(1) :- nl.
 
 /*
  * Prints N Spaces to the Screen
- */
+**/
 % space(+N)
 space(N) :-
     N > 1,
@@ -34,7 +34,7 @@ space(1) :- write(' ').
 
 /**
  * Prints a Vertical Division
- */
+**/
 % print_vertical_division
 print_vertical_division :-
     space(1),
@@ -43,7 +43,7 @@ print_vertical_division :-
 
 /**
  * Prints a Number of Horizontal Divisions
- */
+**/
 % print_horizontal_division(+N)
 print_horizontal_division(N) :-
     N > 0,
@@ -60,7 +60,7 @@ print_horizontal_division(0) :- write('-').
 
 /**
  * Display the Board
- */
+**/
 % display_board(+Board, +Dimensions)
 display_board(Board, Dimensions) :-
     space(3),
@@ -70,7 +70,7 @@ display_board(Board, Dimensions) :-
 
 /**
  * Print All the Lines on the Board
- */
+**/
 % print_board(+Board, +Dimensions)
 print_board([Line | Board], Dimensions) :-
     print_board_line(Line),
@@ -83,7 +83,7 @@ print_board([], _).
 
 /**
  * Print a Line
- */
+**/
 % print_board_line(+Line)
 print_board_line(Line) :-
     space(2),
@@ -92,7 +92,7 @@ print_board_line(Line) :-
 
 /**
  * Print All the Pieces on the Line
- */
+**/
 % print_board_line_elements(+Line)
 print_board_line_elements([Element | Line]) :-
     ground(Element), !,
@@ -113,12 +113,12 @@ print_board_line_elements([]).
 
 /**
  * Display a Header for our Tricky Triple Puzzle
- */
+**/
 % display_header
 display_header:-
     write('*********************************\n'),
     write('****                         ****\n'),
-    write('****          TALPA          ****\n'),
+    write('****      TRICKY TRIPLE      ****\n'),
     write('****                         ****\n'),
     write('*********************************\n').
 
@@ -130,12 +130,12 @@ display_header:-
 
 /**
  * Display a Menu
- */
-% display_menu(+Menu)
-display_menu(Menu) :-
+**/
+% display_menu(+Menu, -MaxOptions)
+display_menu(Menu, MaxOptions) :-
     clr,
     display_header,
-    print_menu(Menu).
+    print_menu(Menu, MaxOptions).
 
 /**
  * Print the Selected Menu
@@ -144,9 +144,9 @@ display_menu(Menu) :-
  * 2 - Difficulty 2
  * 3 - Difficulty 3
  * 4 - Difficulty 4
- */
-% print_menu(+SelectedMenu)
-print_menu(0) :-
+**/
+% print_menu(+SelectedMenu, -MaxOptions)
+print_menu(0, 4) :-
     write('*********************************\n'),
     write('*           MAIN MENU           *\n'),
     write('*********************************\n'),
@@ -156,39 +156,29 @@ print_menu(0) :-
     write('*   [4] Difficulty 4            *\n'),
     write('*********************************\n').
 
-print_menu(1) :-
-    write('*          Difficulty 1         *\n'),
+print_menu(1, 7) :-
+    print_difficulty_menu(1, 7).
+
+print_menu(2, 7) :-
+    print_difficulty_menu(2, 7).
+
+print_menu(3, 5) :-
+    print_difficulty_menu(3, 5).
+
+print_menu(4, 4) :-
+    print_difficulty_menu(4, 5).
+
+/**
+ * Print a Menu Choosing the Difficulty
+**/
+% print_difficulty_menu(+Difficulty, +NumberOfPuzzles)
+print_difficulty_menu(Difficulty, NumberOfPuzzles) :-
+    write('*          Difficulty '),
+    write(Difficulty),
+    write('         *\n'),
     write('*********************************\n'),
-    write('*   [1] *\n'),
-    write('*   [2] *\n'),
-    write('*   [3] *\n'),
+    write('*   [1-'),
+    write(NumberOfPuzzles),
+    write('] Id                    *\n'),
     write('*   [0] Back                    *\n'),
     write('*********************************\n').
-
-print_menu(2) :-
-    write('*          Difficulty 2         *\n'),
-    write('*********************************\n'),
-    write('*   [1] *\n'),
-    write('*   [2] *\n'),
-    write('*   [3] *\n'),
-    write('*   [0] Back                    *\n'),
-    write('*********************************\n').
-
-print_menu(3) :-
-    write('*          Difficulty 3         *\n'),
-    write('*********************************\n'),
-    write('*   [1] *\n'),
-    write('*   [2] *\n'),
-    write('*   [3] *\n'),
-    write('*   [0] Back                    *\n'),
-    write('*********************************\n').
-
-print_menu(4) :-
-    write('*          Difficulty 4         *\n'),
-    write('*********************************\n'),
-    write('*   [1] *\n'),
-    write('*   [2] *\n'),
-    write('*   [3] *\n'),
-    write('*   [0] Back                    *\n'),
-    write('*********************************\n').
-

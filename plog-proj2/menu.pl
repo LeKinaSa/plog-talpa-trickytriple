@@ -13,14 +13,14 @@
 % menu(+Menu)
 menu(Menu) :-
     Menu > 0,
-    display_menu(Menu),
-    obtain_menu_input(NextMenu, 3),
+    display_menu(Menu, MaxOptions),
+    obtain_menu_input(NextMenu, MaxOptions),
     !,
     select_next_menu(Menu, NextMenu).
 
 menu(0) :-
-    display_menu(0),
-    obtain_menu_input(NextMenu, 4),
+    display_menu(0, MaxOptions),
+    obtain_menu_input(NextMenu, MaxOptions),
     !,
     NextMenu > 0,
     menu(NextMenu).
