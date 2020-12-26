@@ -42,7 +42,12 @@ select_next_menu(_, 0) :-
 **/
 % start(+Difficulty, +Id)
 start(Difficulty, Id) :-
-    solve_puzzle(Difficulty, Id, []).
+    new_line(1),
+    statistics(runtime, [Start | _]),
+    solve_puzzle(Difficulty, Id, []),
+    statistics(runtime, [Stop | _]),
+    Runtime is Stop - Start,
+    print_time(Runtime).
 
 /**
  * --------------------------------------------------------------------------------

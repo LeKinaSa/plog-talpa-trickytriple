@@ -39,8 +39,7 @@ solve_puzzle(Difficulty, Id, LabelingOptions):-
     Dimensions is Difficulty + 3,
     display_board(Board, Dimensions),
     puzzle_solution(Difficulty, Id, Solution),
-    display_board(Solution, Dimensions),
-    fail.
+    display_board(Solution, Dimensions).
 
 /**
  * -------------------------------------------------------------------------------
