@@ -32,7 +32,7 @@ menu(0) :-
 select_next_menu(CurrentMenu, NextMenu) :-
     CurrentMenu > 0,
     NextMenu > 0,
-    start(CurrentMenu, NextMenu, []).
+    start(CurrentMenu-NextMenu, []).
 
 select_next_menu(_, 0) :-
     menu(0).
@@ -40,13 +40,14 @@ select_next_menu(_, 0) :-
 /**
  * Start the Process of Finding the Solution
 **/
-% start(+Difficulty, +Id, +LabellingOptions)
-start(Difficulty, Id, LabellingOptions) :-
+% start(+Puzzle, +LabellingOptions)
+start(Difficulty-Id, LabellingOptions) :-
     new_line(1),
     statistics(runtime, [Start | _]),
     solve_puzzle(Difficulty, Id, LabellingOptions),
     statistics(runtime, [Stop | _]),
     Runtime is Stop - Start,
+    print_separator,
     print_time(Runtime).
 
 /**

@@ -190,12 +190,32 @@ print_difficulty_menu(Difficulty, NumberOfPuzzles) :-
 **/
 
 /**
+ * Prints a Separator
+**/
+% print_separator
+print_separator :-
+    new_line(2),
+    write('*********************************\n').
+
+/**
  * Print the Time (millisseconds)
 **/
+% print_time(+Time)
 print_time(Time) :-
-    new_line(2),
-    write('*********************************\n'),
     write('  Time: '),
     write(Time),
-    write(' millisseconds\n'),
-    write('*********************************\n\n').
+    write(' milliseconds\n'),
+    write('*********************************\n').
+
+/**
+ * Prints Information About the Puzzle
+**/
+% print_puzzle_info(+Puzzle)
+print_puzzle_info(Difficulty-Id) :-
+    write('  Difficulty: '),
+    write(Difficulty),
+    new_line(1),
+    write('  Id: '),
+    write(Id),
+    new_line(1).
+    
