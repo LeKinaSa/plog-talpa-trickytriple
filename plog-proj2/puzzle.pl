@@ -153,11 +153,7 @@ apply_triple_constraint(Board, [ [Y1-X1, Y2-X2, Y3-X3] |Tail]):-
     nth1(Y3, Board, BoardLine3),
     nth1(X3, BoardLine3, BoardElement3),
 
-    (BoardElement1 #= BoardElement2 #/\ BoardElement3 #\= BoardElement1 #/\ BoardElement3 #\= BoardElement2)
-    #\/
-    (BoardElement1 #= BoardElement3 #/\ BoardElement2 #\= BoardElement1 #/\ BoardElement2 #\= BoardElement3)
-    #\/
-    (BoardElement2 #= BoardElement3 #/\ BoardElement1 #\= BoardElement2 #/\ BoardElement1 #\= BoardElement3),
+    nvalue(2, [BoardElement1, BoardElement2, BoardElement3]),
 
     apply_triple_constraint(Board,Tail).
 
