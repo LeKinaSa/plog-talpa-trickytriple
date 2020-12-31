@@ -33,9 +33,8 @@
 \maketitle              % typeset the header of the contribution
 
 \begin{abstract}
-The goal of this project was the construction of a program based in constraints programming that would solve problems of combinatorial decision.
-The problems studied in this paper are called Tricky Triple. These are a type of grid puzzle where each group of 3 adjacent cells must hold exactly 2 of 3 possible symbols.
-In this paper we will explain in depth the structure of these puzzles, how our solver has implementation using SICStus Prolog and the performance results we obtained.    
+In this article, we show how to use constraint programming to solve Tricky Triple Puzzles.
+We present a consistent method to analyze these puzzles and to obtain a solution to them.
 
 \keywords{tricky-triple \and prolog \and clpfd \and constraint-programming.}
 \end{abstract}
@@ -52,9 +51,20 @@ In this paper we will explain in depth the structure of these puzzles, how our s
 
 % Contents
 \section{Introduction}
+This project consists of building a program, in Logic Programming with Restrictions,
+    for solving a combinatorial decision.
+The problems studied are Tricky Triple Puzzles, which are grid puzzles. 
+To do so, we will analyze these problems and proceed to implement our solver using SICStus Prolog.
+Afterward, we will be discussing the performance results obtained.
 
 \section{Problem Description}
-The Tricky Triple puzzles are a type of grid puzzle. The goal of the puzzle is to fill each of the grid’s white cells with one of 3 symbols. The only rule is that each group of 3 adjacent white cells (horizontally, vertically, or diagonally) must contain exactly 2 of one of the symbols.
+The Tricky Triple puzzles are a type of grid puzzle.
+The goal of the puzzle is to fill each of the grid’s white cells with one of 3 symbols,
+a square, a circle, or a triangle.
+The only rule is that each group of 3 adjacent white cells
+    (horizontally, vertically, or diagonally) must contain exactly 2 of one of the symbols.
+So, each group of 3 white cells will have 2 of 3 symbols.
+Each puzzle below has a unique solution.
 
 \begin{figure}
     \includegraphics[width=\textwidth]{img/tricky-triple.png}
