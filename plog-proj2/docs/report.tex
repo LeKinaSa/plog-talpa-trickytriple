@@ -3,11 +3,11 @@
 % Version 2.20 of 2017/10/04
 %
 \documentclass[runningheads]{llncs}
-%
-\usepackage{graphicx}
-% Used for displaying a sample figure. If possible, figure files should
-% be included in EPS format.
-%
+
+\usepackage{graphicx}   % Images
+
+\usepackage{setspace}   % Spacing
+
 % If you use the hyperref package, please uncomment the following line
 % to display URLs in blue roman font according to Springer's eBook style:
 % \renewcommand\UrlFont{\color{blue}\rmfamily}
@@ -42,8 +42,38 @@ In this paper we will explain in depth the structure of these puzzles, how our s
 
 \newpage
 
-%
-\section{First Section}
+% Table of Contents
+\setcounter{tocdepth}{2} % Show sections + subsections
+\doublespacing % Spacing
+\tableofcontents
+\singlespacing
+
+\newpage
+
+% Contents
+\section{Introduction}
+
+\section{Problem Description}
+The Tricky Triple puzzles are a type of grid puzzle. The goal of the puzzle is to fill each of the grid’s white cells with one of 3 symbols. The only rule is that each group of 3 adjacent white cells (horizontally, vertically, or diagonally) must contain exactly 2 of one of the symbols.
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{img/tricky-triple.png}
+    \caption{Example of Tricky Triple Puzzles, before and after solving it.} \label{fig1}
+\end{figure}
+
+\section{Approach}
+\subsection{Decision Variables}
+\subsection{Constraints}
+
+\section{Solution Presentation}
+
+\section{Experiments and Results}
+\subsection{Dimensional Analysis}
+\subsection{Search Strategies}
+
+\section{Conclusions and Future Work}
+
+\section{Section Sample}
 \subsection{A Subsection Sample}
 Please note that the first paragraph of a section or subsection is
 not indented. The first paragraph that follows a table, figure,
@@ -145,4 +175,5 @@ on Proceedings, pp. 1--2. Publisher, Location (2010)
 LNCS Homepage, \url{http://www.springer.com/lncs}. Last accessed 4
 Oct 2017
 \end{thebibliography}
+
 \end{document}
