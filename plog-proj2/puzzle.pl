@@ -22,7 +22,6 @@
  *
  * LabelingOptions -> list of options to be used on labeling
 **/
-
 % solve_puzzle(+Difficulty, +Id, +LabelingOptions) 
 solve_puzzle(Difficulty, Id, LabelingOptions):-
     puzzle(Difficulty, Id, Board),
@@ -48,64 +47,68 @@ solve_puzzle(Difficulty, Id, LabelingOptions):-
 **/
 
 /**
- * Predicate that verifies that Triple is representating a group of 3 Adjacent White Squares in board Board.
- * This predicate is used in a findall in order to get all groups of 3 adjacent white squares.
+ * Verifies that Triple is representing a group of 3 Adjacent White Squares on the board Board.
+ * This predicate is used in a findall to get all groups of 3 adjacent white squares.
  *
- * Baord -> the puzzle board
+ * Board -> the puzzle board
  *
- * Triple -> a list of 3 elements of type Y-X. If valid Y-X are coordinates of a board cell.
+ * Triple -> a list of 3 elements with type X-Y. If valid, X-Y are coordinates of a board cell.
 **/
-% sequential_triple(Board, Triple)
+% sequential_triple(+Board, +Triple)
 
-/* vertical triple */
-sequential_triple(Board, [Y1-X1, Y2-X2, Y3-X3]):-
-    all_valid_white_cells(Board, [Y1-X1, Y2-X2, Y3-X3]),
-    Y1 =:= Y2 - 1,
-    Y1 =:= Y3 - 2,
-    X1 =:= X2, X2 =:= X3.
-
-/* horizontal triple */
-sequential_triple(Board, [Y1-X1, Y2-X2, Y3-X3]):-
-    all_valid_white_cells(Board, [Y1-X1, Y2-X2, Y3-X3]),
+/* Vertical Triple */
+sequential_triple(Board, [X1-Y1, X2-Y2, X3-Y3]):-
+    all_valid_white_cells(Board, [X1-Y1, X2-Y2, X3-Y3]),
     X1 =:= X2 - 1,
     X1 =:= X3 - 2,
-    Y1 =:= Y2, Y2 =:= Y3.
+    Y1 =:= Y2,
+    Y2 =:= Y3.
 
-/* diagonal of type "\" triple */
-sequential_triple(Board, [Y1-X1, Y2-X2, Y3-X3]):-
-    all_valid_white_cells(Board, [Y1-X1, Y2-X2, Y3-X3]),
+/* Horizontal Triple */
+sequential_triple(Board, [X1-Y1, X2-Y2, X3-Y3]):-
+    all_valid_white_cells(Board, [X1-X1, X2-Y2, X3-Y3]),
     Y1 =:= Y2 - 1,
     Y1 =:= Y3 - 2,
-    X1 =:= X2 - 1,
-    X1 =:= X3 - 2.
+    X1 =:= X2,
+    X2 =:= X3.
 
-/* diagonal of type "/" triple */
-sequential_triple(Board, [Y1-X1, Y2-X2, Y3-X3]):-
-    all_valid_white_cells(Board, [Y1-X1, Y2-X2, Y3-X3]),
-    Y1 =:= Y2 + 1,
-    Y1 =:= Y3 + 2,
+/* Diagonal type "\" Triple */
+sequential_triple(Board, [X1-Y1, X2-Y2, X3-Y3]):-
+    all_valid_white_cells(Board, [X1-Y1, X2-Y2, X3-Y3]),
     X1 =:= X2 - 1,
-    X1 =:= X3 - 2.
+    X1 =:= X3 - 2,
+    Y1 =:= Y2 - 1,
+    Y1 =:= Y3 - 2.
+
+/* Diagonal type "/" Triple */
+sequential_triple(Board, [X1-Y1, X2-Y2, X3-Y3]):-
+    all_valid_white_cells(Board, [X1-Y1, X2-Y2, X3-Y3]),
+    X1 =:= X2 + 1,
+    X1 =:= X3 + 2,
+    Y1 =:= Y2 - 1,
+    Y1 =:= Y3 - 2.
 
 
 /**
- * Checks if pair Y-X is representing a cell on the board and if that cell is white (non-black)
+ * Checks if pair X-Y represents a cell on the board and if that cell is white (non-black).
  * 
  * Board -> the puzzle board
- * ListOfPairs -> List of elements in the form Y-X.
+ * ListOfPairs -> List of elements in the form X-Y.
 **/
 % all_valid_white_cells(+Board, +ListOfPairs)
 all_valid_white_cells(_, []).
-all_valid_white_cells(Board, [Y-X | Tail]):-
-    nth1(Y, Board, BoardLine),
-    nth1(X, BoardLine, BoardElement),
+all_valid_white_cells(Board, [X-Y | Tail]):-
+    nth1(X, Board, BoardLine),
+    nth1(Y, BoardLine, BoardElement),
     check_if_non_black(BoardElement),
     all_valid_white_cells(Board, Tail).
 
 
 /**
- * Checks if Element is representative of a white cell. Meaning element is either not instantiated or different that 0.
+ * Checks if the Element is representative of a white cell.
+ * Meaning element is either not instantiated or different that 0 (black cell).
 **/
+% check_if_non_black(+Element)
 check_if_non_black(Element):-
     ground(Element), !, 
     Element =\= 0.
@@ -118,15 +121,15 @@ check_if_non_black(_).
 **/
 
 /**
- * Makes it so no cell is labelled as 0, meaning white cells can't be labelled as black cells.
+ * This predicate makes it impossible for any white cell to be labeled a black cell.
  *
  * BoardList -> the puzzle board as a single continuous list
  *
 **/
-% apply_non_zero_constraint(BoardList)
+% apply_non_zero_constraint(+BoardList)
 apply_non_zero_constraint([]).
 apply_non_zero_constraint([H | Tail]):-
-    ground(H),!,
+    ground(H), !,
     apply_non_zero_constraint(Tail).
 apply_non_zero_constraint([H | Tail]):-
     H #\= 0,
@@ -139,7 +142,7 @@ apply_non_zero_constraint([H | Tail]):-
  *
  * Board -> the puzzle board
  * ListOfSequentialTriples -> A list containing all groups of 3 adjacent white squares that are in a line
- *            horizontally, vertically or diagonally.
+ *                              horizontally, vertically, or diagonally.
 **/
 % apply_triple_constraint(+Board, +ListOfSequentialTriples)
 apply_triple_constraint(_, []).
@@ -164,7 +167,7 @@ apply_triple_constraint(Board, [ [Y1-X1, Y2-X2, Y3-X3] |Tail]):-
 **/
 
 /**
-* Flattens a list of lists into a list
+* Flattens a list of lists into a list.
 */
 % flatten(+ListOfLists, -List)
 flatten([], []).
