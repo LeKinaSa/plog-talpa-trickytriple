@@ -19,7 +19,7 @@
 % Authors
 \author{
     \begin{tabular}{l r}
-        \email{upXXXXXXXXX@fe.up.pt} & Ângelo Daniel Pereira Mendes Moura \\
+        \email{up201303828@fe.up.pt} & Ângelo Daniel Pereira Mendes Moura \\
         \email{up201806528@fe.up.pt} & Clara Alves Martins \\
     \end{tabular}
 }
@@ -65,7 +65,7 @@ a square, a circle, or a triangle.
 The only rule is that each group of 3 adjacent white cells
     (horizontally, vertically, or diagonally) must contain exactly 2 of one of the symbols.
 So, each group of 3 white cells will have 2 of 3 symbols.
-Each puzzle below has a unique solution.
+Each puzzle given has a unique solution.
 
 \begin{figure}
     \centering
@@ -82,6 +82,18 @@ The number 1 represents a green triangle,
     while the number 2 represents a red square and the number 3 a blue circle.
 
 \subsection{Decision Variables}
+All triple tricky puzzles take the form of a NxN square grid divided by cells, this is
+represented internally by a square matrix form by a list of lists.
+
+The grid cells can either be black, a cell that can't be filled, or, more commonly, white.
+
+The white cells need to be filled with either a triangle (represented by 1), a square (represented by 2)
+or a circle (represented by 3) to reach the puzzle solution.
+
+The Decision Variables are all the elements of the list of lists, meaning all the puzzle cells.
+Their domain is {0, 1, 2, 3}. The zero is representative of a black cell and for our solver
+is not considered as a valid value to put on a cell, this is guaranteed by a restriction,
+because that would make a white cell into a black cell.  
 
 \subsection{Constraints}
 The restrictions implemented in our solver are faithful to the ones from the puzzle rules.
