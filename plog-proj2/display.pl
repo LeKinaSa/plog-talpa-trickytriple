@@ -96,7 +96,8 @@ print_board_line(Line) :-
 % print_board_line_elements(+Line)
 print_board_line_elements([Element | Line]) :-
     ground(Element), !,
-    write(Element),
+    get_readable_symbol(Element, Symbol),
+    write(Symbol),
     print_vertical_division,
     print_board_line_elements(Line).
 print_board_line_elements([_ | Line]) :-
@@ -218,4 +219,18 @@ print_puzzle_info(Difficulty-Id) :-
     write('  Id: '),
     write(Id),
     new_line(1).
-    
+
+/*
+ * --------------------------------------------------------------------------------
+ * ------------------------   Number to Symbol Dictionary   -----------------------
+ * --------------------------------------------------------------------------------
+**/
+
+/**
+ * Translates the internal representation into more readable symbols 
+**/
+%get_readable_symbol(+InternalRepresentation, -ReadableSymbol)
+get_readable_symbol(0, '-').
+get_readable_symbol(1, 'T').
+get_readable_symbol(2, 'S').
+get_readable_symbol(3, 'C').

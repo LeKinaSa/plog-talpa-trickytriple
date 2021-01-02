@@ -1,5 +1,7 @@
 :- ensure_loaded('puzzle.pl').
 :- ensure_loaded('display.pl').
+:- ensure_loaded('puzzle_library.pl').
+:- ensure_loaded('puzzle_solutions.pl').
 
 /**
  * --------------------------------------------------------------------------------
@@ -43,12 +45,27 @@ select_next_menu(_, 0) :-
 % start(+Puzzle, +LabellingOptions)
 start(Difficulty-Id, LabellingOptions) :-
     new_line(1),
+
+    Dimensions is Difficulty + 3,
+    puzzle(Difficulty, Id, StartingPuzzle),
+    write(' Selected Puzzle: \n'),
+    display_board(StartingPuzzle, Dimensions),
+
     statistics(runtime, [Start | _]),
-    solve_puzzle(Difficulty, Id, LabellingOptions),
+    solve_puzzle(Difficulty, Id, LabellingOptions, CalculatedSolution),
     statistics(runtime, [Stop | _]),
+
+    print_separator,
+    write('\n Obtained Solution: \n'),
+    display_board(CalculatedSolution, Dimensions),
+
     Runtime is Stop - Start,
     print_separator,
-    print_time(Runtime).
+    print_time(Runtime),
+
+    write('\n Solution on Library: \n'),
+    puzzle_solution(Difficulty, Id, LibrarySolution),
+    display_board(LibrarySolution, Dimensions).
 
 /**
  * --------------------------------------------------------------------------------

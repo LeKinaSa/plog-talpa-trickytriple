@@ -21,9 +21,11 @@
  * Id -> numeric identifier of puzzle instance within a difficulty
  *
  * LabelingOptions -> list of options to be used on labeling
+ *
+ * PuzzleSolution -> a solved board
 **/
-% solve_puzzle(+Difficulty, +Id, +LabelingOptions) 
-solve_puzzle(Difficulty, Id, LabelingOptions):-
+% solve_puzzle(+Difficulty, +Id, +LabelingOptions, -PuzzleSolution) 
+solve_puzzle(Difficulty, Id, LabelingOptions, Board):-
     puzzle(Difficulty, Id, Board),
     flatten(Board, BoardList),
 
@@ -32,13 +34,7 @@ solve_puzzle(Difficulty, Id, LabelingOptions):-
     findall(SequentialTriple, sequential_triple(Board, SequentialTriple), ListOfSequentialTriples),
     apply_triple_constraint(Board, ListOfSequentialTriples),
 
-    write('Labelling Starting (Should Only see this once)\n'),
-    labeling(LabelingOptions, BoardList),
-
-    Dimensions is Difficulty + 3,
-    display_board(Board, Dimensions),
-    puzzle_solution(Difficulty, Id, Solution),
-    display_board(Solution, Dimensions).
+    labeling(LabelingOptions, BoardList).
 
 /**
  * -------------------------------------------------------------------------------
@@ -66,7 +62,7 @@ sequential_triple(Board, [X1-Y1, X2-Y2, X3-Y3]):-
 
 /* Horizontal Triple */
 sequential_triple(Board, [X1-Y1, X2-Y2, X3-Y3]):-
-    all_valid_white_cells(Board, [X1-X1, X2-Y2, X3-Y3]),
+    all_valid_white_cells(Board, [X1-Y1, X2-Y2, X3-Y3]),
     Y1 =:= Y2 - 1,
     Y1 =:= Y3 - 2,
     X1 =:= X2,
@@ -75,10 +71,10 @@ sequential_triple(Board, [X1-Y1, X2-Y2, X3-Y3]):-
 /* Diagonal type "\" Triple */
 sequential_triple(Board, [X1-Y1, X2-Y2, X3-Y3]):-
     all_valid_white_cells(Board, [X1-Y1, X2-Y2, X3-Y3]),
-    X1 =:= X2 - 1,
-    X1 =:= X3 - 2,
-    Y1 =:= Y2 - 1,
-    Y1 =:= Y3 - 2.
+    X1 =:= X2 + 1,
+    X1 =:= X3 + 2,
+    Y1 =:= Y2 + 1,
+    Y1 =:= Y3 + 2.
 
 /* Diagonal type "/" Triple */
 sequential_triple(Board, [X1-Y1, X2-Y2, X3-Y3]):-
