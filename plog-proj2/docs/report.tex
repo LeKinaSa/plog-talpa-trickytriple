@@ -82,7 +82,21 @@ The number 1 represents a green triangle,
     while the number 2 represents a red square and the number 3 a blue circle.
 
 \subsection{Decision Variables}
+
 \subsection{Constraints}
+The restrictions implemented in our solver are faithful to the ones from the puzzle rules.
+
+\textbf{Each cell must contain a symbol} \\
+In the puzzle solution, all the cells have to be assigned.
+
+\textbf{No black cells can be assigned} \\
+In every white cell, we need to put a square, a triangle, or a circle.
+Meaning we can't put a black cell on a white cell.
+
+\textbf{Each group of 3 adjacent white cells (horizontally, vertically, or diagonally)
+    must contain exactly 2 of one of the symbols} \\
+Consider a group of three adjacent, horizontally, vertically, or diagonally, white cells.
+In this group, two of the cells have the same symbol, and the last cell must have a different one.
 
 \section{Solution Presentation}
 
