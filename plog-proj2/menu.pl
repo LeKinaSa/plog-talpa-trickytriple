@@ -3,6 +3,18 @@
 :- ensure_loaded('puzzle_library.pl').
 :- ensure_loaded('puzzle_solutions.pl').
 
+/*
+ * Tricky Triple Puzzle Solver
+**/
+% tricky_triple
+tricky_triple :- menu(0).
+
+/**
+ * Abbreviated Tricky Triple Puzzle Solver
+**/
+% tt
+tt :- tricky_triple.
+
 /**
  * --------------------------------------------------------------------------------
  * -----------------------------------   Menu   -----------------------------------

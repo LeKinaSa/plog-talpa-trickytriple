@@ -8,11 +8,17 @@
  * --------------------------------------------------------------------------------
 **/
 
-% go
-go :-
+/**
+ * Testing and Statistics
+**/
+% test
+test :-
     get_options(Options),
     get_statistics(Options).
 
+/**
+ * Provide Statistics for All the Labeling Options
+**/
 get_statistics([Option | Options]) :-
     print_options(Option),
     puzzle_statistics(Option),
