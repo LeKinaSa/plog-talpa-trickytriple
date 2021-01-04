@@ -24,12 +24,12 @@
  *
  * PuzzleSolution -> a solved board
 **/
-% solve_puzzle(+Difficulty, +Id, +LabelingOptions, -PuzzleSolution) 
-solve_puzzle(Difficulty, Id, LabelingOptions, Board):-
+% solver(+Difficulty, +Id, +LabelingOptions, -PuzzleSolution) 
+solver(Difficulty, Id, LabelingOptions, Board):-
     puzzle(Difficulty, Id, Board),
     flatten(Board, BoardList),
-
     domain(BoardList, 0, 3),
+    
     apply_non_zero_constraint(BoardList),
     findall(SequentialTriple, sequential_triple(Board, SequentialTriple), ListOfSequentialTriples),
     apply_triple_constraint(Board, ListOfSequentialTriples),

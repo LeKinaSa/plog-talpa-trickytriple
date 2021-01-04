@@ -8,17 +8,21 @@
  * --------------------------------------------------------------------------------
 **/
 
-play :-
+% go
+go :-
     get_options(Options),
-    play(Options).
+    get_statistics(Options).
 
-play([Option | Options]) :-
+get_statistics([Option | Options]) :-
     print_options(Option),
     puzzle_statistics(Option),
-    % sleep(10),
-    play(Options).
-play([]).
+    get_statistics(Options).
+get_statistics([]).
 
+/**
+ * Obtains All the Options for Labeling
+**/
+% get_options(-Options)
 get_options([[leftmost,   up,  step ],
              [leftmost,   up,  enum ],
              [leftmost,   up, bisect],
@@ -57,10 +61,9 @@ get_options([[leftmost,   up,  step ],
 /**
  * Provide All Statistics for All Puzzles
 **/
-% statistics
+% puzzle_statistics(+Options)
 puzzle_statistics(Options) :-
     findall(Difficulty-Id, puzzle(Difficulty, Id, _), Set),
-    % display_header,
     all_stats(Set, Options).
 
 /**
@@ -77,36 +80,18 @@ all_stats([], _).
 **/
 % stats(+Puzzle)
 stats(Puzzle, Options) :-
-    % print_separator,
-    % print_puzzle_info(Puzzle),
     start_solver(Puzzle, Options, Runtime),
-    % print_time(Runtime).
     print_puzzle_stats(Puzzle, Runtime).
 
 /**
  * Similar to start/2 but without the prints
 **/
 % start_solver(+Puzzle, +LabelingOptions, -Runtime)
-start_solver(Puzzle, LabellingOptions, Runtime) :-
+start_solver(Difficulty-Id, LabelingOptions, Runtime) :-
     statistics(runtime, [Start | _]),
-    solver(Puzzle, LabellingOptions),
+    solver(Difficulty, Id, LabelingOptions, _),
     statistics(runtime, [Stop | _]),
     Runtime is Stop - Start.
-
-/**
- * Similar to puzzle_solve/2 but without the prints
-**/
-% solver(+Puzzle, +LabelingOptions)
-solver(Difficulty-Id, LabelingOptions):-
-    puzzle(Difficulty, Id, Board),
-    flatten(Board, BoardList),
-
-    domain(BoardList, 0, 3),
-    apply_non_zero_constraint(BoardList),
-    findall(SequentialTriple, sequential_triple(Board, SequentialTriple), ListOfSequentialTriples),
-    apply_triple_constraint(Board, ListOfSequentialTriples),
-
-    labeling(LabelingOptions, BoardList).
 
 /**
  * Print Puzzle Statistics in a Very Compact Way
@@ -121,7 +106,7 @@ print_puzzle_stats(Difficulty-Id, Runtime) :-
     write(' ms\n').
 
 /**
- * Print Puzzle Labelling Options
+ * Print Puzzle Labeling Options
 **/
 % print_options(+Options)
 print_options([O1, O2, O3]) :-

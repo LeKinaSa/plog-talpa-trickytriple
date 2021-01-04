@@ -148,7 +148,6 @@ display_menu(Menu, MaxOptions) :-
 **/
 % print_menu(+SelectedMenu, -MaxOptions)
 print_menu(0, 4) :-
-    write('*********************************\n'),
     write('*           MAIN MENU           *\n'),
     write('*********************************\n'),
     write('*   [1] Difficulty 1            *\n'),
@@ -167,7 +166,7 @@ print_menu(3, 5) :-
     print_difficulty_menu(3, 5).
 
 print_menu(4, 4) :-
-    print_difficulty_menu(4, 5).
+    print_difficulty_menu(4, 4).
 
 /**
  * Print a Menu Choosing the Difficulty
@@ -182,6 +181,42 @@ print_difficulty_menu(Difficulty, NumberOfPuzzles) :-
     write(NumberOfPuzzles),
     write('] Id                    *\n'),
     write('*   [0] Back                    *\n'),
+    write('*********************************\n').
+
+/**
+ * Displays Labeling Option 3
+**/
+display_labeling_option_1 :-
+    write('*       Labeling Option 1       *\n'),
+    write('*********************************\n'),
+    write('*   [1] Leftmost                *\n'),
+    write('*   [2] First fail              *\n'),
+    write('*   [3] First Fail Constraint   *\n'),
+    write('*   [4] Min                     *\n'),
+    write('*   [5] Max                     *\n'),
+    write('*********************************\n').
+
+/**
+ * Displays Labeling Option 3
+**/
+display_labeling_option_2 :-
+    write('*********************************\n'),
+    write('*       Labeling Option 2       *\n'),
+    write('*********************************\n'),
+    write('*   [1] Up                      *\n'),
+    write('*   [2] Down                    *\n'),
+    write('*********************************\n').
+
+/**
+ * Displays Labeling Option 3
+**/
+display_labeling_option_3 :-
+    write('*********************************\n'),
+    write('*       Labeling Option 3       *\n'),
+    write('*********************************\n'),
+    write('*   [1] Step                    *\n'),
+    write('*   [2] Enum                    *\n'),
+    write('*   [3] Bisect                  *\n'),
     write('*********************************\n').
 
 /*
@@ -208,18 +243,6 @@ print_time(Time) :-
     write(' milliseconds\n'),
     write('*********************************\n').
 
-/**
- * Prints Information About the Puzzle
-**/
-% print_puzzle_info(+Puzzle)
-print_puzzle_info(Difficulty-Id) :-
-    write('  Difficulty: '),
-    write(Difficulty),
-    new_line(1),
-    write('  Id: '),
-    write(Id),
-    new_line(1).
-
 /*
  * --------------------------------------------------------------------------------
  * ------------------------   Number to Symbol Dictionary   -----------------------
@@ -229,7 +252,7 @@ print_puzzle_info(Difficulty-Id) :-
 /**
  * Translates the internal representation into more readable symbols 
 **/
-%get_readable_symbol(+InternalRepresentation, -ReadableSymbol)
+% get_readable_symbol(+InternalRepresentation, -ReadableSymbol)
 get_readable_symbol(0, '-').
 get_readable_symbol(1, 'T').
 get_readable_symbol(2, 'S').
