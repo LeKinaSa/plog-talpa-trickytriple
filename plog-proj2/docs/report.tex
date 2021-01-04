@@ -68,23 +68,23 @@ The problems studied are Tricky Triple Puzzles, which are grid puzzles.
 To do so, we will analyze these problems and proceed to implement our solver using SICStus Prolog.
 Afterward, we will be discussing the performance results obtained.
 This article has the following structure:
-\begin{enumerate}
+\begin{itemize}
     \item \textbf{Problem Description}: tricky triple puzzle detailed description
     \item \textbf{Approach}: problem modulation
-        \begin{enumerate}
+        \begin{itemize}
             \item \textbf{Decision Variables}: decision variables' meaning and domain
             \item \textbf{Constraints}: problem constraints' description
-        \end{enumerate}
+        \end{itemize}
     \item \textbf{Solution Presentation}: explanation for the predicates that provide a user interface
     \item \textbf{Experiments and Results}: results from all the tests
-        \begin{enumerate}
+        \begin{itemize}
             \item \textbf{Search Strategies}: result's analysis from different search strategies
             \item \textbf{Dimensional Analysis}: result's analysis from different puzzle's dimensions
-        \end{enumerate}
+        \end{itemize}
     \item \textbf{Conclusions and Future Work}: conclusions withdraw and limitations of this project
     \item \textbf{References}: books, web pages, and articles used
     \item \textbf{Annex}: result tables and other extras
-\end{enumerate}
+\end{itemize}
 
 \section{Problem Description}
 The Tricky Triple puzzles are a type of grid puzzle.
@@ -95,7 +95,7 @@ The only rule is that each group of 3 adjacent white cells
 So, each group of 3 white cells will have 2 of 3 symbols.
 Each puzzle given has a unique solution.
 
-\begin{figure}
+\begin{figure} [h]
     \centering
     \includegraphics[scale=0.7]{img/tricky-triple.png}
     \caption{Example of Tricky Triple Puzzles, before and after solving it} \label{fig1}
@@ -147,9 +147,9 @@ To present the solution, we use two predicates from the file \textit{display.pl}
         into more readable symbols for those to be displayed to the user.
 \end{itemize}
 
-\begin{figure}
+\begin{figure} [h]
     \centering
-    \includegraphics[scale=0.4]{img/puzzle_solving.png}
+    \includegraphics[scale=0.6]{img/puzzle_solving.png}
     \caption{Output Example for a Puzzle Solution} \label{fig2}
 \end{figure}
 
@@ -173,7 +173,7 @@ From all the collected information, we can withdraw some conclusions:
 The graph below illustrates the obtained results.
 Table \ref{tab1} contains the average values for each dimension and labeling option.
 
-\begin{figure}
+\begin{figure} [h]
     \centering
     \includegraphics[width=\textwidth]{img/execution_times.png}
     \caption{Experiment Results} \label{fig3}
@@ -188,20 +188,22 @@ The equations for these trendlines are in Table \ref{tab2}.
 Analyzing Figure \ref{fig4}, we can conclude that perhaps the best options would be
     "min, down, enum" or "leftmost, down, bisect".
 
-\begin{figure}
+\begin{figure} [h]
     \centering
     \includegraphics[width=\textwidth]{img/previsions.png}
     \caption{Execution Times Predictions} \label{fig4}
 \end{figure}
+
+\newpage
 
 \subsection{Dimensional Analysis}
 
 We will be using "ff, up, bisect" as a labeling option since it
     is the better one for grids up to 7x7, as already mentioned.
 
-\begin{figure}
+\begin{figure} [h]
     \centering
-    \includegraphics[scale=0.3]{img/dimensional_analysis.png}
+    \includegraphics[scale=0.6]{img/dimensional_analysis.png}
     \caption{Execution Times} \label{fig5}
 \end{figure}
 
@@ -213,9 +215,9 @@ This function will establish a relation between the grid's dimensions and the ex
 However, with only 4 points, we can't estimate with certainty what will be the behavior
     of the best regression function.
 
-\begin{figure}
+\begin{figure} [h]
     \centering
-    \includegraphics[scale=0.3]{img/dimensional_prediction.png}
+    \includegraphics[scale=0.6]{img/dimensional_prediction.png}
     \caption{Execution Times With Trendlines} \label{fig6}
 \end{figure}
 
@@ -224,13 +226,18 @@ From all the data we have, the best approximation is a cubic, a third-degree pol
 
 \section{Conclusions and Future Work}
 
-\section{Bibliography}
+\section{References}
+\begin{enumerate}
+    \item Tricky Triple Puzzle Page: https://erich-friedman.github.io/puzzle/shape/
+    \item SICStus Prolog Documentation: https://sicstus.sics.se/documentation.html
+\end{enumerate}
 
+\newpage
 \section{Annex}
 
 \subsection{Average Execution Times Table} \label{experiment-results}
 
-\begin{table}
+\begin{table} [h]
     \caption{Average Times Obtained (ms)} \label{tab1}
     \begin{tabularx}{\textwidth}{|C|C|C|C|C|C|C|}
         \hline
@@ -272,44 +279,50 @@ From all the data we have, the best approximation is a cubic, a third-degree pol
     \end{tabularx}
 \end{table}
 
+\newpage
 \subsection{Trendlines using to Estimate Execution Time for Bigger Grids} \label{trendlines}
+In the following equations,
+\begin{itemize}
+    \item \(x\) = Grid's Dimensions
+    \item \(y\) = Execution Time
+\end{itemize}
 
-\begin{table}
+\begin{table} [h]
     \caption{Trendlines} \label{tab2}
     \begin{tabularx}{\textwidth}{|C|C|C|C|C|}
         \hline
         \multicolumn{3}{|c|}{Labeling Options} & \multicolumn{2}{|c|}{Equations} \\
         \hline
-        leftmost & up   & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        leftmost & up   & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        leftmost & up   & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        leftmost & down & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        leftmost & down & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        leftmost & down & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        ff       & up   & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        ff       & up   & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        ff       & up   & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        ff       & down & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        ff       & down & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        ff       & down & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        ffc      & up   & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        ffc      & up   & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        ffc      & up   & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        ffc      & down & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        ffc      & down & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        ffc      & down & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        min      & up   & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        min      & up   & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        min      & up   & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        min      & down & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        min      & down & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        min      & down & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        max      & up   & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        max      & up   & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        max      & up   & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        max      & down & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        max      & down & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
-        max      & down & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        leftmost & up   & step   & \multicolumn{2}{|c|}{\(y =  12.337x^3 - 46.293x^2 + 86.235x - 34.564 = 0 \)} \\
+        leftmost & up   & enum   & \multicolumn{2}{|c|}{\(y =  13.549x^3 - 55.836x^2 + 106.09x - 50.379 = 0 \)} \\
+        leftmost & up   & bisect & \multicolumn{2}{|c|}{\(y =  17.001x^3 -  82.55x^2 + 164.36x -  80.95 = 0 \)} \\
+        leftmost & down & step   & \multicolumn{2}{|c|}{\(y =  11.933x^3 - 53.128x^2 + 122.57x - 67.943 = 0 \)} \\
+        leftmost & down & enum   & \multicolumn{2}{|c|}{\(y = -1.0774x^3 + 43.321x^2 + 93.137x + 68.607 = 0 \)} \\
+        leftmost & down & bisect & \multicolumn{2}{|c|}{\(y =  6.6024x^3 - 12.286x^2 + 21.112x - 2.2714 = 0 \)} \\
+        ff       & up   & step   & \multicolumn{2}{|c|}{\(y =  10.774x^3 - 42.286x^2 + 84.869x - 39.929 = 0 \)} \\
+        ff       & up   & enum   & \multicolumn{2}{|c|}{\(y =   9.369x^3 -   33.5x^2 + 68.345x -   28.5 = 0 \)} \\
+        ff       & up   & bisect & \multicolumn{2}{|c|}{\(y =  3.8833x^3 + 7.1857x^2 - 19.883x + 24.529 = 0 \)} \\
+        ff       & down & step   & \multicolumn{2}{|c|}{\(y =  8.0738x^3 -   27.1x^2 + 65.069x -   34.9 = 0 \)} \\
+        ff       & down & enum   & \multicolumn{2}{|c|}{\(y =  10.288x^3 - 42.957x^2 +  97.14x - 51.186 = 0 \)} \\
+        ff       & down & bisect & \multicolumn{2}{|c|}{\(y =   10.22x^3 - 40.821x^2 + 84.351x - 33.607 = 0 \)} \\
+        ffc      & up   & step   & \multicolumn{2}{|c|}{\(y = -0.3405x^3 + 34.943x^2 - 71.302x + 52.414 = 0 \)} \\
+        ffc      & up   & enum   & \multicolumn{2}{|c|}{\(y =  7.3119x^3 - 20.457x^2 +  45.76x - 19.186 = 0 \)} \\
+        ffc      & up   & bisect & \multicolumn{2}{|c|}{\(y =  9.5357x^3 - 35.071x^2 + 72.179x - 33.357 = 0 \)} \\
+        ffc      & down & step   & \multicolumn{2}{|c|}{\(y =  3.5429x^3 + 10.843x^2 - 37.186x + 49.514 = 0 \)} \\
+        ffc      & down & enum   & \multicolumn{2}{|c|}{\(y =  3.4012x^3 + 6.9357x^2 - 11.044x + 16.279 = 0 \)} \\
+        ffc      & down & bisect & \multicolumn{2}{|c|}{\(y =  7.6726x^3 - 21.393x^2 + 41.613x - 14.464 = 0 \)} \\
+        min      & up   & step   & \multicolumn{2}{|c|}{\(y =   3.044x^3 + 10.936x^2 -  22.83x + 22.279 = 0 \)} \\
+        min      & up   & enum   & \multicolumn{2}{|c|}{\(y =  8.4345x^3 -  25.25x^2 + 43.423x -   8.75 = 0 \)} \\
+        min      & up   & bisect & \multicolumn{2}{|c|}{\(y =  3.6929x^3 +    7.9x^2 + 22.836x +   29.1 = 0 \)} \\
+        min      & down & step   & \multicolumn{2}{|c|}{\(y =   3.806x^3 + 5.0071x^2 -  10.52x + 15.136 = 0 \)} \\
+        min      & down & enum   & \multicolumn{2}{|c|}{\(y =  4.1869x^3 + 1.5786x^2 - 0.6155x + 5.9929 = 0 \)} \\
+        min      & down & bisect & \multicolumn{2}{|c|}{\(y =  8.2381x^3 - 28.143x^2 +  60.19x + 24.714 = 0 \)} \\
+        max      & up   & step   & \multicolumn{2}{|c|}{\(y =  5.7381x^3 - 10.571x^2 +  22.69x + 0.1429 = 0 \)} \\
+        max      & up   & enum   & \multicolumn{2}{|c|}{\(y =  5.0476x^3 - 1.7143x^2 - 7.7619x + 24.429 = 0 \)} \\
+        max      & up   & bisect & \multicolumn{2}{|c|}{\(y =  13.118x^3 - 68.164x^2 + 155.24x - 84.621 = 0 \)} \\
+        max      & down & step   & \multicolumn{2}{|c|}{\(y =  2.1095x^3 + 12.543x^2 - 15.252x + 10.314 = 0 \)} \\
+        max      & down & enum   & \multicolumn{2}{|c|}{\(y =  7.1417x^3 - 20.164x^2 + 39.358x - 10.621 = 0 \)} \\
+        max      & down & bisect & \multicolumn{2}{|c|}{\(y =  10.875x^3 -  52.25x^2 + 118.62x -  57.25 = 0 \)} \\
         \hline
     \end{tabularx}
 \end{table}
