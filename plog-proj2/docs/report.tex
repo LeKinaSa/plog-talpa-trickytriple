@@ -5,6 +5,9 @@
 \documentclass[runningheads]{llncs}
 
 \usepackage{graphicx}   % Images
+\usepackage{tabularx}   % Tables
+\newcolumntype{C}{>{\centering\arraybackslash}X} % Table uses all width and it's centered
+
 
 % If you use the hyperref package, please uncomment the following line
 % to display URLs in blue roman font according to Springer's eBook style:
@@ -125,11 +128,55 @@ To present the solution, we use two predicates from the file \textit{display.pl}
 \end{figure}
 
 \section{Experiments and Results}
-In order to evaluate our solver, 
+The tests performed on this solver aren't as exhaustive as we could have hoped since
+    we could only use the pre-generated puzzles, and there weren't that many of them.
+However, we can still draw some conclusions from the times measured when solving these puzzles.
 
 \subsection{Dimensional Analysis}
 
 \subsection{Search Strategies}
+
+\begin{table}
+    \caption{Average Times Obtained} \label{tab1}
+    \begin{tabularx}{\textwidth}{|C|C|C|C|C|C|C|}
+        \hline
+        \multicolumn{3}{|c|}{Labeling} & \multicolumn{4}{|c|}{Grids} \\
+        \cline{4-7}
+        \multicolumn{3}{|c|}{Options} & 4x4 & 5x5 & 6x6 & 7x7 \\
+        \hline
+        leftmost & up   & step   & 13.43 & 44.57 & 131.4  & 296.75 \\
+        leftmost & up   & enum   & 20.14 & 53.57 & 128    & 304.75 \\
+        leftmost & up   & bisect & 13.43 & 46.86 & 131.2  & 347.75 \\
+        leftmost & down & step   & 17.71 & 51.43 & 140.6  & 359.25 \\
+        leftmost & down & enum   & 17.86 & 53.57 & 128.2  & 343.75 \\
+        leftmost & down & bisect & 17.71 & 47    & 150    & 320.25 \\
+        ff       & up   & step   & 13.42 & 60.14 & 143.8  & 336    \\
+        ff       & up   & enum   & 26.71 & 46.86 & 131.2  & 301    \\
+        ff       & up   & bisect & 20    & 58    & 122    & 277.25 \\
+        ff       & down & step   & 18    & 49.14 & 128    & 289    \\
+        ff       & down & enum   & 15.71 & 49.14 & 128    & 308.5  \\
+        ff       & down & bisect & 15.71 & 44.57 & 134.4  & 308.5  \\
+        ffc      & up   & step   & 11.14 & 51.43 & 134.4  & 308.5  \\
+        ffc      & up   & enum   & 13.29 & 53.57 & 131.4  & 308.5  \\
+        ffc      & up   & bisect & 11.14 & 44.57 & 131.4  & 296.75 \\
+        ffc      & down & step   &  9.71 & 46.86 & 134.4  & 285    \\
+        ffc      & down & enum   & 15.57 & 58.14 & 121.8  & 285.25 \\
+        ffc      & down & bisect & 15.57 & 49    & 125    & 293    \\
+        min      & up   & step   & 15.71 & 44.58 & 118.8  & 281.25 \\
+        min      & up   & enum   & 15.57 & 49.14 & 137.4  & 300.75 \\
+        min      & up   & bisect & 13.43 & 44.71 & 131.2  & 312.5  \\
+        min      & down & step   & 17.86 & 44.57 & 131.4  & 300.5  \\
+        min      & down & enum   & 15.71 & 46.86 & 143.8  & 304.5  \\
+        min      & down & bisect & 13.43 & 46.86 & 125    & 312.5  \\
+        max      & up   & step   & 13.43 & 44.58 & 125    & 300.75 \\
+        max      & up   & enum   & 13.43 & 49    & 131.4  & 304.5  \\
+        max      & up   & bisect & 13.29 & 47    & 125    & 304.5  \\
+        max      & down & step   & 13.43 & 44.71 & 134.4  & 300.75 \\
+        max      & down & enum   & 17.86 & 44.58 & 122    & 300.75 \\
+        max      & down & bisect & 20    & 42.43 & 122    & 289    \\
+        \hline
+    \end{tabularx}
+\end{table}
 
 \section{Conclusions and Future Work}
 
