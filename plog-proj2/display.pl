@@ -59,10 +59,10 @@ print_horizontal_division(0) :- write('-').
 **/
 
 /**
- * Display the Board
+ * Display the Grid
 **/
-% display_board(+Board, +Dimensions)
-display_board(Board, Dimensions) :-
+% display_grid(+Board, +Dimensions)
+display_grid(Board, Dimensions) :-
     space(3),
     print_horizontal_division(Dimensions),
     new_line(1),
@@ -250,7 +250,7 @@ print_time(Time) :-
 **/
 
 /**
- * Translates the internal representation into more readable symbols 
+ * Translates the internal representation into more readable symbols
 **/
 % get_readable_symbol(+InternalRepresentation, -ReadableSymbol)
 get_readable_symbol(0, '-').

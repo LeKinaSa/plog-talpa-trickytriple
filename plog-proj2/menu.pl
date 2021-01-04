@@ -123,7 +123,7 @@ start(Difficulty-Id, LabelingOptions) :-
     Dimensions is Difficulty + 3,
     puzzle(Difficulty, Id, StartingPuzzle),
     write(' Selected Puzzle: \n'),
-    display_board(StartingPuzzle, Dimensions),
+    display_grid(StartingPuzzle, Dimensions),
 
     statistics(runtime, [Start | _]),
     solver(Difficulty, Id, LabelingOptions, CalculatedSolution),
@@ -131,16 +131,15 @@ start(Difficulty-Id, LabelingOptions) :-
 
     print_separator,
     write('\n Obtained Solution: \n'),
-    display_board(CalculatedSolution, Dimensions),
-
-    Runtime is Stop - Start,
-    print_separator,
-    print_time(Runtime),
+    display_grid(CalculatedSolution, Dimensions),
 
     write('\n Solution on Library: \n'),
     puzzle_solution(Difficulty, Id, LibrarySolution),
-    display_board(LibrarySolution, Dimensions),
-    print_separator.
+    display_grid(LibrarySolution, Dimensions),
+
+    Runtime is Stop - Start,
+    print_separator,
+    print_time(Runtime).
 
 /**
  * --------------------------------------------------------------------------------
