@@ -225,36 +225,40 @@ From all the data we have, the best approximation is a cubic, a third-degree pol
     as demonstrated in Figure \ref{fig6}.
 
 \section{Conclusions and Future Work}
-Upon starting this project, some assumptions where made about the ideal labelling options
-for solving these types of puzzles.
 
-Initially the idea has that either "ff" or "ffc" where the ideal forms of selecting the
-next variables to explore, this would emulate the form that a human would solve these puzzles,
-focussing on the variables that only have one value possible.
+Upon starting this project, some assumptions were made about the ideal labeling options
+    for solving these types of puzzles.
+
+Initially, the idea was that the first fail options ("ff" or "ffc") were the ideal forms of
+    selecting the next variables to explore, as this would emulate the form that a human would
+    solve these puzzles, focusing on the variables that only have one possibility.
 There was also the assumption that the type of selection of values was of little importance.
-Since the domain is so small, only a total of 3 possible variables and no "greater than" or 
-"less than" types of restrictions, the difference in performance of "step", "enum" or "bisect"
-and of "up" or "down" would average out too negligible.
+Since the domain is so small, with only a total of 3 possible values and no "greater than" or
+    "less than" types of restrictions, the difference in the performance of "step", "enum" or
+    "bisect" and of "up" or "down" would average out too negligible.
 
-Upon analysing the results some of our assumptions seem correct. The choice between "up"
-and "down" seems of little to no importance, with any increased performance of one over the
-other being incidental. The results for using either "step", "enum" or "bisect" don't
-demonstrate any clear pattern, being to scatter to draw any solid conclusions.
+Upon analyzing the results some of our assumptions seem correct.
+The choice between "up" and "down" seems of little to no importance, with any increased
+    performance of one over the other being incidental.
+The results for using either "step", "enum" or "bisect" don't demonstrate any clear pattern,
+    being too scattered to draw any solid conclusions.
 
 But, unlike what was assumed, when choosing the method of selecting the next variable to explore,
-the results were a lot different than expected. It was expected that either "ff" or "ffc"
-would be the ideal way of selecting variables, but the results where to scatter to both prove
-or disprove that theory. The data shows that for 7x7 puzzles the ideal option is "ff, up, bisect",
-but our predictions for greater dimensions shows that "min, down, enum" or "leftmost, down, bisect"
-would be better options. One can postulate that what is happening is that is more efficient to start
-with a somewhat random variable, explore the options of this variable and use the more constrained
-variables as way to eliminate invalid values for the starting variable, but further and bigger tests
-cases, meaning puzzles, would be necessary to test this theory.
+    the results were a lot different than expected.
+It was expected that either "ff" or "ffc" would be the ideal way of selecting variables,
+    but the results were too scattered to both prove or disprove that theory.
+The data shows that for 7x7 puzzles the ideal option is "ff, up, bisect",
+    but our predictions for greater dimensions show that "min, down, enum" or
+    "leftmost, down, bisect" would be better options.
+One can postulate that what is happening is that is more efficient to start with
+    a somewhat random variable, explore the options of this variable and use the more
+    constrained variables as a way to eliminate invalid values for the starting variable,
+    but further and bigger test cases, meaning puzzles, would be necessary to test this theory.
 
-In conclusion, although some insight can already be obtained by the tests already executed, no
-solid conclusion can be reached without more puzzles, preferably ones with larger dimensions.
-Still it is our belief that this is a good starting point for any further exploration of tricky
-triple puzzles.
+In conclusion, although some insight can already be obtained by the tests already executed,
+    no solid conclusion can be reached without more puzzles, preferably ones with larger dimensions.
+Still, it is our belief that this is a good starting point for any further exploration
+    of tricky triple puzzles.
 
 \section{References}
 \begin{enumerate}
