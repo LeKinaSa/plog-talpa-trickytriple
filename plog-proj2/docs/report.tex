@@ -67,6 +67,24 @@ This project consists of building a program, in Logic Programming with Restricti
 The problems studied are Tricky Triple Puzzles, which are grid puzzles. 
 To do so, we will analyze these problems and proceed to implement our solver using SICStus Prolog.
 Afterward, we will be discussing the performance results obtained.
+This article has the following structure:
+\begin{enumerate}
+    \item \textbf{Problem Description}
+    \item \textbf{Approach}
+        \begin{enumerate}
+            \item \textbf{Decision Variables}
+            \item \textbf{Constraints}
+        \end{enumerate}
+    \item \textbf{Solution Presentation}
+    \item \textbf{Experiments and Results}
+        \begin{enumerate}
+            \item \textbf{Dimensional Analysis}
+            \item \textbf{Search Strategies}
+        \end{enumerate}
+    \item \textbf{Conclusions and Future Work}
+    \item \textbf{References}
+    \item \textbf{Annex}
+\end{enumerate}
 
 \section{Problem Description}
 The Tricky Triple puzzles are a type of grid puzzle.
@@ -128,9 +146,10 @@ To present the solution, we use two predicates from the file \textit{display.pl}
     \item The predicate \verb|get_readable_symbol/2| translates the grid elements' internal representation
         into more readable symbols for those to be displayed to the user.
 \end{itemize}
+
 \begin{figure}
     \centering
-    \includegraphics[scale=0.7]{img/puzzle_solving.png}
+    \includegraphics[scale=0.4]{img/puzzle_solving.png}
     \caption{Output Example for a Puzzle Solution} \label{fig2}
 \end{figure}
 
@@ -143,23 +162,29 @@ However, we can still draw some conclusions from the times measured when solving
 To compensate for our lack of different puzzles, we did extensive tests with the predefined ones.
 After that, we grouped the tests by the puzzle's dimension and the labeling options used in that solution.
 The graph below illustrates the obtained results.
-In the Annex (\ref{experiment-results}), there is also a table containing the average values
-    for each dimension and labeling option.
+Table \ref{tab1} contains the average values for each dimension and labeling option.
 
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{img/execution_times.png}
     \caption{Experiment Results} \label{fig3}
 \end{figure}
-
-\subsection{Search Strategies}
 Analyzing Figure \ref{fig3}, we can conclude that the fastest labeling option,
     for grids up to 7x7, is "ff, up, bisect".
 
+From all the collected information, we can withdraw some conclusions:
+\begin{itemize}
+    \item A small board with bad labeling options can take more time to solve
+            than a bigger one with good labeling options.
+    \item When introducing some partially solved boards, the solver would be consistently faster.
+    \item The solver's execution time increases with the increase in the grid's dimensions.
+\end{itemize}
+
+\subsection{Search Strategies}
 However, using the same data, we can try to predict the behavior of the labeling options
     when increasing the grid's dimensions by making a trendline.
 Using a degree 3 polynomial trendline, we obtained a prediction for execution times when solving bigger grids.
-The equations for these trendlines are in Annex (\ref{trendlines}).
+The equations for these trendlines are in Table \ref{tab2}.
 Analyzing Figure \ref{fig4}, we can conclude that perhaps the best options would be
     "min, down, enum" or "leftmost, down, bisect".
 
@@ -169,10 +194,9 @@ Analyzing Figure \ref{fig4}, we can conclude that perhaps the best options would
     \caption{Execution Times Predictions} \label{fig4}
 \end{figure}
 
-
 \section{Conclusions and Future Work}
 
-\section{References}
+\section{Bibliography}
 
 \section{Annex}
 
@@ -223,7 +247,7 @@ Analyzing Figure \ref{fig4}, we can conclude that perhaps the best options would
 \subsection{Trendlines using to Estimate Execution Time for Bigger Grids} \label{trendlines}
 
 \begin{table}
-    \caption{Trendlines} \label{tab1}
+    \caption{Trendlines} \label{tab2}
     \begin{tabularx}{\textwidth}{|C|C|C|C|C|}
         \hline
         \multicolumn{3}{|c|}{Labeling Options} & \multicolumn{2}{|c|}{Equations} \\
@@ -282,7 +306,7 @@ headings. Table~\ref{tab1} gives a summary of all heading levels.
 
 \begin{table}
 \caption{Table captions should be placed above the
-tables.}\label{tab1}
+tables.}\label{example_table}
 \begin{tabular}{|l|l|l|}
 \hline
 Heading level &  Example & Font size and style\\
