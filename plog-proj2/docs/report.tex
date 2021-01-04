@@ -196,6 +196,32 @@ Analyzing Figure \ref{fig4}, we can conclude that perhaps the best options would
 
 \subsection{Dimensional Analysis}
 
+We will be using "ff, up, bisect" as a labeling option since it
+    is the better one for grids up to 7x7, as already mentioned.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.7]{img/dimensional_analysis.png}
+    \caption{Execution Times} \label{fig5}
+\end{figure}
+
+As we can see in Figure \ref{fig5}, when the grid's dimension increases,
+    the execution time also increases.
+
+To know the rate at which this increase happens, we need to find an appropriate regression function.
+This function will establish a relation between the grid's dimensions and the execution time.
+However, with only 4 points, we can't estimate with certainty what will be the behavior
+    of the best regression function.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.7]{img/dimensional_prediction.png}
+    \caption{Execution Times With Trendlines} \label{fig6}
+\end{figure}
+
+From all the data we have, the best approximation is a cubic, a third-degree polynomial,
+    as demonstrated in Figure \ref{fig6}.
+
 \section{Conclusions and Future Work}
 
 \section{Bibliography}
