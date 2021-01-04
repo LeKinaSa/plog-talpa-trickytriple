@@ -7,7 +7,14 @@
 \usepackage{graphicx}   % Images
 \usepackage{tabularx}   % Tables
 \newcolumntype{C}{>{\centering\arraybackslash}X} % Table uses all width and it's centered
-
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks = true,
+    linkcolor = blue,
+    filecolor = blue,
+    citecolor = black,      
+    urlcolor = black,
+}
 
 % If you use the hyperref package, please uncomment the following line
 % to display URLs in blue roman font according to Springer's eBook style:
@@ -132,7 +139,44 @@ The tests performed on this solver aren't as exhaustive as we could have hoped s
     we could only use the pre-generated puzzles, and there weren't that many of them.
 However, we can still draw some conclusions from the times measured when solving these puzzles.
 
+\subsection{Dimensional Analysis}
+To compensate for our lack of different puzzles, we did extensive tests with the predefined ones.
+After that, we grouped the tests by the puzzle's dimension and the labeling options used in that solution.
+The graph below illustrates the obtained results.
+In the Annex (\ref{experiment-results}), there is also a table containing the average values
+    for each dimension and labeling option.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{img/execution_times.png}
+    \caption{Experiment Results} \label{fig3}
+\end{figure}
+
 \subsection{Search Strategies}
+Analyzing Figure \ref{fig3}, we can conclude that the fastest labeling option,
+    for grids up to 7x7, is "ff, up, bisect".
+
+However, using the same data, we can try to predict the behavior of the labeling options
+    when increasing the grid's dimensions by making a trendline.
+Using a degree 3 polynomial trendline, we obtained a prediction for execution times when solving bigger grids.
+The equations for these trendlines are in Annex (\ref{trendlines}).
+Analyzing Figure \ref{fig4}, we can conclude that perhaps the best options would be
+    "min, down, enum" or "leftmost, down, bisect".
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{img/previsions.png}
+    \caption{Execution Times Predictions} \label{fig4}
+\end{figure}
+
+
+\section{Conclusions and Future Work}
+
+\section{References}
+
+\section{Annex}
+
+\subsection{Average Execution Times Table} \label{experiment-results}
 
 \begin{table}
     \caption{Average Times Obtained (ms)} \label{tab1}
@@ -176,9 +220,49 @@ However, we can still draw some conclusions from the times measured when solving
     \end{tabularx}
 \end{table}
 
-\subsection{Dimensional Analysis}
+\subsection{Trendlines using to Estimate Execution Time for Bigger Grids} \label{trendlines}
 
-\section{Conclusions and Future Work}
+\begin{table}
+    \caption{Trendlines} \label{tab1}
+    \begin{tabularx}{\textwidth}{|C|C|C|C|C|}
+        \hline
+        \multicolumn{3}{|c|}{Labeling Options} & \multicolumn{2}{|c|}{Equations} \\
+        \hline
+        leftmost & up   & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        leftmost & up   & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        leftmost & up   & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        leftmost & down & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        leftmost & down & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        leftmost & down & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        ff       & up   & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        ff       & up   & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        ff       & up   & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        ff       & down & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        ff       & down & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        ff       & down & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        ffc      & up   & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        ffc      & up   & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        ffc      & up   & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        ffc      & down & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        ffc      & down & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        ffc      & down & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        min      & up   & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        min      & up   & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        min      & up   & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        min      & down & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        min      & down & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        min      & down & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        max      & up   & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        max      & up   & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        max      & up   & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        max      & down & step   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        max      & down & enum   & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        max      & down & bisect & \multicolumn{2}{|c|}{\(y = ax^3 + bx^2 + cx + d = 0 \)} \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Section Sample}
 \subsection{A Subsection Sample}
@@ -218,6 +302,7 @@ line.
 \begin{equation}
 x + y = z
 \end{equation}
+
 Please try to avoid rasterized images for line-art diagrams and
 schemas. Whenever possible, use vector graphics instead (see
 Fig.~\ref{fig1}).
@@ -226,7 +311,7 @@ Fig.~\ref{fig1}).
 \includegraphics[width=\textwidth]{img/FEUPlogo.png}
 \caption{A figure caption is always placed below the illustration.
 Please note that short captions are centered, while long ones are
-justified by the macro package automatically.} \label{fig3}
+justified by the macro package automatically.} \label{fig_example}
 \end{figure}
 
 \begin{theorem}
