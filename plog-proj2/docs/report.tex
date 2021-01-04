@@ -158,9 +158,18 @@ The tests performed on this solver aren't as exhaustive as we could have hoped s
     we could only use the pre-generated puzzles, and there weren't that many of them.
 However, we can still draw some conclusions from the times measured when solving these puzzles.
 
-\subsection{Dimensional Analysis}
+\subsection{Search Strategies}
 To compensate for our lack of different puzzles, we did extensive tests with the predefined ones.
 After that, we grouped the tests by the puzzle's dimension and the labeling options used in that solution.
+
+From all the collected information, we can withdraw some conclusions:
+\begin{itemize}
+    \item A small board with bad labeling options can take more time to solve
+            than a bigger one with good labeling options.
+    \item When introducing some partially solved boards, the solver would be consistently faster.
+    \item The solver's execution time increases with the increase in the grid's dimensions.
+\end{itemize}
+
 The graph below illustrates the obtained results.
 Table \ref{tab1} contains the average values for each dimension and labeling option.
 
@@ -172,15 +181,6 @@ Table \ref{tab1} contains the average values for each dimension and labeling opt
 Analyzing Figure \ref{fig3}, we can conclude that the fastest labeling option,
     for grids up to 7x7, is "ff, up, bisect".
 
-From all the collected information, we can withdraw some conclusions:
-\begin{itemize}
-    \item A small board with bad labeling options can take more time to solve
-            than a bigger one with good labeling options.
-    \item When introducing some partially solved boards, the solver would be consistently faster.
-    \item The solver's execution time increases with the increase in the grid's dimensions.
-\end{itemize}
-
-\subsection{Search Strategies}
 However, using the same data, we can try to predict the behavior of the labeling options
     when increasing the grid's dimensions by making a trendline.
 Using a degree 3 polynomial trendline, we obtained a prediction for execution times when solving bigger grids.
@@ -193,6 +193,8 @@ Analyzing Figure \ref{fig4}, we can conclude that perhaps the best options would
     \includegraphics[width=\textwidth]{img/previsions.png}
     \caption{Execution Times Predictions} \label{fig4}
 \end{figure}
+
+\subsection{Dimensional Analysis}
 
 \section{Conclusions and Future Work}
 
