@@ -1,8 +1,5 @@
-## *(FINISHED)Plog-Proj1* -> *Talpa* : Moved to folder "plog-proj1"
+## TP1 : **Talpa**
+![Talpa](plog-proj1/images/talpa.png)
 
-## *Plog-Proj2* -> *Tricky Triple* : In folder "plog-proj2"
-
-### Next Steps:
-  - Start testing
-  - Make sure this is the correct way to determine the solutions
-  - Make report
+## TP2 : **Tricky Triple**
+![Tricky Triple](plog-proj2/docs/img/tricky-triple.png)
